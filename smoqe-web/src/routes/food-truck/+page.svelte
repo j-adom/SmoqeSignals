@@ -9,6 +9,16 @@
 	import NewsletterBand from '$lib/components/NewsletterBand.svelte';
 
 	let { form }: PageProps = $props();
+
+	const faqSchema = {
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: TRUCK_FAQS.map((f) => ({
+			'@type': 'Question',
+			name: f.q,
+			acceptedAnswer: { '@type': 'Answer', text: f.a }
+		}))
+	};
 </script>
 
 <svelte:head>
@@ -17,6 +27,8 @@
 		name="description"
 		content="Book the Smoqe Signals BBQ food truck for your Nashville event — pulled pork, brisket, smoked wings, and classic sides served on site. Request a date."
 	/>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</` + `script>`}
 </svelte:head>
 
 <div class="rise">

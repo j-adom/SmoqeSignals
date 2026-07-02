@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Check, Truck } from '@lucide/svelte';
+	import { page } from '$app/state';
 	import type { PageData } from './$types';
 	import { cart } from '$lib/stores/cart.svelte';
 	import { toast } from '$lib/stores/toast.svelte';
@@ -19,6 +20,25 @@
 
 	const hot = $derived(p.tag === 'Heat' || p.tag === 'Hot');
 
+	const productSchema = $derived({
+		'@context': 'https://schema.org',
+		'@type': 'Product',
+		name: p.name,
+		description: p.short,
+		image: p.image.startsWith('http') ? p.image : `${page.url.origin}${p.image}`,
+		category: p.category,
+		brand: { '@type': 'Brand', name: 'Smoqe Signals BBQ' },
+		offers: {
+			'@type': 'Offer',
+			price: p.price,
+			priceCurrency: 'USD',
+			availability: p.inStock
+				? 'https://schema.org/InStock'
+				: 'https://schema.org/OutOfStock',
+			url: page.url.href
+		}
+	});
+
 	function add() {
 		cart.add(p, qty);
 		toast.show(`${p.name} added to cart`);
@@ -28,6 +48,8 @@
 <svelte:head>
 	<title>{p.name} | Smoqe Signals BBQ</title>
 	<meta name="description" content={p.short} />
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html `<script type="application/ld+json">${JSON.stringify(productSchema)}</` + `script>`}
 </svelte:head>
 
 <div class="rise">

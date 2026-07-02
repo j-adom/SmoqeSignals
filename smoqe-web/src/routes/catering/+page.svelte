@@ -19,6 +19,16 @@
 	import NewsletterBand from '$lib/components/NewsletterBand.svelte';
 
 	let { form }: PageProps = $props();
+
+	const faqSchema = {
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: CATERING_FAQS.map((f) => ({
+			'@type': 'Question',
+			name: f.q,
+			acceptedAnswer: { '@type': 'Answer', text: f.a }
+		}))
+	};
 </script>
 
 <svelte:head>
@@ -27,6 +37,8 @@
 		name="description"
 		content="Drop-off and full-service BBQ catering for Nashville events. Review the catering menu, see what we offer, and request a quote."
 	/>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</` + `script>`}
 </svelte:head>
 
 <div class="rise">
