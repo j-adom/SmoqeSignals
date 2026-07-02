@@ -60,16 +60,18 @@ export async function notifyCatering(payload: Payload, d: Record<string, unknown
 }
 
 export async function notifyContact(payload: Payload, d: Record<string, unknown>) {
+	const inquiry = String(d.inquiryType ?? 'General Inquiry');
 	const html = shell(
 		'New contact message',
 		[
 			['Name', String(d.name ?? '')],
 			['Email', String(d.email ?? '')],
+			['Inquiry', inquiry],
 			['Message', String(d.message ?? '')]
 		],
 		'Someone reached out through the contact form.'
 	);
-	await send(payload, STAFF(), `Contact message — ${d.name ?? 'New'}`, html);
+	await send(payload, STAFF(), `${inquiry} — ${d.name ?? 'New'}`, html);
 }
 
 export async function notifyNewsletter(payload: Payload, email: string) {

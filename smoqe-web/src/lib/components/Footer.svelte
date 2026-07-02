@@ -4,6 +4,8 @@
 	import Logo from './Logo.svelte';
 	import Tristar from './Tristar.svelte';
 	import NewsletterForm from './NewsletterForm.svelte';
+	import FacebookIcon from './icons/FacebookIcon.svelte';
+	import InstagramIcon from './icons/InstagramIcon.svelte';
 
 	const year = new Date().getFullYear();
 </script>
@@ -68,6 +70,27 @@
 						<MapPin size={17} class="mt-0.5 shrink-0 text-tristar" />{BIZ.address}
 					</li>
 				</ul>
+				<div class="mt-5 flex items-center gap-3">
+					<a
+						href="https://www.facebook.com/slimsmokinbbq1"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Smoqe Signals BBQ on Facebook"
+						class="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-cream-muted transition-colors hover:border-tristar hover:text-white"
+					>
+						<FacebookIcon size={18} />
+					</a>
+					<a
+						href="https://www.instagram.com/smoqesignalsbbq"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Smoqe Signals BBQ on Instagram"
+						class="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-cream-muted transition-colors hover:border-tristar hover:text-white"
+					>
+						<InstagramIcon size={18} />
+					</a>
+				</div>
+
 				<div class="mt-5">
 					<p class="field-label mb-2 text-white">Join the newsletter</p>
 					<NewsletterForm source="footer" buttonLabel="Join" buttonClass="btn-primary" compact />

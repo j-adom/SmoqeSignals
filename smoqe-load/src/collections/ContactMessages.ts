@@ -35,6 +35,17 @@ const ContactMessages: CollectionConfig = {
 			]
 		},
 		{ name: 'email', type: 'email', required: true },
+		{
+			name: 'inquiryType',
+			type: 'select',
+			defaultValue: 'General Inquiry',
+			admin: { description: 'What the message is about (from the contact form dropdown).' },
+			options: [
+				{ label: 'General Inquiry', value: 'General Inquiry' },
+				{ label: 'Booking The Truck Inquiry', value: 'Booking The Truck Inquiry' },
+				{ label: 'Catering Inquiry', value: 'Catering Inquiry' }
+			]
+		},
 		{ name: 'message', type: 'textarea', required: true }
 	],
 	hooks: {

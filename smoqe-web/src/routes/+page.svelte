@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { ArrowRight, Phone, MapPin, Flame, Truck, UtensilsCrossed } from '@lucide/svelte';
+	import InstagramIcon from '$lib/components/icons/InstagramIcon.svelte';
 	import type { PageData } from './$types';
 	import { BIZ, HOLIDAY_MEATS } from '$lib/data/seed';
 	import Tristar from '$lib/components/Tristar.svelte';
@@ -27,6 +28,15 @@
 			t: 'Event Catering',
 			d: 'Buffets and on-site truck service for weddings, team meals, and private parties.'
 		}
+	];
+
+	// A "follow us" gallery of our own food photos linking to Instagram.
+	// (A live auto-updating feed would need a widget like Behold/SnapWidget or the IG Graph API.)
+	const gram = [
+		'/images/brisket-board.png',
+		'/images/bbq-spread.jpg',
+		'/images/food-truck.png',
+		'/images/wings-rub.jpg'
 	];
 </script>
 
@@ -215,6 +225,48 @@
 			<div class="grid gap-6 md:grid-cols-3">
 				{#each data.posts as post (post.id)}
 					<BlogCard {post} />
+				{/each}
+			</div>
+		</div>
+	</section>
+
+	<!-- INSTAGRAM -->
+	<section class="border-t border-paper-line py-[88px]">
+		<div class="container-wide">
+			<div class="mb-10 flex flex-wrap items-end justify-between gap-6">
+				<SectionHead
+					eyebrow="Follow the SmoQe"
+					title="Follow us on the gram"
+					sub="Fresh pulls, pit shots, and where the truck lands next — @smoqesignalsbbq."
+				/>
+				<a
+					href="https://www.instagram.com/smoqesignalsbbq"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="btn btn-dark"
+				>
+					<InstagramIcon size={18} /> Follow @smoqesignalsbbq
+				</a>
+			</div>
+			<div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+				{#each gram as src (src)}
+					<a
+						href="https://www.instagram.com/smoqesignalsbbq"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="group relative aspect-square overflow-hidden rounded-lg bg-paper-2"
+					>
+						<img
+							{src}
+							alt="Smoqe Signals BBQ on Instagram"
+							class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+						/>
+						<div
+							class="absolute inset-0 grid place-items-center bg-smoke-900/0 text-white/0 transition-all duration-300 group-hover:bg-smoke-900/40 group-hover:text-white"
+						>
+							<InstagramIcon size={26} />
+						</div>
+					</a>
 				{/each}
 			</div>
 		</div>

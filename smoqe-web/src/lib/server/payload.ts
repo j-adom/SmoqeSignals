@@ -220,6 +220,7 @@ export interface ContactPayload {
 	name: string;
 	email: string;
 	message: string;
+	inquiryType?: string;
 }
 export function submitContact(data: ContactPayload, fetchFn: Fetch = fetch) {
 	return postJSON('contactMessages', { ...data, status: 'new' }, fetchFn);

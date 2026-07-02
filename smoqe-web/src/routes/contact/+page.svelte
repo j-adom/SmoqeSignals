@@ -88,6 +88,14 @@
 							<input name="email" type="email" class="field-input" required value={form?.email ?? ''} placeholder="you@email.com" />
 						</label>
 						<label class="grid gap-2">
+							<span class="field-label">What's this about?</span>
+							<select name="inquiryType" class="field-input" required>
+								{#each ['General Inquiry', 'Booking The Truck Inquiry', 'Catering Inquiry'] as opt (opt)}
+									<option selected={(form?.inquiryType ?? 'General Inquiry') === opt}>{opt}</option>
+								{/each}
+							</select>
+						</label>
+						<label class="grid gap-2">
 							<span class="field-label">Message</span>
 							<textarea name="message" class="field-input" required placeholder="How can we help?">{form?.message ?? ''}</textarea>
 						</label>
@@ -98,5 +106,15 @@
 				{/if}
 			</div>
 		</div>
+	</section>
+
+	<section class="border-t border-paper-line">
+		<iframe
+			title="Smoqe Signals BBQ service area — Nashville, TN"
+			src="https://www.google.com/maps?q=Nashville%2C+TN&output=embed"
+			class="block h-[360px] w-full"
+			loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade"
+		></iframe>
 	</section>
 </div>

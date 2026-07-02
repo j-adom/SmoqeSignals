@@ -18,12 +18,12 @@
 ## Phase 0 — Deploy to clear already-done items
 - [ ] Redeploy `smoqe-web`; confirm these now show correctly: catering/food-truck split, "What We Offer" + terms, catering & truck FAQ **answers**, "Tennessee Tradition" motto.
 
-## Phase 1 — Launch blockers (technical/SEO)
-- [ ] Fix `robots.txt` — currently points `Sitemap:` at the OLD domain (`smoqesignals.com`).
-- [ ] Generate a real `sitemap.xml` for the new domain.
-- [ ] Open Graph + Twitter Card meta tags site-wide (shared links currently show no preview).
-- [ ] Structured data: LocalBusiness/Restaurant (site), Product (shop items), FAQPage (FAQ accordions).
-- [ ] Submit new domain to Google Search Console at launch.
+## Phase 1 — Launch blockers (technical/SEO) ✅ DONE (except GSC, a launch-day action)
+- [x] Fix `robots.txt` — replaced static file with a domain-aware `/robots.txt` endpoint.
+- [x] Generate a real `sitemap.xml` — dynamic `/sitemap.xml` endpoint (static routes + shop + blog).
+- [x] Open Graph + Twitter Card meta tags site-wide (root layout).
+- [x] Structured data: LocalBusiness/Restaurant (layout), Product (shop pages), FAQPage (catering + food-truck).
+- [ ] Submit new domain to Google Search Console at launch. *(manual, launch day)*
 
 ## Phase 2 — Content ports (seed.ts + markup; contact-to-quote, no prices) ✅ DONE
 **Catering**
@@ -40,12 +40,12 @@
 **About**
 - [x] Restored verbatim founder bio (Shon "Slim" Harmon, Paris TN, uncles Clyde & Clay, Pee Wee origin), "Follow the SmoQe" tagline, reverse-flow smoker + Hickory/Oak/Cherry-Apple wood detail, locally-sourced sides line.
 
-## Phase 3 — Features / embeds
-- [ ] Contact **inquiry-type dropdown** (General / Booking The Truck / Catering) — *Shon confirmed*; route the message.
-- [ ] Google Map embed on Contact.
-- [ ] Social links (Facebook `slimsmokinbbq1`, Instagram `smoqesignalsbbq`, Twitter/X `SmoQesignalsbbq` — VERIFY active) in footer.
-- [ ] Instagram feed embed on home ("Follow Us On The Gram").
-- [ ] Truck schedule/location tracker (larger — calendar or map of upcoming stops).
+## Phase 3 — Features / embeds (mostly done)
+- [x] Contact **inquiry-type dropdown** (General / Booking The Truck / Catering) — wired end-to-end (form → server action → Payload `inquiryType` field → admin + email subject/row).
+- [x] Google Map embed on Contact (Nashville service area, keyless `output=embed`).
+- [x] Social links in footer — Facebook + Instagram (Twitter omitted; no active account per Shon).
+- [~] Instagram on home — built a "Follow us on the gram" section (our photos → Instagram). NOTE: not a live auto-updating feed; that needs a widget (Behold/SnapWidget) or the IG Graph API.
+- [ ] Truck schedule/location tracker (larger — calendar or map of upcoming stops). *(deferred)*
 
 ## Phase 4 — Legal / trust (required now that the site sells online)
 - [ ] Privacy Policy page.
