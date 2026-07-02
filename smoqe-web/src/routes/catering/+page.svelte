@@ -17,6 +17,7 @@
 	import SectionHead from '$lib/components/SectionHead.svelte';
 	import FaqItem from '$lib/components/FaqItem.svelte';
 	import RequestForm from '$lib/components/RequestForm.svelte';
+	import Testimonials from '$lib/components/Testimonials.svelte';
 	import NewsletterBand from '$lib/components/NewsletterBand.svelte';
 
 	let { form }: PageProps = $props();
@@ -195,6 +196,8 @@
 			</div>
 		</div>
 	</section>
+
+	<Testimonials />
 
 	<NewsletterBand />
 </div>

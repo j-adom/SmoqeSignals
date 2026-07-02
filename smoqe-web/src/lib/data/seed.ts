@@ -3,7 +3,8 @@ import type {
 	BlogPost,
 	Faq,
 	MenuItem,
-	Product
+	Product,
+	Testimonial
 } from '$lib/types';
 
 /**
@@ -341,6 +342,14 @@ export const CATERING_EXTRAS = [
 	'Ice',
 	'Set Up'
 ];
+
+/**
+ * Customer reviews shown in the testimonials section. Empty until Shon supplies
+ * real quotes — the section hides itself when this is empty so nothing fake
+ * ships. Add entries like:
+ *   { quote: 'Best brisket in Nashville.', name: 'Jane D.', source: 'Google' }
+ */
+export const TESTIMONIALS: Testimonial[] = [];
 
 export const TRUCK_SERVICE_STYLES = [
 	'Food truck on site',

@@ -73,6 +73,12 @@ export interface Faq {
 	a: string;
 }
 
+export interface Testimonial {
+	quote: string;
+	name: string;
+	source?: string; // where the review came from, e.g. "Restaurantji", "Google"
+}
+
 export interface CartLine {
 	id: string;
 	slug: string;

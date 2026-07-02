@@ -1,7 +1,18 @@
 import type { RequestHandler } from './$types';
 import { getPosts, getProducts } from '$lib/server/payload';
 
-const STATIC_PATHS = ['', '/shop', '/food-truck', '/catering', '/about', '/blog', '/contact'];
+const STATIC_PATHS = [
+	'',
+	'/shop',
+	'/food-truck',
+	'/catering',
+	'/about',
+	'/blog',
+	'/contact',
+	'/privacy-policy',
+	'/terms',
+	'/shipping-returns'
+];
 
 // Domain-aware sitemap. Enumerates the static pages plus every shop product and
 // blog post, using the request origin so it is correct on any deployed domain.

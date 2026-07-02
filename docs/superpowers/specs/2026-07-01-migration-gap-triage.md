@@ -47,11 +47,11 @@
 - [~] Instagram on home — built a "Follow us on the gram" section (our photos → Instagram). NOTE: not a live auto-updating feed; that needs a widget (Behold/SnapWidget) or the IG Graph API.
 - [ ] Truck schedule/location tracker (larger — calendar or map of upcoming stops). *(deferred)*
 
-## Phase 4 — Legal / trust (required now that the site sells online)
-- [ ] Privacy Policy page.
-- [ ] Terms of Service page.
-- [ ] Shipping & Returns page.
-- [ ] Reviews/testimonials surface (26+ on Restaurantji; Yelp/EatOkra) — highest-leverage trust win.
+## Phase 4 — Legal / trust (mostly done)
+- [x] Privacy Policy page (`/privacy-policy`) — drafted from actual setup. **Needs attorney review before launch.**
+- [x] Terms of Service page (`/terms`) — drafted. **Needs attorney review before launch.**
+- [x] Shipping & Returns page (`/shipping-returns`) — drafted (US, flat $6.50 / free >$45, consumable-food return stance, digital final). **Needs attorney review.**
+- [~] Reviews/testimonials — section + component built (data-driven, self-hides while empty). **Awaiting Shon's real quotes** (add to `TESTIMONIALS` in seed.ts, or wire a Payload collection so he self-manages).
 
 ## Phase 5 — Growth (post-launch)
 - [ ] Newsletter incentive ("$5 off first rub order") + welcome flow.

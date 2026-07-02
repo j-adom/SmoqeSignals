@@ -102,6 +102,11 @@
 			class="flex flex-wrap justify-between gap-4 border-t border-white/10 py-[22px] text-[13px] text-cream-muted"
 		>
 			<span>© {year} {BIZ.legal}. All rights reserved.</span>
+			<nav class="flex flex-wrap gap-x-4 gap-y-1">
+				<a href="/privacy-policy" class="hover:text-white">Privacy</a>
+				<a href="/terms" class="hover:text-white">Terms</a>
+				<a href="/shipping-returns" class="hover:text-white">Shipping &amp; Returns</a>
+			</nav>
 			<span>{BIZ.tagline}</span>
 		</div>
 	</div>

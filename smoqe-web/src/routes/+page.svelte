@@ -8,6 +8,7 @@
 	import ProductCard from '$lib/components/ProductCard.svelte';
 	import BlogCard from '$lib/components/BlogCard.svelte';
 	import Marquee from '$lib/components/Marquee.svelte';
+	import Testimonials from '$lib/components/Testimonials.svelte';
 	import NewsletterBand from '$lib/components/NewsletterBand.svelte';
 
 	let { data }: { data: PageData } = $props();
@@ -229,6 +230,8 @@
 			</div>
 		</div>
 	</section>
+
+	<Testimonials />
 
 	<!-- INSTAGRAM -->
 	<section class="border-t border-paper-line py-[88px]">
