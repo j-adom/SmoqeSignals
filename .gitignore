@@ -1,0 +1,19 @@
+# WSL "mark of the web" download artifacts
+*:Zone.Identifier
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env / secrets (subdirectories also ignore these)
+.env
+.env.*
+!.env.example
+
+# Dependencies / build output (belt-and-suspenders; subdirs also ignore)
+node_modules/
+.svelte-kit/
+.next/
+/build
+/dist
+.wrangler/

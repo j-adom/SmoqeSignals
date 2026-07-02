@@ -1,0 +1,276 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* ============================================================
+   Slim's Smoqe Signals BBQ — Tailwind v4 theme
+   Nashville Bred · Memphis Approved · Tennessee Tradition
+   ============================================================ */
+@theme {
+	/* Fonts */
+	--font-display: 'Anton', 'Arial Narrow', sans-serif;
+	--font-body: 'Hanken Grotesk', system-ui, sans-serif;
+	--font-script: 'Pacifico', cursive;
+
+	/* Brand palette — rooted in the flame/smoke logo + TN tristar */
+	--color-flame: #d6451a;
+	--color-flame-bright: #ef5a1f;
+	--color-ember: #f5a623;
+	--color-tristar: #5cb8e6;
+	--color-tristar-deep: #2a7fb0;
+
+	--color-smoke-900: #14100c;
+	--color-smoke-800: #1d1712;
+	--color-smoke-700: #2a2119;
+	--color-smoke-600: #4a3d33;
+	--color-char: #3a2f27;
+
+	--color-paper: #fbf4e9;
+	--color-paper-2: #f4e9d8;
+	--color-paper-line: #e4d4bd;
+
+	--color-ink: #241a13;
+	--color-ink-soft: #6b5b4d;
+
+	--color-cream-text: #e8dccb;
+	--color-cream-muted: #b3a596;
+
+	/* Radii */
+	--radius-brand: 4px;
+	--radius-brand-lg: 8px;
+
+	/* Shadows */
+	--shadow-card: 0 1px 2px rgba(20, 16, 12, 0.06), 0 8px 24px rgba(20, 16, 12, 0.08);
+	--shadow-lift: 0 18px 50px -12px rgba(20, 16, 12, 0.35);
+}
+
+/* ---------- Base ---------- */
+@layer base {
+	body {
+		text-rendering: optimizeLegibility;
+	}
+	::selection {
+		background: var(--color-flame);
+		color: #fff;
+	}
+}
+
+/* ---------- Reusable brand utilities ---------- */
+@layer components {
+	.container-wide {
+		width: 100%;
+		max-width: 1320px;
+		margin-inline: auto;
+		padding-inline: 1.5rem;
+	}
+	.container-tight {
+		width: 100%;
+		max-width: 1120px;
+		margin-inline: auto;
+		padding-inline: 1.5rem;
+	}
+
+	.display {
+		font-family: var(--font-display);
+		text-transform: uppercase;
+		letter-spacing: 0.01em;
+		line-height: 0.92;
+		font-weight: 400;
+	}
+	.eyebrow {
+		font-family: var(--font-body);
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.22em;
+		font-size: 0.75rem;
+	}
+
+	/* Buttons */
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.55rem;
+		min-height: 52px;
+		padding-inline: 1.6rem;
+		border-radius: var(--radius-brand);
+		font-weight: 800;
+		font-size: 0.94rem;
+		letter-spacing: 0.02em;
+		border: 2px solid transparent;
+		transition:
+			transform 0.12s ease,
+			background 0.15s ease,
+			box-shadow 0.15s ease,
+			color 0.15s ease;
+		cursor: pointer;
+	}
+	.btn:active {
+		transform: translateY(1px);
+	}
+	.btn-sm {
+		min-height: 42px;
+		padding-inline: 1.1rem;
+		font-size: 0.85rem;
+	}
+	.btn-block {
+		width: 100%;
+	}
+	.btn-primary {
+		background: var(--color-flame);
+		color: #fff;
+		box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--color-flame) 70%, transparent);
+	}
+	.btn-primary:hover {
+		background: var(--color-flame-bright);
+	}
+	.btn-dark {
+		background: var(--color-smoke-900);
+		color: #fff;
+	}
+	.btn-dark:hover {
+		background: #000;
+	}
+	.btn-ghost {
+		background: transparent;
+		color: var(--color-ink);
+		border-color: var(--color-ink);
+	}
+	.btn-ghost:hover {
+		background: var(--color-ink);
+		color: var(--color-paper);
+	}
+	.btn-outline-light {
+		background: transparent;
+		color: #fff;
+		border-color: rgba(255, 255, 255, 0.45);
+	}
+	.btn-outline-light:hover {
+		background: #fff;
+		color: var(--color-smoke-900);
+		border-color: #fff;
+	}
+
+	/* Form controls */
+	.field-label {
+		font-size: 0.8rem;
+		font-weight: 800;
+		letter-spacing: 0.02em;
+		color: var(--color-ink);
+	}
+	.field-input {
+		width: 100%;
+		min-height: 50px;
+		padding-inline: 0.95rem;
+		border: 1.5px solid var(--color-paper-line);
+		border-radius: var(--radius-brand);
+		background: #fff;
+		color: var(--color-ink);
+		font-size: 0.95rem;
+		font-family: inherit;
+		transition:
+			border 0.15s,
+			box-shadow 0.15s;
+	}
+	textarea.field-input {
+		padding-block: 0.8rem;
+		min-height: 120px;
+		resize: vertical;
+		line-height: 1.5;
+	}
+	.field-input:focus {
+		outline: none;
+		border-color: var(--color-flame);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-flame) 22%, transparent);
+	}
+	.field-input::placeholder {
+		color: #b3a293;
+	}
+
+	/* Chips / pills */
+	.chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.55rem 1rem;
+		border-radius: 999px;
+		font-size: 0.85rem;
+		font-weight: 700;
+		border: 1.5px solid var(--color-paper-line);
+		background: #fff;
+		color: var(--color-char);
+		transition: all 0.15s;
+		cursor: pointer;
+	}
+	.chip:hover {
+		border-color: var(--color-flame);
+	}
+	.chip-on {
+		background: var(--color-smoke-900);
+		border-color: var(--color-smoke-900);
+		color: #fff;
+	}
+
+	.badge-soft {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		background: color-mix(in srgb, var(--color-flame) 12%, var(--color-paper));
+		color: color-mix(in srgb, var(--color-flame) 75%, var(--color-ink));
+		border: 1px solid color-mix(in srgb, var(--color-flame) 25%, transparent);
+		padding: 0.35rem 0.8rem;
+		border-radius: 999px;
+		font-size: 0.72rem;
+		font-weight: 800;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.card-brand {
+		background: #fff;
+		border-radius: var(--radius-brand-lg);
+		border: 1px solid var(--color-paper-line);
+		box-shadow: var(--shadow-card);
+	}
+
+	.divider-flame {
+		height: 5px;
+		width: 64px;
+		border-radius: 999px;
+		background: var(--color-flame);
+	}
+}
+
+/* ---------- Marquee ---------- */
+@keyframes marquee {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+.marquee {
+	display: flex;
+	width: max-content;
+	animation: marquee 30s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+	.marquee {
+		animation: none;
+	}
+}
+
+/* ---------- Entrance ---------- */
+@keyframes rise {
+	from {
+		opacity: 0;
+		transform: translateY(14px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+.rise {
+	animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}

@@ -1,0 +1,11 @@
+node_modules
+.next
+/build
+/dist
+.env
+*.db
+*.db-journal
+media
+.DS_Store
+next-env.d.ts
+src/payload-types.ts
