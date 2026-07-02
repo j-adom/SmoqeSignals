@@ -2,6 +2,7 @@
 	import { ArrowRight } from '@lucide/svelte';
 	import type { PageProps } from './$types';
 	import { TRUCK_MENU, TRUCK_SERVICE_STYLES, TRUCK_FAQS } from '$lib/data/seed';
+	import { jsonLd } from '$lib/utils';
 	import Tristar from '$lib/components/Tristar.svelte';
 	import SectionHead from '$lib/components/SectionHead.svelte';
 	import FaqItem from '$lib/components/FaqItem.svelte';
@@ -28,7 +29,7 @@
 		content="Book the Smoqe Signals BBQ food truck for your Nashville event — pulled pork, brisket, smoked wings, and classic sides served on site. Request a date."
 	/>
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</` + `script>`}
+	{@html `<script type="application/ld+json">${jsonLd(faqSchema)}</` + `script>`}
 </svelte:head>
 
 <div class="rise">

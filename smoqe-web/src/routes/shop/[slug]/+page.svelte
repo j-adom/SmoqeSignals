@@ -4,7 +4,7 @@
 	import type { PageData } from './$types';
 	import { cart } from '$lib/stores/cart.svelte';
 	import { toast } from '$lib/stores/toast.svelte';
-	import { money } from '$lib/utils';
+	import { money, jsonLd } from '$lib/utils';
 	import HeatMeter from '$lib/components/HeatMeter.svelte';
 	import ProductCard from '$lib/components/ProductCard.svelte';
 
@@ -49,7 +49,7 @@
 	<title>{p.name} | Smoqe Signals BBQ</title>
 	<meta name="description" content={p.short} />
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html `<script type="application/ld+json">${JSON.stringify(productSchema)}</` + `script>`}
+	{@html `<script type="application/ld+json">${jsonLd(productSchema)}</` + `script>`}
 </svelte:head>
 
 <div class="rise">

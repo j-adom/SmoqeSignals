@@ -2,6 +2,7 @@
 	import '../app.css';
 	import { page } from '$app/state';
 	import { BIZ } from '$lib/data/seed';
+	import { jsonLd } from '$lib/utils';
 	import Nav from '$lib/components/Nav.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import CartDrawer from '$lib/components/CartDrawer.svelte';
@@ -57,7 +58,7 @@
 	<meta name="twitter:description" content={SITE_DESC} />
 	<meta name="twitter:image" content={ogImage} />
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html `<script type="application/ld+json">${JSON.stringify(localBusiness)}</` + `script>`}
+	{@html `<script type="application/ld+json">${jsonLd(localBusiness)}</` + `script>`}
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">

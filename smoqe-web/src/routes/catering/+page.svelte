@@ -12,6 +12,7 @@
 		WHAT_WE_OFFER,
 		CATERING_TERMS
 	} from '$lib/data/seed';
+	import { jsonLd } from '$lib/utils';
 	import Tristar from '$lib/components/Tristar.svelte';
 	import SectionHead from '$lib/components/SectionHead.svelte';
 	import FaqItem from '$lib/components/FaqItem.svelte';
@@ -38,7 +39,7 @@
 		content="Drop-off and full-service BBQ catering for Nashville events. Review the catering menu, see what we offer, and request a quote."
 	/>
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</` + `script>`}
+	{@html `<script type="application/ld+json">${jsonLd(faqSchema)}</` + `script>`}
 </svelte:head>
 
 <div class="rise">

@@ -14,3 +14,15 @@ export function formatDate(iso: string): string {
 export function readingTime(words: number): number {
 	return Math.max(1, Math.round(words / 200));
 }
+
+/**
+ * Serialize an object for safe embedding inside a
+ * `<script type="application/ld+json">` block. Escapes `<`, `>`, and `&` so CMS
+ * data (product names, FAQ text) can never break out of the script tag (XSS).
+ */
+export function jsonLd(data: unknown): string {
+	return JSON.stringify(data)
+		.replace(/</g, '\\u003c')
+		.replace(/>/g, '\\u003e')
+		.replace(/&/g, '\\u0026');
+}
