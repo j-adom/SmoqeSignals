@@ -14,6 +14,7 @@
 	} from '$lib/data/seed';
 	import { jsonLd } from '$lib/utils';
 	import Tristar from '$lib/components/Tristar.svelte';
+	import PageJumpNav from '$lib/components/PageJumpNav.svelte';
 	import SectionHead from '$lib/components/SectionHead.svelte';
 	import FaqItem from '$lib/components/FaqItem.svelte';
 	import RequestForm from '$lib/components/RequestForm.svelte';
@@ -71,11 +72,21 @@
 		</div>
 	</section>
 
+	<PageJumpNav
+		links={[
+			{ label: 'Menu', href: '#menu' },
+			{ label: 'Packages', href: '#packages' },
+			{ label: "What's Included", href: '#terms' },
+			{ label: 'FAQs', href: '#faqs' }
+		]}
+		cta={{ label: 'Request a Quote', href: '#request' }}
+	/>
+
 	<!-- menu + form -->
 	<section class="py-[88px]">
 		<div class="container-wide grid items-start gap-14 lg:grid-cols-2">
 			<!-- menu -->
-			<div id="menu" class="scroll-mt-24">
+			<div id="menu" class="scroll-mt-32">
 				<SectionHead eyebrow="Catering Menu" title="The spread" />
 				<p class="mt-3.5 leading-relaxed text-ink-soft">
 					Build your event around our meats and sides. We confirm the final menu and pricing after we
@@ -127,14 +138,14 @@
 			</div>
 
 			<!-- request form -->
-			<div id="request" class="scroll-mt-24 lg:sticky lg:top-24">
+			<div id="request" class="scroll-mt-32 lg:sticky lg:top-24">
 				<RequestForm context="catering" serviceStyles={CATERING_SERVICE_STYLES} {form} />
 			</div>
 		</div>
 	</section>
 
 	<!-- catering packages -->
-	<section id="packages" class="scroll-mt-24 border-t border-paper-line py-[88px]">
+	<section id="packages" class="scroll-mt-32 border-t border-paper-line py-[88px]">
 		<div class="container-wide">
 			<SectionHead eyebrow="Built for a crowd" title="Catering packages" />
 			<p class="mt-3.5 max-w-3xl leading-relaxed text-ink-soft">{CATERING_PACKAGES_NOTE}</p>
@@ -158,7 +169,7 @@
 	</section>
 
 	<!-- what we offer + terms -->
-	<section id="offer" class="scroll-mt-24 border-t border-paper-line bg-paper-2 py-[88px]">
+	<section id="offer" class="scroll-mt-32 border-t border-paper-line bg-paper-2 py-[88px]">
 		<div class="container-wide">
 			<SectionHead eyebrow="Before we roll up" title="What we offer" />
 			<div class="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -170,7 +181,7 @@
 				{/each}
 			</div>
 
-			<div id="terms" class="scroll-mt-24">
+			<div id="terms" class="scroll-mt-32">
 				<h3 class="display mt-14 text-2xl">Catering made easy</h3>
 				<div class="mt-5 max-w-3xl space-y-4 text-[15px] leading-relaxed text-ink-soft">
 					{#each CATERING_TERMS as p (p)}
@@ -182,7 +193,7 @@
 	</section>
 
 	<!-- faqs -->
-	<section id="faqs" class="scroll-mt-24 py-[88px]">
+	<section id="faqs" class="scroll-mt-32 py-[88px]">
 		<div class="container-tight max-w-3xl">
 			<SectionHead eyebrow="Good to know" title="Catering FAQs" center />
 			<div class="mt-10">
