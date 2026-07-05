@@ -9,7 +9,6 @@
 		CATERING_EXTRAS,
 		CATERING_SERVICE_STYLES,
 		CATERING_FAQS,
-		WHAT_WE_OFFER,
 		CATERING_TERMS
 	} from '$lib/data/seed';
 	import { jsonLd } from '$lib/utils';
@@ -89,8 +88,9 @@
 			<div id="menu" class="scroll-mt-32">
 				<SectionHead eyebrow="Catering Menu" title="The spread" />
 				<p class="mt-3.5 leading-relaxed text-ink-soft">
-					Build your event around our meats and sides. We confirm the final menu and pricing after we
-					review your details — contact us for a quote.
+					Build your event around our meats and sides. Menus can be tailored to your preferences,
+					dietary needs, and budget — delivered drop-off, or set up and served full-service. We
+					confirm the final menu and pricing after we review your details.
 				</p>
 
 				<h3 class="display mt-9 text-xl text-flame">Meats</h3>
@@ -131,10 +131,6 @@
 					{/each}
 				</div>
 
-				<p class="mt-6 border-t border-paper-line pt-[18px] text-sm leading-relaxed text-ink-soft">
-					Full-service setup, chafing dishes, utensils, and disposables available on request. Our
-					Veggie Pulled "Pork" keeps vegetarians in on the BBQ.
-				</p>
 			</div>
 
 			<!-- request form -->
@@ -168,26 +164,14 @@
 		</div>
 	</section>
 
-	<!-- what we offer + terms -->
-	<section id="offer" class="scroll-mt-32 border-t border-paper-line bg-paper-2 py-[88px]">
+	<!-- terms -->
+	<section id="terms" class="scroll-mt-32 border-t border-paper-line bg-paper-2 py-[88px]">
 		<div class="container-wide">
-			<SectionHead eyebrow="Before we roll up" title="What we offer" />
-			<div class="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-				{#each WHAT_WE_OFFER as o (o.t)}
-					<div class="card-brand p-6">
-						<h4 class="mb-2 text-[17px] font-extrabold text-flame">{o.t}</h4>
-						<p class="text-sm leading-relaxed text-ink-soft">{o.d}</p>
-					</div>
+			<SectionHead eyebrow="Before we roll up" title="Catering made easy" />
+			<div class="mt-8 max-w-3xl space-y-4 text-[15px] leading-relaxed text-ink-soft">
+				{#each CATERING_TERMS as p (p)}
+					<p>{p}</p>
 				{/each}
-			</div>
-
-			<div id="terms" class="scroll-mt-32">
-				<h3 class="display mt-14 text-2xl">Catering made easy</h3>
-				<div class="mt-5 max-w-3xl space-y-4 text-[15px] leading-relaxed text-ink-soft">
-					{#each CATERING_TERMS as p (p)}
-						<p>{p}</p>
-					{/each}
-				</div>
 			</div>
 		</div>
 	</section>

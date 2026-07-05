@@ -326,7 +326,7 @@ export const CATERING_PACKAGES: { name: string; blurb: string; choices: string[]
 ];
 
 export const CATERING_PACKAGES_NOTE =
-	'Catering packages are for 25 people or more and served buffet style. Every package includes plates, napkins, buns, utensils, sauces, cups, sweet & unsweet tea, lemonade, ice, corn muffins, chafing dishes, and set up. Servers, additional meats, sides, and desserts are available on request — contact us for a quote.';
+	'Catering packages are for 25 people or more and served buffet style. Every package includes plates, napkins, buns, utensils, sauces, cups, sweet & unsweet tea, lemonade, ice, corn muffins, chafing dishes, and set up. Servers, additional meats, sides, and desserts are available on request.';
 
 export const CATERING_DESSERTS: MenuItem[] = [
 	{ name: 'Banana Pudding', desc: 'Classic Southern banana pudding.' },
@@ -384,7 +384,7 @@ export const TRUCK_FAQS: Faq[] = [
 export const CATERING_FAQS: Faq[] = [
 	{
 		q: 'How far in advance do I need to book?',
-		a: 'We ask for at least 2 weeks notice on full-service events so we have the supplies and meats ready for the long smoking process. Smaller drop-off orders can sometimes move faster — reach out and we will tell you straight.'
+		a: 'We ask for at least 2 weeks notice on full-service events so we have the supplies and meats ready for the long smoking process. For drop-off and delivery orders, 48 hours notice lets us craft your feast to perfection — reach out and we will tell you straight what is possible.'
 	},
 	{
 		q: 'Is there a minimum on deliveries?',
@@ -409,17 +409,13 @@ export const CATERING_FAQS: Faq[] = [
 	{
 		q: 'How do deposits work?',
 		a: 'A 50% deposit secures your date, with the balance due before the event. Final menu and pricing are confirmed once we review your details.'
+	},
+	// TODO(shon): confirm drop-off cancellation window/charge and how it relates
+	// to the full-service terms (48 hr / 100%, 7 day / 50%) before launch.
+	{
+		q: 'What is the cancellation policy?',
+		a: 'For drop-off and delivery orders, please allow at least 24 hours for cancellations — within 24 hours of your scheduled delivery, a 50% charge applies. Full-service events follow the cancellation terms in the "Catering made easy" section on this page.'
 	}
-];
-
-// Highlight bullets for the "What We Offer" block on the catering page.
-export const WHAT_WE_OFFER = [
-	{ t: '$300 Order Minimum', d: 'Ideal for approximately 20 people — our catering packages start at this budget-friendly threshold.' },
-	{ t: '48-Hour Notice', d: 'While we pride ourselves on flexibility, a 48-hour notice lets us craft your feast to perfection.' },
-	{ t: 'Cancellation Policy', d: 'Please allow 24 hours for cancellations. Within 24 hours of your scheduled delivery, a 50% charge applies.' },
-	{ t: 'Full-Service Catering', d: "For a truly immersive experience, provide us with at least two (2) weeks' notice for full-service catering." },
-	{ t: 'Delivery Options', d: "Choose 'Delivery Only' or 'Set Up and Serve' for a hands-on touch." },
-	{ t: 'Tailor-Made Menus', d: 'Menus tailored to your preferences, dietary needs, and budget.' }
 ];
 
 // Longer-form terms for legal protection ("Catering Made Easy").
