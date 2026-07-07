@@ -93,14 +93,18 @@
 		<div class="container-tight max-w-3xl text-center">
 			<SectionHead eyebrow="For any occasion" title="Catering Menu" center />
 
-			{#each CATERING_MENU.sections as sec (sec.category)}
-				<h3 class="display text-flame mt-10 text-2xl">{sec.category}</h3>
-				<ul class="mt-4 space-y-2.5">
-					{#each sec.items as item (item)}
-						<li class="text-ink font-extrabold">{item}</li>
-					{/each}
-				</ul>
-			{/each}
+			<div class="mt-8 gap-10 sm:columns-2">
+				{#each CATERING_MENU.sections as sec (sec.category)}
+					<div class="mb-8 break-inside-avoid">
+						<h3 class="display text-flame text-2xl">{sec.category}</h3>
+						<ul class="mt-4 space-y-2.5">
+							{#each sec.items as item (item)}
+								<li class="text-ink font-extrabold">{item}</li>
+							{/each}
+						</ul>
+					</div>
+				{/each}
+			</div>
 
 			<h3 class="display text-flame mt-12 text-2xl">Sides</h3>
 			<p class="text-ink-soft mt-2 text-[13px] italic">{CATERING_MENU.sidesNote}</p>
