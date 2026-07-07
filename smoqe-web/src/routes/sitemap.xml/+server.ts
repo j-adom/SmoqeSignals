@@ -6,9 +6,9 @@ const STATIC_PATHS = [
 	'/shop',
 	'/food-truck',
 	'/catering',
-	'/about',
+	'/the-history',
 	'/blog',
-	'/contact',
+	'/contact-us',
 	'/privacy-policy',
 	'/terms',
 	'/shipping-returns'

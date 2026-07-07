@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Leaf, Flame, Truck } from '@lucide/svelte';
+	import { Leaf, Flame, Package } from '@lucide/svelte';
 	import type { PageData } from './$types';
 	import { PRODUCT_CATEGORIES } from '$lib/data/seed';
 	import Tristar from '$lib/components/Tristar.svelte';
@@ -13,21 +13,25 @@
 	);
 
 	const valueProps = [
-		{ Icon: Leaf, t: 'All Natural', d: 'No MSG, no fillers. Just spices, salt, and smoke.' },
+		{ Icon: Leaf, t: 'All Natural', d: 'No MSG, no gluten. Just spices, salt, and smoke.' },
 		{
 			Icon: Flame,
 			t: 'Pit-Tested',
-			d: 'Every blend earns its place on the truck before the shelf.'
+			d: 'Every blend earns its place on the truck before it hits the shelf.'
 		},
-		{ Icon: Truck, t: 'Ships Fast', d: 'Packed and out the door in 1–2 business days.' }
+		{
+			Icon: Package,
+			t: 'Small Batch',
+			d: "Nashville bred, mixed in small batches with Slim's own secret blend of hand-picked spices."
+		}
 	];
 </script>
 
 <svelte:head>
-	<title>Shop Dry Rubs & Sauces | Smoqe Signals BBQ</title>
+	<title>The SmoQe Shop | Smoqe Signals BBQ</title>
 	<meta
 		name="description"
-		content="All-natural BBQ dry rubs, seasonings, and small-batch sauces — the exact blends Smoqe Signals uses on the truck. Free shipping over $45."
+		content="The SmoQe Shop — all natural dry rubs, seasonings, small batch sauces, and recipe eBooks from Smoqe Signals BBQ. Everything you need to bring the SmoQe home."
 	/>
 </svelte:head>
 
@@ -47,14 +51,14 @@
 		</div>
 		<div class="container-wide relative py-[72px]">
 			<div class="mb-4 flex items-center gap-3">
-				<Tristar lg /><span class="eyebrow text-ember">The Rub Shop</span>
+				<Tristar lg /><span class="eyebrow text-ember">The SmoQe Shop</span>
 			</div>
 			<h1 class="display max-w-3xl text-[clamp(2.5rem,7vw,4.75rem)]">
-				Bottled smoke for your kitchen
+				Everything you need to bring the SmoQe home
 			</h1>
 			<p class="text-cream-text mt-4 max-w-xl text-lg leading-relaxed">
-				All-natural rubs, seasonings, and small-batch sauces — the exact blends we use on the truck.
-				Free shipping on orders over $45.
+				All natural dry rubs, seasonings, small batch sauces, and recipe eBooks to master the
+				craft.
 			</p>
 		</div>
 	</section>

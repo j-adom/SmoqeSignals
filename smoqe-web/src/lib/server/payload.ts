@@ -208,8 +208,12 @@ export interface CateringPayload {
 	email: string;
 	phone: string;
 	eventDate?: string;
+	eventTime?: string;
 	guestCount?: string;
 	serviceStyle: string;
+	location?: string;
+	budget?: string;
+	hearAbout?: string;
 	notes?: string;
 }
 export function submitCatering(data: CateringPayload, fetchFn: Fetch = fetch) {

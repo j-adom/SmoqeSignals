@@ -14,10 +14,26 @@ export async function handleRequestSubmit(request: Request, fetch: typeof global
 	const phone = String(form.get('phone') || '').trim();
 	const serviceStyle = String(form.get('serviceStyle') || '').trim();
 	const eventDate = String(form.get('eventDate') || '').trim();
+	const eventTime = String(form.get('eventTime') || '').trim();
 	const guestCount = String(form.get('guestCount') || '').trim();
+	const location = String(form.get('location') || '').trim();
+	const budget = String(form.get('budget') || '').trim();
+	const hearAbout = String(form.get('hearAbout') || '').trim();
 	const notes = String(form.get('notes') || '').trim();
 
-	const values = { name, email, phone, serviceStyle, eventDate, guestCount, notes };
+	const values = {
+		name,
+		email,
+		phone,
+		serviceStyle,
+		eventDate,
+		eventTime,
+		guestCount,
+		location,
+		budget,
+		hearAbout,
+		notes
+	};
 
 	if (!name || !email || !phone || !serviceStyle) {
 		return fail(400, { ...values, error: 'Please fill in name, email, phone, and service style.' });
@@ -31,5 +47,5 @@ export async function handleRequestSubmit(request: Request, fetch: typeof global
 		});
 	}
 
-	return { success: true, name, email, phone, serviceStyle, eventDate, guestCount };
+	return { success: true, name, email, phone, serviceStyle, eventDate, eventTime, guestCount };
 }

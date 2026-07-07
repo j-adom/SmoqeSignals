@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowRight, Phone, MapPin, Flame, Truck, UtensilsCrossed } from '@lucide/svelte';
+	import { ArrowRight, Phone, MapPin, Flame, Truck, TreePine } from '@lucide/svelte';
 	import InstagramIcon from '$lib/components/icons/InstagramIcon.svelte';
 	import type { PageData } from './$types';
 	import { BIZ, HOLIDAY_MEATS } from '$lib/data/seed';
@@ -13,21 +13,24 @@
 
 	let { data }: { data: PageData } = $props();
 
+	// Years in business, computed so the hero never goes stale.
+	const years = new Date().getFullYear() - BIZ.founded;
+
 	const proof = [
 		{
 			Icon: Flame,
-			t: 'Pit-Smoked Plates',
-			d: 'Low-and-slow hickory smoke for pulled pork, brisket, wings, and the classic sides.'
+			t: '225°F. Patience Does the Rest.',
+			d: 'Low and slow, every time. No shortcuts, no exceptions.'
+		},
+		{
+			Icon: TreePine,
+			t: 'Real Wood. No Shortcuts.',
+			d: 'No chips, no pellets, no gas — just locally sourced hickory, oak, cherry, and apple for our stick burners.'
 		},
 		{
 			Icon: Truck,
 			t: 'Food Truck Service',
-			d: 'We bring smoky Nashville BBQ to streets, offices, neighborhoods, and festivals.'
-		},
-		{
-			Icon: UtensilsCrossed,
-			t: 'Event Catering',
-			d: 'Buffets and on-site truck service for weddings, team meals, and private parties.'
+			d: 'We roll up wherever you are — streets, offices, neighborhoods, festivals.'
 		}
 	];
 
@@ -76,13 +79,12 @@
 			<p
 				class="text-cream-text mb-3.5 max-w-[560px] text-[clamp(1.1rem,2.4vw,1.45rem)] leading-snug font-medium"
 			>
-				Twelve years of low-and-slow, West Tennessee barbecue — from our food truck to your
-				backyard.
+				Authentic West TN BBQ, {years} years running — book the truck for your event, or shop the
+				dry rubs and seasonings we built it on.
 			</p>
 			<p class="text-cream-muted mb-8 text-[15px] font-bold tracking-wide">{BIZ.tagline}</p>
 			<div class="flex flex-wrap gap-3.5">
-				<a href="/shop" class="btn btn-primary">Shop the Rubs <ArrowRight size={18} /></a>
-				<a href="/food-truck" class="btn btn-outline-light">Book the Truck</a>
+				<a href="/food-truck" class="btn btn-primary">Book the Truck <ArrowRight size={18} /></a>
 			</div>
 			<div class="text-cream-muted mt-9 flex flex-wrap gap-6 text-sm font-semibold">
 				<a href={BIZ.phoneHref} class="flex items-center gap-2"
@@ -102,11 +104,15 @@
 		<div class="container-wide">
 			<div class="mx-auto mb-14 max-w-2xl text-center">
 				<SectionHead
-					eyebrow="Real BBQ. Real service."
-					title="Smoke worth following"
-					sub="From a food-truck lunch rush to full-service catering, every plate starts with patience and hickory."
+					eyebrow="Nashville Bred, Memphis Approved, Tennessee Tradition."
+					title="Follow the Smoqe"
+					sub="&ldquo;There are a few things in life that people will drive out of their way for. Real BBQ is one of them.&rdquo;"
 					center
 				/>
+				<p class="text-ink-soft mt-4 text-sm font-semibold">
+					— Shon "Slim" Harmon, <cite>The Art of Pulled Pork: A Pitmaster's Guide</cite> (out Late Summer
+					2026)
+				</p>
 			</div>
 			<div class="grid gap-6 md:grid-cols-3">
 				{#each proof as c (c.t)}
@@ -134,8 +140,8 @@
 						{HOLIDAY_MEATS.blurb}
 					</p>
 					<div class="mt-7 flex flex-wrap gap-3.5">
-						<a href="/contact" class="btn btn-primary"
-							>Pre-Order for the Holidays <ArrowRight size={18} /></a
+						<a href="/contact-us?inquiry=holiday" class="btn btn-primary"
+							>Join the List <ArrowRight size={18} /></a
 						>
 						<a href={BIZ.phoneHref} class="btn btn-outline-light">Call {BIZ.phone}</a>
 					</div>
@@ -160,9 +166,9 @@
 		<div class="container-wide">
 			<div class="mb-10 flex flex-wrap items-end justify-between gap-6">
 				<SectionHead
-					eyebrow="The Rub Shop"
-					title="Take the flavor home"
-					sub="The same all-natural rubs we shake on at every event — bottled for your kitchen."
+					eyebrow="The SmoQe Shop"
+					title="Bring the SmoQe home"
+					sub="All natural dry rubs, seasonings, and recipe eBooks to master the craft."
 				/>
 				<a href="/shop" class="btn btn-ghost">Shop All <ArrowRight size={18} /></a>
 			</div>
@@ -188,17 +194,24 @@
 				/>
 			</div>
 			<div>
-				<SectionHead eyebrow="Meet the pitmaster" title="Shon, the man behind the smoke" />
+				<SectionHead eyebrow="Meet the Pitmaster" title="Slim, the Man Behind the Smoke" />
 				<p class="text-ink-soft mt-5 text-[17px] leading-relaxed">
-					Smoqe Signals is built on hospitality, patience, and West Tennessee roots that run back to
-					Paris, TN and two uncles named Clyde and Clay. Shon brings that standard to the truck, the
-					pit, and every catered table.
+					SmoQe Signals is built on hospitality, patience, and customer service — the same standard
+					Slim brings to the truck, the pit, and every catered table.
 				</p>
+				<blockquote class="border-flame mt-4 border-l-4 pl-5">
+					<p class="text-ink-soft text-[17px] leading-relaxed">
+						"That feeling became SmoQe Signals BBQ — a food truck that taught me more about people,
+						hospitality, community, and myself than any classroom ever could."
+					</p>
+					<footer class="text-ink-soft mt-2 text-sm font-semibold">
+						— Shon "Slim" Harmon, <cite>The Art of Pulled Pork: A Pitmaster's Guide</cite>
+					</footer>
+				</blockquote>
 				<p class="text-ink-soft mt-4 text-[17px] leading-relaxed">
-					The menu stays grounded in the classics: smoke-kissed meats, sturdy sides, and food that
-					makes an event feel personal instead of packaged.
+					The menu is Nashville Bred, Memphis Approved, Tennessee Tradition.
 				</p>
-				<a href="/about" class="btn btn-ghost mt-7">Read Our Story <ArrowRight size={18} /></a>
+				<a href="/the-history" class="btn btn-ghost mt-7">Read The History <ArrowRight size={18} /></a>
 			</div>
 		</div>
 	</section>
@@ -223,7 +236,7 @@
 					<a href="/catering" class="btn btn-primary"
 						>Start a Catering Request <ArrowRight size={18} /></a
 					>
-					<a href="/contact" class="btn btn-outline-light">Talk to Us</a>
+					<a href="/contact-us" class="btn btn-outline-light">Talk to Us</a>
 				</div>
 			</div>
 		</div>

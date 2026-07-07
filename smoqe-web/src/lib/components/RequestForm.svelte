@@ -125,6 +125,12 @@
 					<input name="eventDate" type="date" class="field-input" value={form?.eventDate ?? ''} />
 				</label>
 				<label class="grid gap-2">
+					<span class="field-label">Event time</span>
+					<input name="eventTime" type="time" class="field-input" value={form?.eventTime ?? ''} />
+				</label>
+			</div>
+			<div class="grid gap-4 sm:grid-cols-2">
+				<label class="grid gap-2">
 					<span class="field-label">Guest count</span>
 					<input
 						name="guestCount"
@@ -134,22 +140,51 @@
 						placeholder="e.g. 50"
 					/>
 				</label>
+				<label class="grid gap-2">
+					<span class="field-label">Budget</span>
+					<input
+						name="budget"
+						class="field-input"
+						value={form?.budget ?? ''}
+						placeholder="e.g. $1,500"
+					/>
+				</label>
 			</div>
 			<label class="grid gap-2">
-				<span class="field-label">Service style</span>
-				<select name="serviceStyle" class="field-input" required>
-					<option value="" selected={!form?.serviceStyle}>Select service style</option>
-					{#each serviceStyles as s (s)}
-						<option selected={form?.serviceStyle === s}>{s}</option>
-					{/each}
-				</select>
+				<span class="field-label">Event location or delivery address</span>
+				<input
+					name="location"
+					class="field-input"
+					value={form?.location ?? ''}
+					placeholder="Street address, venue, or neighborhood"
+				/>
 			</label>
+			<div class="grid gap-4 sm:grid-cols-2">
+				<label class="grid gap-2">
+					<span class="field-label">Service style</span>
+					<select name="serviceStyle" class="field-input" required>
+						<option value="" selected={!form?.serviceStyle}>Select service style</option>
+						{#each serviceStyles as s (s)}
+							<option selected={form?.serviceStyle === s}>{s}</option>
+						{/each}
+					</select>
+				</label>
+				<label class="grid gap-2">
+					<span class="field-label">How did you hear of us?</span>
+					<select name="hearAbout" class="field-input">
+						<option value="" selected={!form?.hearAbout}>Select one (optional)</option>
+						{#each ['Google / Search', 'Instagram', 'Facebook', 'Word of Mouth', 'Saw the Truck', 'Other'] as h (h)}
+							<option selected={form?.hearAbout === h}>{h}</option>
+						{/each}
+					</select>
+				</label>
+			</div>
 			<label class="grid gap-2">
 				<span class="field-label">Notes</span>
 				<textarea
 					name="notes"
 					class="field-input"
-					placeholder="Location, setup needs, dietary restrictions, timing…"
+					placeholder="Setup needs, dietary restrictions, anything else…"
 					>{form?.notes ?? ''}</textarea
 				>
 			</label>

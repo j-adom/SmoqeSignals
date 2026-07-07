@@ -1,4 +1,4 @@
-import type { BizInfo, BlogPost, Faq, MenuItem, Product, Testimonial } from '$lib/types';
+import type { BizInfo, BlogPost, Faq, Product, Testimonial } from '$lib/types';
 
 /**
  * Bundled fallback content. The site renders entirely from this when the
@@ -206,138 +206,108 @@ export const PRODUCT_CATEGORIES = [
 	'Gear'
 ] as const;
 
-// Walk-up truck sides — single-serving style.
-const TRUCK_SIDES: MenuItem[] = [
-	{ name: 'Baked Beans', desc: 'Slow-cooked and smoky.' },
-	{ name: 'Creamy Coleslaw', desc: 'Cool, crisp, and tangy.' },
-	{ name: 'Fries', desc: 'Hot, crisp, and truck-fresh.' },
-	{ name: 'Mac & Cheese', desc: 'Rich, creamy, and always a favorite.' },
-	{ name: 'Potato Salad', desc: 'Classic cookout style.' }
-];
-
-// Catering sides — offered by the pint, quart, or full pan.
-const CATERING_SIDES: MenuItem[] = [
-	{ name: 'Baked Beans', desc: 'Slow-cooked and smoky.' },
-	{ name: 'Creamy Coleslaw', desc: 'Cool, crisp, and tangy.' },
-	{ name: 'Mac & Cheese', desc: 'Rich, creamy, and event-ready.' },
-	{ name: 'Potato Salad', desc: 'Classic cookout style.' },
-	{ name: 'Green Beans', desc: 'Smoked Southern-style green beans.' },
-	{ name: 'Collard Greens', desc: 'Southern greens with deep flavor.' },
-	{ name: 'Cornbread', desc: 'Sweet, sturdy, made for BBQ plates.' }
-];
-
-// Walk-up / event truck menu — plates, loaded specialties, wings, and sides served on site.
+// Walk-up / event truck menu — smoked meats, loaded specialties, wings, and sides served on site.
 export const TRUCK_MENU: {
-	plates: MenuItem[];
-	specialties: MenuItem[];
+	meats: string[];
+	specialties: string[];
 	wings: { note: string; sauces: string[] };
-	sides: MenuItem[];
+	sides: string[];
+	sidesNote: string;
 } = {
-	plates: [
-		{ name: 'Pulled Pork Plate', desc: 'Slow-smoked, hand-pulled, with two classic sides.' },
-		{
-			name: 'Beef Brisket Plate',
-			desc: 'Hickory-smoked slices with that legendary bark, two sides.'
-		},
-		{ name: 'Smoked Wing Basket', desc: "Crisp-skin wings tossed in Slim's rub, choice of sauce." },
-		{
-			name: 'Veggie Pulled "Pork"',
-			desc: 'Our secret vegetarian recipe with true BBQ flavor, two sides.'
-		}
+	meats: [
+		'Pulled Pork',
+		'Beef Brisket',
+		'Smoked Sliced Turkey Breast',
+		'Veggie Pulled "Pork" (vegetarian option)'
 	],
-	specialties: [
-		{ name: 'BBQ Fries', desc: 'Fries piled high with smoked meat and sauce.' },
-		{ name: 'Mega Fries', desc: 'A loaded, share-worthy mountain of BBQ fries.' },
-		{ name: 'BBQ Nachos', desc: 'Crisp chips, smoked meat, cheese, and the works.' },
-		{ name: 'Mega Nachos', desc: 'Our full-size loaded nacho platter.' },
-		{ name: "Smack'n Mac'n Cheese", desc: 'Creamy mac topped with smoked meat.' }
-	],
+	specialties: ['BBQ Fries', 'Mega Fries', 'BBQ Nachos', 'Mega Nachos', "Smack'n Mac'n Cheese"],
 	wings: {
-		note: "Deep-fried and tossed in your choice of Slim's homemade sauce. Available in 6, 12, or 18-piece portions.",
+		note: "Deep-fried wings tossed in your choice of Slim's homemade sauce. Available in 6, 12, or 18-piece portions.",
 		sauces: [
 			'BBQ',
 			'Honey Gold',
 			'Honey Hot',
-			'Lemon Pepper',
-			'Buffalo Lemon Pepper',
 			'Honey Hot Lemon Pepper',
-			'BBQ Lemon Pepper'
+			'BBQ Lemon Pepper',
+			'Hot',
+			'Buffalo',
+			'Lime Pepper'
 		]
 	},
-	sides: TRUCK_SIDES
+	sides: ['Smoked BBQ Beans', 'Creamy Cole Slaw', 'Golden French Fries'],
+	sidesNote: 'All sides are vegetarian friendly unless specified.'
 };
 
-// Catering meats — by the sandwich or the pound, built into buffets and full-service spreads.
-export const CATERING_MENU: { meats: MenuItem[]; sides: MenuItem[]; sidesNote: string } = {
-	meats: [
-		{ name: 'Pulled Pork', desc: 'Smoky, tender, hand-pulled — by the sandwich or the pound.' },
-		{ name: 'Brisket', desc: 'Sliced or chopped, hickory-smoked to juicy perfection.' },
-		{ name: 'Chopped Chicken', desc: 'Smoked and chopped — by the sandwich or the pound.' },
-		{ name: 'Pork Ribs', desc: 'Dry-rubbed and smoked low — half rack or full rack.' },
-		{ name: 'Pork Rib Tips', desc: 'Meaty, smoky rib tips by the pound.' },
-		{ name: 'Turkey Tips', desc: 'Smoked turkey tips by the pound.' },
-		{ name: 'Smoked Sliced Turkey', desc: 'Tender, lightly seasoned slices for a lighter spread.' },
-		{ name: 'Smoked Wings', desc: 'Crisp outside, juicy inside, tossed in your choice of sauce.' },
-		{ name: 'Beef Sausage Links', desc: 'Smoked links with a savory kick.' },
-		{ name: 'Veggie Pulled "Pork"', desc: 'Our secret vegetarian recipe with true BBQ flavor.' },
-		{ name: 'Whole Hog', desc: 'Feeds a crowd (125–150). Call for inquiries.' }
+// Catering menu — centered name-only lists grouped by protein, per Shon (July 2026).
+export const CATERING_MENU: {
+	sections: { category: string; items: string[] }[];
+	sides: string[];
+	sidesNote: string;
+} = {
+	sections: [
+		{
+			category: 'Pork',
+			items: [
+				'Pulled Pork — by the pound',
+				'Pork Ribs — Half Rack / Full Rack',
+				'Pork Rib Tips — by the pound',
+				'Pork Sausage Links',
+				'Pork Belly Burnt Ends',
+				'Whole Hog — call for inquiries'
+			]
+		},
+		{
+			category: 'Beef',
+			items: [
+				'Beef Brisket — by the pound',
+				'Beef Back Ribs',
+				'Beef Dino Ribs',
+				'Beef Short Ribs',
+				'Brisket Burnt Ends'
+			]
+		},
+		{
+			category: 'Poultry',
+			items: [
+				'Pulled Chicken — by the pound',
+				'Smoked Sliced Turkey Breast',
+				'Turkey Tips — by the pound',
+				'Smoked Whole Wings',
+				'Chicken Quarters',
+				'Whole Chicken',
+				'Half Chicken'
+			]
+		},
+		{
+			category: 'Vegetarian',
+			items: ['Veggie Pulled "Pork"']
+		},
+		{
+			category: 'Seafood',
+			items: ['Grilled Salmon', 'Grilled Prawns', 'Grilled Snapper with Pickled Veggies']
+		}
 	],
-	sides: CATERING_SIDES,
+	sides: ['BBQ Baked Beans', 'Cole Slaw', 'Potato Salad', 'Green Beans', 'Mac & Cheese'],
 	sidesNote:
-		'Sides are available by the Pint, Quart, or Full Pan. Vegetarian friendly unless specified.'
+		'Available in Pint, Quart, and Full Pan. All sides are vegetarian friendly unless specified.'
 };
 
-// Pre-built catering packages (buffet style). Pricing is by quote.
-export const CATERING_PACKAGES: { name: string; blurb: string; choices: string[] }[] = [
+// Feature items that replaced the pre-built packages grid, per Shon (July 2026).
+export const CATERING_FEATURES: { name: string; blurb: string }[] = [
 	{
-		name: 'Meat & 3 Package',
-		blurb: 'Choice of 1 meat, 3 sides, and 1 dessert.',
-		choices: [
-			'Meat (1): Ribs, Smoked Chicken, Smoked Turkey, or Pulled Pork',
-			'Sides (3): Mac & Cheese, BBQ Beans, Potato Salad, Coleslaw, or Smoked Green Beans',
-			'Dessert (1): Banana Pudding or Seasonal Cobbler'
-		]
+		name: 'Whole Hog',
+		blurb: 'Feeds 125–150 people. Market Price — call for inquiries.'
 	},
 	{
-		name: 'Lunch Package',
-		blurb: 'A salad, two meats, three sides, and a dessert.',
-		choices: [
-			"Salad: Caesar, Garden, or Chef's Seasonal",
-			'Meats (2): Ribs, Smoked Chicken, Smoked Turkey, or Pulled Pork',
-			'Sides (3): Mac & Cheese, BBQ Beans, Potato Salad, Coleslaw, or Smoked Green Beans',
-			'Dessert (1): Banana Pudding or Seasonal Cobbler'
-		]
-	},
-	{
-		name: 'Dinner Package',
-		blurb: 'A salad, an appetizer, two meats, three sides, and two desserts.',
-		choices: [
-			"Salad: Caesar, Garden, or Chef's Seasonal",
-			'Appetizer: Smoked Wings or Cowboy Caviar',
-			'Meats (2): Ribs, Smoked Chicken, Smoked Turkey, or Pulled Pork',
-			'Sides (3): Mac & Cheese, BBQ Beans, Potato Salad, Coleslaw, or Smoked Green Beans',
-			'Desserts (2): Banana Pudding or Seasonal Cobbler'
-		]
-	},
-	{
-		name: 'Tailgate Wings Package',
+		name: 'Wings',
 		blurb:
-			"Smoked wings by the batch — choice of Alabama White, Sweet James Jones, or Slim's Shake-A-Plenty Spice Rub. Available in 25, 50, or 100 count.",
-		choices: []
+			'Deep-fried wings, tossed in your choice of sauce: BBQ, Honey Gold, Lemon Pepper, BBQ Lemon Pepper, Lime Pepper, Honey Hot, Buffalo Lemon Pepper, and Honey Hot Lemon Pepper — the last three each available mild or hot. Available in 25, 50, or 100-piece portions.'
 	},
 	{
-		name: 'Whole Hog Package',
-		blurb: 'Feeds 125–150 people. Call for inquiries.',
-		choices: []
+		name: 'Tailgate',
+		blurb:
+			'Hosting a tailgate this football season? Let us cater it. Get in touch through the form below.'
 	}
-];
-
-export const CATERING_PACKAGES_NOTE =
-	'Catering packages are for 25 people or more and served buffet style. Every package includes plates, napkins, buns, utensils, sauces, cups, sweet & unsweet tea, lemonade, ice, corn muffins, chafing dishes, and set up. Servers, additional meats, sides, and desserts are available on request.';
-
-export const CATERING_DESSERTS: MenuItem[] = [
-	{ name: 'Banana Pudding', desc: 'Classic Southern banana pudding.' },
-	{ name: 'Seasonal Cobbler', desc: "Warm cobbler made with the season's fruit." }
 ];
 
 export const CATERING_EXTRAS = [
@@ -391,48 +361,90 @@ export const TRUCK_FAQS: Faq[] = [
 export const CATERING_FAQS: Faq[] = [
 	{
 		q: 'How far in advance do I need to book?',
-		a: 'We ask for at least 2 weeks notice on full-service events so we have the supplies and meats ready for the long smoking process. For drop-off and delivery orders, 48 hours notice lets us craft your feast to perfection — reach out and we will tell you straight what is possible.'
+		a: 'We ask for at least 2 weeks notice on full-service events so we have the supplies and meats ready for the long smoking process. Smaller drop-off orders can sometimes move faster — reach out and we will tell you straight.'
 	},
 	{
 		q: 'Is there a minimum on deliveries?',
-		a: 'We have a $300 minimum on deliveries before tax and the delivery fee — ideal for roughly 20 people.'
+		a: '$300 minimum on deliveries, before tax and the delivery fee.'
 	},
 	{
 		q: 'How much is the delivery fee?',
-		a: 'A 15% service fee is applied to your total food and beverage.'
+		a: 'A 15% service fee on your total food and beverage, for deliveries within a 10-mile radius. Additional charges may apply for deliveries beyond that.'
 	},
 	{
 		q: 'What is included in the paper goods sets?',
-		a: 'Each paper goods set includes heavy-duty paper plates, cups, wet naps, a culinary set, and a dinner napkin — $1.75 per person.'
+		a: 'Heavy duty paper plates, cups, wet naps, culinary set, and dinner napkin.'
 	},
 	{
 		q: 'What will the food be delivered in?',
-		a: 'Our food is delivered in disposable aluminum serving trays. Wire chafing (warming) sets are available for $15 per set.'
+		a: 'Disposable aluminum serving trays.'
 	},
 	{
 		q: 'Can you accommodate dietary restrictions?',
-		a: 'Absolutely. Our Veggie Pulled "Pork" lets vegetarians in on the real BBQ experience, and most rubs are gluten free. Note any allergies or dietary needs when you book and we will plan around them.'
+		a: 'Yes, we offer vegetarian options across our meats and sides — just let us know when you book so we can tailor your menu.'
 	},
 	{
 		q: 'How do deposits work?',
-		a: 'A 50% deposit secures your date, with the balance due before the event. Final menu and pricing are confirmed once we review your details.'
+		a: "A deposit is required to reserve your date. Cancel within 24 hours of your event and you'll forfeit 50% of your deposit; canceling the day of the event means no refund."
 	},
-	// TODO(shon): confirm drop-off cancellation window/charge and how it relates
-	// to the full-service terms (48 hr / 100%, 7 day / 50%) before launch.
 	{
-		q: 'What is the cancellation policy?',
-		a: 'For drop-off and delivery orders, please allow at least 24 hours for cancellations — within 24 hours of your scheduled delivery, a 50% charge applies. Full-service events follow the cancellation terms in the "Catering made easy" section on this page.'
+		q: 'What is the Full-Service setup?',
+		a: "Our Full-Service events offer a seamless, hassle-free dining experience, backed by our team's genuine Southern warmth. We arrive one hour before your event to handle setup — the menu board, warmers, serving utensils, and sauces — then stay on-site throughout to oversee the food presentation and keep the ambiance flawless for your guests. Afterward, our team stays an additional hour to handle cleanup. We work closely with hosts and event planners, paying close attention to every detail of your event. Want a preview? Ask and we'll send photos from past Full-Service events."
 	}
 ];
 
-// Longer-form terms for legal protection ("Catering Made Easy").
-export const CATERING_TERMS: string[] = [
-	'We kindly request a minimum of two (2) weeks or 14 days of advance notice for Full Service Catering events. All final event details — including the menu, guest count, venue location, and service times — are confirmed two (2) weeks before the event. If your event requires additional planning such as menu tastings, site visits, or venue coordination, please provide sufficient lead time to accommodate these needs. This may also include arranging insurance and contracts, among other considerations.',
-	'For all Full Service Catering events, we require a signed contract on file, which we provide once we secure your credit card information. Full Service events have a minimum expenditure requirement of $1,000 on food and drink before factoring in service fees, gratuity, and tax.',
-	'In the event of a cancellation within 48 hours of the designated arrival time, a 100% cancellation fee applies to cover all costs, including food, beverage, service fees, gratuity, and tax. Cancellations occurring within one (1) week or seven (7) days before the designated arrival time but prior to the 48-hour mark will result in a 50% cancellation fee for all food, beverage, service fees, and tax.',
-	"For Full Service events, we require a minimum of two (2) SmoQe Signals BBQ team members to ensure the seamless execution of your event. Our catering team determines the specific number of team members needed based on the event's requirements.",
-	'Our responsibilities include event cleanup related to our buffet and prep area, as well as pre-bussing and clearing dinner tables. While we handle rental cleanup tasks such as plate scraping, stacking, and organizing, please note that we do not wash and sanitize rentals.',
-	'Regarding garbage removal, we are responsible for disposing of our buffet and preparation trash. However, we do not handle the removal of accumulated event trash unless both the guest and SmoQe Signals BBQ agree to this service, which incurs a $450 trash removal fee added to the final invoice.'
+// "Catering Made Easy" — policy copy, one source of truth per fact (Shon, July 2026).
+export const CATERING_TERMS: { title: string; bullets: { label: string; text: string }[] }[] = [
+	{
+		title: 'Standard & Delivery Orders',
+		bullets: [
+			{
+				label: '$300 Order Minimum',
+				text: 'Ideal for approximately 20 people, our catering packages start at this budget-friendly threshold.'
+			},
+			{
+				label: '48-Hour Notice',
+				text: 'While we pride ourselves on flexibility, a 48-hour notice lets us craft your feast to perfection.'
+			},
+			{
+				label: 'Deposit & Cancellation',
+				text: "A deposit secures your booking. Cancel within 24 hours of your event and you'll forfeit 50% of your deposit; cancellations made the day of the event are non-refundable."
+			},
+			{
+				label: 'Delivery Options',
+				text: "Choose 'Delivery Only' or 'Set Up and Serve' for a hands-on touch."
+			},
+			{
+				label: 'Tailor-Made Menus',
+				text: 'Menus tailored to your preferences, dietary needs, and budget.'
+			}
+		]
+	},
+	{
+		title: 'Full-Service Events',
+		bullets: [
+			{
+				label: 'Advance Notice',
+				text: 'We require a minimum of two (2) weeks (14 days) advance notice for Full-Service Catering events. All final event details — menu, guest count, venue location, and service times — are confirmed two weeks before the event. Events needing extra planning (menu tastings, site visits, venue coordination, insurance/contracts) should allow additional lead time.'
+			},
+			{
+				label: 'Contract & Minimum Spend',
+				text: 'Full-Service events require a signed contract on file, provided once we secure your credit card information, plus a minimum expenditure of $1,000 on food and drink before service fees, gratuity, and tax.'
+			},
+			{
+				label: 'Cancellation Fees',
+				text: 'Cancel within 48 hours of the event: 100% cancellation fee, covering food, beverage, service fees, gratuity, and tax. Cancel between 48 hours and 1 week out: 50% cancellation fee on the same.'
+			},
+			{
+				label: 'Staffing',
+				text: 'Minimum of two (2) SmoQe Signals BBQ team members required per Full-Service event; our team determines exact staffing needs based on the event.'
+			},
+			{
+				label: 'Cleanup & Trash',
+				text: 'We handle buffet/prep-area cleanup and pre-bussing/clearing tables, plus rental cleanup tasks (scraping, stacking) — we do not wash or sanitize rentals. We dispose of our own buffet/prep trash; removing accumulated event trash is optional and incurs a $450 fee if requested.'
+			}
+		]
+	}
 ];
 
 // Always-on holiday-meats promotion (home page).
@@ -440,7 +452,7 @@ export const HOLIDAY_MEATS = {
 	eyebrow: 'Holiday Pre-Orders',
 	title: 'Holiday Smoqed Meats',
 	blurb:
-		'Make the holidays easy — let us handle the centerpiece. Pre-order early; holiday dates book fast.',
+		"Make the holidays easy — let us handle the centerpiece. Spots go fast. Join the list and we'll reach out with pre-order details as soon as they open.",
 	items: [
 		{
 			name: 'Whole Turkeys — Deep-Fried or Smoqed',

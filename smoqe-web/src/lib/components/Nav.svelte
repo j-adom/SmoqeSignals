@@ -10,8 +10,8 @@
 		{ href: '/food-truck', label: 'Food Truck' },
 		{ href: '/catering', label: 'Catering' },
 		{ href: '/blog', label: 'Blog' },
-		{ href: '/about', label: 'About' },
-		{ href: '/contact', label: 'Contact' }
+		{ href: '/the-history', label: 'The History' },
+		{ href: '/contact-us', label: 'Contact Us' }
 	];
 
 	let mobileOpen = $state(false);

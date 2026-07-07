@@ -33,8 +33,8 @@
 					<li><a href="/food-truck" class="text-cream-muted hover:text-white">Food Truck</a></li>
 					<li><a href="/catering" class="text-cream-muted hover:text-white">Catering</a></li>
 					<li><a href="/blog" class="text-cream-muted hover:text-white">Blog</a></li>
-					<li><a href="/about" class="text-cream-muted hover:text-white">Our Story</a></li>
-					<li><a href="/contact" class="text-cream-muted hover:text-white">Contact</a></li>
+					<li><a href="/the-history" class="text-cream-muted hover:text-white">The History</a></li>
+					<li><a href="/contact-us" class="text-cream-muted hover:text-white">Contact Us</a></li>
 				</ul>
 			</div>
 

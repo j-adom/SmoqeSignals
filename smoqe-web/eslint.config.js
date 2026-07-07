@@ -25,5 +25,12 @@ export default ts.config(
 		languageOptions: {
 			parserOptions: { parser: ts.parser }
 		}
+	},
+	{
+		rules: {
+			// The site deploys at the domain root with no base path, so plain
+			// string hrefs are correct; resolve() would be pure ceremony.
+			'svelte/no-navigation-without-resolve': 'off'
+		}
 	}
 );
