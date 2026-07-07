@@ -15,7 +15,7 @@
 		<div class="grid gap-11 py-[72px] md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
 			<div>
 				<Logo variant="cream" h={62} />
-				<p class="mt-5 max-w-[320px] text-[14.5px] leading-relaxed text-cream-muted">
+				<p class="text-cream-muted mt-5 max-w-[320px] text-[14.5px] leading-relaxed">
 					Nashville's West-Tennessee BBQ food truck and catering crew. Tender pulled pork, veggie
 					pulled "pork," and some of the best brisket in the city.
 				</p>
@@ -41,8 +41,13 @@
 			<div>
 				<h4 class="display mb-[18px] text-[15px] tracking-wider text-white">Catering</h4>
 				<ul class="flex flex-col gap-3 text-[14.5px]">
-					<li><a href="/catering#request" class="text-cream-muted hover:text-white">Request a Quote</a></li>
-					<li><a href="/catering#menu" class="text-cream-muted hover:text-white">Catering Menu</a></li>
+					<li>
+						<a href="/catering#request" class="text-cream-muted hover:text-white">Request a Quote</a
+						>
+					</li>
+					<li>
+						<a href="/catering#menu" class="text-cream-muted hover:text-white">Catering Menu</a>
+					</li>
 					<li><a href="/catering#faqs" class="text-cream-muted hover:text-white">FAQs</a></li>
 					<li>
 						<a href="/catering#offer" class="text-cream-muted hover:text-white">What We Offer</a>
@@ -54,20 +59,23 @@
 				<h4 class="display mb-[18px] text-[15px] tracking-wider text-white">Get in Touch</h4>
 				<ul class="flex flex-col gap-3 text-[14.5px]">
 					<li>
-						<a href={BIZ.phoneHref} class="flex items-center gap-2.5 text-cream-muted hover:text-white">
+						<a
+							href={BIZ.phoneHref}
+							class="text-cream-muted flex items-center gap-2.5 hover:text-white"
+						>
 							<Phone size={17} class="text-tristar" />{BIZ.phone}
 						</a>
 					</li>
 					<li>
 						<a
 							href={`mailto:${BIZ.email}`}
-							class="flex items-center gap-2.5 text-cream-muted hover:text-white"
+							class="text-cream-muted flex items-center gap-2.5 hover:text-white"
 						>
 							<Mail size={17} class="text-tristar" />{BIZ.email}
 						</a>
 					</li>
-					<li class="flex items-start gap-2.5 text-cream-muted">
-						<MapPin size={17} class="mt-0.5 shrink-0 text-tristar" />{BIZ.address}
+					<li class="text-cream-muted flex items-start gap-2.5">
+						<MapPin size={17} class="text-tristar mt-0.5 shrink-0" />{BIZ.address}
 					</li>
 				</ul>
 				<div class="mt-5 flex items-center gap-3">
@@ -76,7 +84,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="Smoqe Signals BBQ on Facebook"
-						class="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-cream-muted transition-colors hover:border-tristar hover:text-white"
+						class="text-cream-muted hover:border-tristar grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/[0.06] transition-colors hover:text-white"
 					>
 						<FacebookIcon size={18} />
 					</a>
@@ -85,7 +93,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="Smoqe Signals BBQ on Instagram"
-						class="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-cream-muted transition-colors hover:border-tristar hover:text-white"
+						class="text-cream-muted hover:border-tristar grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/[0.06] transition-colors hover:text-white"
 					>
 						<InstagramIcon size={18} />
 					</a>
@@ -99,7 +107,7 @@
 		</div>
 
 		<div
-			class="flex flex-wrap justify-between gap-4 border-t border-white/10 py-[22px] text-[13px] text-cream-muted"
+			class="text-cream-muted flex flex-wrap justify-between gap-4 border-t border-white/10 py-[22px] text-[13px]"
 		>
 			<span>© {year} {BIZ.legal}. All rights reserved.</span>
 			<nav class="flex flex-wrap gap-x-4 gap-y-1">

@@ -17,13 +17,11 @@
 <div class={center ? 'mx-auto max-w-2xl text-center' : ''}>
 	{#if eyebrow}
 		<div class={`mb-3 flex items-center gap-3 ${center ? 'justify-center' : ''}`}>
-			{#if !center}<span class="block h-[2px] w-7 bg-flame"></span>{/if}
+			{#if !center}<span class="bg-flame block h-[2px] w-7"></span>{/if}
 			<span class="eyebrow text-flame">{eyebrow}</span>
 		</div>
 	{/if}
-	<h2
-		class={`display text-[clamp(2rem,5vw,3.25rem)] ${light ? 'text-white' : 'text-ink'}`}
-	>
+	<h2 class={`display text-[clamp(2rem,5vw,3.25rem)] ${light ? 'text-white' : 'text-ink'}`}>
 		{title}
 	</h2>
 	{#if sub}

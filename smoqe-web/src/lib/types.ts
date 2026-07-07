@@ -6,12 +6,7 @@
 
 export type Heat = 0 | 1 | 2 | 3 | 4 | 5;
 
-export type ProductCategory =
-	| 'Dry Rub'
-	| 'Seasoning'
-	| 'Sauce'
-	| 'Gift Set'
-	| 'Gear';
+export type ProductCategory = 'Dry Rub' | 'Seasoning' | 'Sauce' | 'Gift Set' | 'Gear';
 
 export interface Product {
 	id: string;

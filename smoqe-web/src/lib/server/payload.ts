@@ -85,7 +85,7 @@ function mapProduct(d: PayloadProduct): Product {
 		name: d.name,
 		category: d.category,
 		price: Number(d.price) || 0,
-		heat: (Math.max(0, Math.min(5, Number(d.heat) || 0)) as Product['heat']),
+		heat: Math.max(0, Math.min(5, Number(d.heat) || 0)) as Product['heat'],
 		tag: d.tag || null,
 		image: resolveMedia(d.image, '/images/brisket-board.png'),
 		short: d.short || '',

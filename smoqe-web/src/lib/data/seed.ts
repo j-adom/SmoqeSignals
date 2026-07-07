@@ -1,11 +1,4 @@
-import type {
-	BizInfo,
-	BlogPost,
-	Faq,
-	MenuItem,
-	Product,
-	Testimonial
-} from '$lib/types';
+import type { BizInfo, BlogPost, Faq, MenuItem, Product, Testimonial } from '$lib/types';
 
 /**
  * Bundled fallback content. The site renders entirely from this when the
@@ -36,7 +29,7 @@ export const PRODUCTS: Product[] = [
 		tag: 'Best Seller',
 		image: '/images/wings-rub.jpg',
 		short: 'All-natural all-purpose rub. The one we put on everything.',
-		long: "The rub that started it all. A balanced, all-natural blend built for pork, chicken, and ribs — equal parts sweet, savory, and smoke. Shake it on before the pit and let low-and-slow do the rest.",
+		long: 'The rub that started it all. A balanced, all-natural blend built for pork, chicken, and ribs — equal parts sweet, savory, and smoke. Shake it on before the pit and let low-and-slow do the rest.',
 		size: '6 oz shaker',
 		notes: ['All natural', 'No MSG', 'Gluten free'],
 		featured: true,
@@ -68,7 +61,7 @@ export const PRODUCTS: Product[] = [
 		tag: null,
 		image: '/images/brisket-board.png',
 		short: 'Coarse black pepper, sea salt, and a whisper of coffee.',
-		long: "Texas-style simplicity with a West Tennessee accent. Coarse-cracked pepper and sea salt build the bark; a touch of ground coffee deepens the smoke ring. Made for brisket, beef ribs, and tri-tip.",
+		long: 'Texas-style simplicity with a West Tennessee accent. Coarse-cracked pepper and sea salt build the bark; a touch of ground coffee deepens the smoke ring. Made for brisket, beef ribs, and tri-tip.',
 		size: '7 oz shaker',
 		notes: ['All natural', 'Mild'],
 		featured: true,
@@ -148,7 +141,7 @@ export const PRODUCTS: Product[] = [
 		tag: null,
 		image: '/images/bbq-spread.jpg',
 		short: 'Tangy yellow-mustard base for pulled pork.',
-		long: "A gold-standard mustard sauce for pulled pork and chicken. Yellow mustard and honey, sharpened with cider vinegar and a pinch of cayenne. Bright, tangy, and built to cut through fat.",
+		long: 'A gold-standard mustard sauce for pulled pork and chicken. Yellow mustard and honey, sharpened with cider vinegar and a pinch of cayenne. Bright, tangy, and built to cut through fat.',
 		size: '16 oz bottle',
 		notes: ['Small batch', 'Mild'],
 		featured: false,
@@ -204,7 +197,14 @@ export const PRODUCTS: Product[] = [
 	}
 ];
 
-export const PRODUCT_CATEGORIES = ['All', 'Dry Rub', 'Seasoning', 'Sauce', 'Gift Set', 'Gear'] as const;
+export const PRODUCT_CATEGORIES = [
+	'All',
+	'Dry Rub',
+	'Seasoning',
+	'Sauce',
+	'Gift Set',
+	'Gear'
+] as const;
 
 // Walk-up truck sides — single-serving style.
 const TRUCK_SIDES: MenuItem[] = [
@@ -235,9 +235,15 @@ export const TRUCK_MENU: {
 } = {
 	plates: [
 		{ name: 'Pulled Pork Plate', desc: 'Slow-smoked, hand-pulled, with two classic sides.' },
-		{ name: 'Beef Brisket Plate', desc: 'Hickory-smoked slices with that legendary bark, two sides.' },
+		{
+			name: 'Beef Brisket Plate',
+			desc: 'Hickory-smoked slices with that legendary bark, two sides.'
+		},
 		{ name: 'Smoked Wing Basket', desc: "Crisp-skin wings tossed in Slim's rub, choice of sauce." },
-		{ name: 'Veggie Pulled "Pork"', desc: 'Our secret vegetarian recipe with true BBQ flavor, two sides.' }
+		{
+			name: 'Veggie Pulled "Pork"',
+			desc: 'Our secret vegetarian recipe with true BBQ flavor, two sides.'
+		}
 	],
 	specialties: [
 		{ name: 'BBQ Fries', desc: 'Fries piled high with smoked meat and sauce.' },
@@ -277,7 +283,8 @@ export const CATERING_MENU: { meats: MenuItem[]; sides: MenuItem[]; sidesNote: s
 		{ name: 'Whole Hog', desc: 'Feeds a crowd (125–150). Call for inquiries.' }
 	],
 	sides: CATERING_SIDES,
-	sidesNote: 'Sides are available by the Pint, Quart, or Full Pan. Vegetarian friendly unless specified.'
+	sidesNote:
+		'Sides are available by the Pint, Quart, or Full Pan. Vegetarian friendly unless specified.'
 };
 
 // Pre-built catering packages (buffet style). Pricing is by quote.
@@ -420,22 +427,29 @@ export const CATERING_FAQS: Faq[] = [
 
 // Longer-form terms for legal protection ("Catering Made Easy").
 export const CATERING_TERMS: string[] = [
-	"We kindly request a minimum of two (2) weeks or 14 days of advance notice for Full Service Catering events. All final event details — including the menu, guest count, venue location, and service times — are confirmed two (2) weeks before the event. If your event requires additional planning such as menu tastings, site visits, or venue coordination, please provide sufficient lead time to accommodate these needs. This may also include arranging insurance and contracts, among other considerations.",
-	"For all Full Service Catering events, we require a signed contract on file, which we provide once we secure your credit card information. Full Service events have a minimum expenditure requirement of $1,000 on food and drink before factoring in service fees, gratuity, and tax.",
-	"In the event of a cancellation within 48 hours of the designated arrival time, a 100% cancellation fee applies to cover all costs, including food, beverage, service fees, gratuity, and tax. Cancellations occurring within one (1) week or seven (7) days before the designated arrival time but prior to the 48-hour mark will result in a 50% cancellation fee for all food, beverage, service fees, and tax.",
+	'We kindly request a minimum of two (2) weeks or 14 days of advance notice for Full Service Catering events. All final event details — including the menu, guest count, venue location, and service times — are confirmed two (2) weeks before the event. If your event requires additional planning such as menu tastings, site visits, or venue coordination, please provide sufficient lead time to accommodate these needs. This may also include arranging insurance and contracts, among other considerations.',
+	'For all Full Service Catering events, we require a signed contract on file, which we provide once we secure your credit card information. Full Service events have a minimum expenditure requirement of $1,000 on food and drink before factoring in service fees, gratuity, and tax.',
+	'In the event of a cancellation within 48 hours of the designated arrival time, a 100% cancellation fee applies to cover all costs, including food, beverage, service fees, gratuity, and tax. Cancellations occurring within one (1) week or seven (7) days before the designated arrival time but prior to the 48-hour mark will result in a 50% cancellation fee for all food, beverage, service fees, and tax.',
 	"For Full Service events, we require a minimum of two (2) SmoQe Signals BBQ team members to ensure the seamless execution of your event. Our catering team determines the specific number of team members needed based on the event's requirements.",
-	"Our responsibilities include event cleanup related to our buffet and prep area, as well as pre-bussing and clearing dinner tables. While we handle rental cleanup tasks such as plate scraping, stacking, and organizing, please note that we do not wash and sanitize rentals.",
-	"Regarding garbage removal, we are responsible for disposing of our buffet and preparation trash. However, we do not handle the removal of accumulated event trash unless both the guest and SmoQe Signals BBQ agree to this service, which incurs a $450 trash removal fee added to the final invoice."
+	'Our responsibilities include event cleanup related to our buffet and prep area, as well as pre-bussing and clearing dinner tables. While we handle rental cleanup tasks such as plate scraping, stacking, and organizing, please note that we do not wash and sanitize rentals.',
+	'Regarding garbage removal, we are responsible for disposing of our buffet and preparation trash. However, we do not handle the removal of accumulated event trash unless both the guest and SmoQe Signals BBQ agree to this service, which incurs a $450 trash removal fee added to the final invoice.'
 ];
 
 // Always-on holiday-meats promotion (home page).
 export const HOLIDAY_MEATS = {
 	eyebrow: 'Holiday Pre-Orders',
 	title: 'Holiday Smoqed Meats',
-	blurb: 'Make the holidays easy — let us handle the centerpiece. Pre-order early; holiday dates book fast.',
+	blurb:
+		'Make the holidays easy — let us handle the centerpiece. Pre-order early; holiday dates book fast.',
 	items: [
-		{ name: 'Whole Turkeys — Deep-Fried or Smoqed', desc: 'Juicy golden deep-fried, or low-and-slow Smoqed whole turkeys, ready to carve for your table.' },
-		{ name: 'Double Smoqed Honey Ham', desc: 'Twice-smoked and glazed with honey for a sweet, deeply smoky holiday ham.' }
+		{
+			name: 'Whole Turkeys — Deep-Fried or Smoqed',
+			desc: 'Juicy golden deep-fried, or low-and-slow Smoqed whole turkeys, ready to carve for your table.'
+		},
+		{
+			name: 'Double Smoqed Honey Ham',
+			desc: 'Twice-smoked and glazed with honey for a sweet, deeply smoky holiday ham.'
+		}
 	]
 };
 
@@ -448,14 +462,15 @@ export const POSTS: BlogPost[] = [
 		readMins: 3,
 		category: 'News',
 		cover: '/images/brisket-board.png',
-		excerpt: 'A faster site, an online rub shop, and an easier way to book the truck. Here is what changed and why.',
+		excerpt:
+			'A faster site, an online rub shop, and an easier way to book the truck. Here is what changed and why.',
 		featured: true,
 		content: null,
 		bodyText: [
-			"Twelve years ago we were a concession stand and a borrowed smoker. Today we are a food truck, a catering crew, and now a shelf of rubs you can put in your own kitchen. It felt like time the website caught up.",
+			'Twelve years ago we were a concession stand and a borrowed smoker. Today we are a food truck, a catering crew, and now a shelf of rubs you can put in your own kitchen. It felt like time the website caught up.',
 			"The new site does three things the old one couldn't. You can sign up for the newsletter and actually hear from us. You can book catering through a real form instead of a phone-tag marathon. And you can buy the rubs we have been handing out at events for years.",
-			"Everything you loved is still here — the menu, the story, the history that runs back to Paris, Tennessee and our uncles Clyde and Clay. We just gave it a porch to sit on.",
-			"Pull up a chair. There is more coming: recipes, pit tips, and the occasional argument about sauce."
+			'Everything you loved is still here — the menu, the story, the history that runs back to Paris, Tennessee and our uncles Clyde and Clay. We just gave it a porch to sit on.',
+			'Pull up a chair. There is more coming: recipes, pit tips, and the occasional argument about sauce.'
 		]
 	},
 	{
@@ -466,14 +481,15 @@ export const POSTS: BlogPost[] = [
 		readMins: 5,
 		category: 'Pit Tips',
 		cover: '/images/bbq-spread.jpg',
-		excerpt: 'Low and slow is not a slogan, it is a discipline. A few things we have learned standing next to the smoke.',
+		excerpt:
+			'Low and slow is not a slogan, it is a discipline. A few things we have learned standing next to the smoke.',
 		featured: false,
 		content: null,
 		bodyText: [
-			"People ask for the secret all the time. The honest answer is boring: time. A brisket does not care about your schedule. It is done when it is done, and trying to rush it is the fastest way to ruin good meat.",
-			"We run hickory low and slow — 225 to 250, steady, all day. The bark you are chasing comes from a dry surface and a patient fire, not from cranking the heat. If you are peeking every ten minutes, you are losing more smoke than you think.",
-			"Rub matters, but it matters less than people hope. A balanced rub seasons the bark and helps it set. It will not save a fire you did not tend. Salt early, smoke steady, rest long.",
-			"That rest at the end is the part everybody skips. Give a brisket an hour wrapped and resting before you slice it. The difference is night and day."
+			'People ask for the secret all the time. The honest answer is boring: time. A brisket does not care about your schedule. It is done when it is done, and trying to rush it is the fastest way to ruin good meat.',
+			'We run hickory low and slow — 225 to 250, steady, all day. The bark you are chasing comes from a dry surface and a patient fire, not from cranking the heat. If you are peeking every ten minutes, you are losing more smoke than you think.',
+			'Rub matters, but it matters less than people hope. A balanced rub seasons the bark and helps it set. It will not save a fire you did not tend. Salt early, smoke steady, rest long.',
+			'That rest at the end is the part everybody skips. Give a brisket an hour wrapped and resting before you slice it. The difference is night and day.'
 		]
 	},
 	{
@@ -484,14 +500,15 @@ export const POSTS: BlogPost[] = [
 		readMins: 4,
 		category: 'Our Story',
 		cover: '/images/shon.png',
-		excerpt: 'West Tennessee taught us the fire. Nashville gave us the crowd. A short history of how we got here.',
+		excerpt:
+			'West Tennessee taught us the fire. Nashville gave us the crowd. A short history of how we got here.',
 		featured: false,
 		content: null,
 		bodyText: [
-			"Before there was a truck, there was a backyard in Paris, Tennessee, and two uncles named Clyde and Clay who treated barbecue like a craft worth getting right. Most of what we cook traces back to standing next to them, waiting.",
-			"When we brought it to Nashville in 2012, we were not sure the city needed another BBQ outfit. Turns out there is always room for the real thing. The line told us we were onto something.",
-			"West Tennessee barbecue is its own dialect — drier, smokier, less drowned in sauce than what you find further south. We have kept that accent on purpose. It is who we are.",
-			"Every plate we serve is a little bit of Paris carried up the road. That is the legacy, and we are not done writing it."
+			'Before there was a truck, there was a backyard in Paris, Tennessee, and two uncles named Clyde and Clay who treated barbecue like a craft worth getting right. Most of what we cook traces back to standing next to them, waiting.',
+			'When we brought it to Nashville in 2012, we were not sure the city needed another BBQ outfit. Turns out there is always room for the real thing. The line told us we were onto something.',
+			'West Tennessee barbecue is its own dialect — drier, smokier, less drowned in sauce than what you find further south. We have kept that accent on purpose. It is who we are.',
+			'Every plate we serve is a little bit of Paris carried up the road. That is the legacy, and we are not done writing it.'
 		]
 	}
 ];

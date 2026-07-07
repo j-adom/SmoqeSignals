@@ -9,16 +9,16 @@
 	description="How Smoqe Signals BBQ collects, uses, and protects your information."
 >
 	<p>
-		This Privacy Policy explains how {BIZ.legal} ("Smoqe Signals BBQ," "we," "us") collects, uses,
-		and protects your information when you use our website, place an order, or contact us.
+		This Privacy Policy explains how {BIZ.legal} ("Smoqe Signals BBQ," "we," "us") collects, uses, and
+		protects your information when you use our website, place an order, or contact us.
 	</p>
 
 	<h2>Information we collect</h2>
 	<ul>
 		<li>
 			<strong>Information you give us:</strong> your name, email, phone number, and event details when
-			you submit a catering or food-truck request, send a message through our contact form, or sign
-			up for our newsletter.
+			you submit a catering or food-truck request, send a message through our contact form, or sign up
+			for our newsletter.
 		</li>
 		<li>
 			<strong>Order information:</strong> your shipping and billing address and the items you order.
@@ -26,9 +26,9 @@
 			number on our servers.
 		</li>
 		<li>
-			<strong>Automatically collected information:</strong> basic technical and usage data (such as
-			your browser type and pages visited). Your shopping cart is stored locally in your browser and
-			is not sent to us until you check out.
+			<strong>Automatically collected information:</strong> basic technical and usage data (such as your
+			browser type and pages visited). Your shopping cart is stored locally in your browser and is not
+			sent to us until you check out.
 		</li>
 	</ul>
 
@@ -42,15 +42,17 @@
 
 	<h2>How we share information</h2>
 	<p>
-		We do not sell your personal information. We share it only with service providers who help us run
-		our business — such as Stripe for payment processing and our hosting and email providers — and
-		when required by law.
+		We do not sell your personal information. We share it only with service providers who help us
+		run our business — such as Stripe for payment processing and our hosting and email providers —
+		and when required by law.
 	</p>
 
 	<h2>Your choices</h2>
 	<p>
-		You can unsubscribe from our newsletter using the link in any email. To access, correct, or delete
-		the information we hold about you, email us at <a href={`mailto:${BIZ.email}`}>{BIZ.email}</a>.
+		You can unsubscribe from our newsletter using the link in any email. To access, correct, or
+		delete the information we hold about you, email us at <a href={`mailto:${BIZ.email}`}
+			>{BIZ.email}</a
+		>.
 	</p>
 
 	<h2>Cookies &amp; local storage</h2>

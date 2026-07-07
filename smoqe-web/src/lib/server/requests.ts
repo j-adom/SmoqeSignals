@@ -7,10 +7,7 @@ import { submitCatering } from '$lib/server/payload';
  * backend call live here once. Returns the value to hand straight back from the
  * SvelteKit action (either a `fail(...)` or a success payload).
  */
-export async function handleRequestSubmit(
-	request: Request,
-	fetch: typeof globalThis.fetch
-) {
+export async function handleRequestSubmit(request: Request, fetch: typeof globalThis.fetch) {
 	const form = await request.formData();
 	const name = String(form.get('name') || '').trim();
 	const email = String(form.get('email') || '').trim();

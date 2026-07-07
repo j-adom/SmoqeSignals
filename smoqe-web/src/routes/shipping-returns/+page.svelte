@@ -20,17 +20,19 @@
 
 	<h2>Problems with your order</h2>
 	<p>
-		If your order arrives damaged, incorrect, or incomplete, contact us within <strong>14 days</strong>
-		of delivery at <a href={`mailto:${BIZ.email}`}>{BIZ.email}</a> and we will make it right with a
-		replacement or refund.
+		If your order arrives damaged, incorrect, or incomplete, contact us within <strong
+			>14 days</strong
+		>
+		of delivery at <a href={`mailto:${BIZ.email}`}>{BIZ.email}</a> and we will make it right with a replacement
+		or refund.
 	</p>
 
 	<h2>Returns</h2>
 	<p>
-		Because our rubs, seasonings, and sauces are consumable food products, we cannot accept returns of
-		opened items for health and safety reasons. Unopened items in their original condition may be
-		returned within <strong>14 days</strong> of delivery; return shipping is the customer's
-		responsibility. Please contact us first so we can help.
+		Because our rubs, seasonings, and sauces are consumable food products, we cannot accept returns
+		of opened items for health and safety reasons. Unopened items in their original condition may be
+		returned within <strong>14 days</strong> of delivery; return shipping is the customer's responsibility.
+		Please contact us first so we can help.
 	</p>
 
 	<h2>Digital products</h2>
@@ -47,7 +49,8 @@
 
 	<h2>Contact us</h2>
 	<p>
-		Questions about a shipment or return? Reach us at <a href={`mailto:${BIZ.email}`}>{BIZ.email}</a>
+		Questions about a shipment or return? Reach us at <a href={`mailto:${BIZ.email}`}>{BIZ.email}</a
+		>
 		or {BIZ.phone}.
 	</p>
 </LegalPage>

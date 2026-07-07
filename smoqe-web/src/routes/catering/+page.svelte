@@ -45,7 +45,7 @@
 
 <div class="rise">
 	<!-- hero -->
-	<section class="relative overflow-hidden bg-smoke-900 text-white">
+	<section class="bg-smoke-900 relative overflow-hidden text-white">
 		<div class="absolute inset-0">
 			<img src="/images/bbq-spread.jpg" alt="" class="h-full w-full object-cover opacity-[0.42]" />
 			<div
@@ -54,9 +54,13 @@
 			></div>
 		</div>
 		<div class="container-wide relative py-[76px]">
-			<div class="mb-4 flex items-center gap-3"><Tristar lg /><span class="eyebrow text-ember">Catering</span></div>
-			<h1 class="display max-w-3xl text-[clamp(2.5rem,7vw,4.875rem)]">Great BBQ for any occasion</h1>
-			<p class="mt-4 max-w-xl text-lg leading-relaxed text-cream-text">
+			<div class="mb-4 flex items-center gap-3">
+				<Tristar lg /><span class="eyebrow text-ember">Catering</span>
+			</div>
+			<h1 class="display max-w-3xl text-[clamp(2.5rem,7vw,4.875rem)]">
+				Great BBQ for any occasion
+			</h1>
+			<p class="text-cream-text mt-4 max-w-xl text-lg leading-relaxed">
 				Review the menu, tell us about your event, and we'll follow up to confirm availability and
 				build the right spread — drop-off or full-service.
 			</p>
@@ -64,9 +68,11 @@
 				<a href="#request" class="btn btn-primary">Request a Quote <ArrowRight size={18} /></a>
 				<a href="#menu" class="btn btn-outline-light">View Menu</a>
 			</div>
-			<p class="mt-6 text-sm text-cream-muted">
+			<p class="text-cream-muted mt-6 text-sm">
 				Want the truck on site instead?
-				<a href="/food-truck" class="font-bold text-ember underline-offset-4 hover:underline">Book the food truck</a>.
+				<a href="/food-truck" class="text-ember font-bold underline-offset-4 hover:underline"
+					>Book the food truck</a
+				>.
 			</p>
 		</div>
 	</section>
@@ -87,50 +93,52 @@
 			<!-- menu -->
 			<div id="menu" class="scroll-mt-32">
 				<SectionHead eyebrow="Catering Menu" title="The spread" />
-				<p class="mt-3.5 leading-relaxed text-ink-soft">
+				<p class="text-ink-soft mt-3.5 leading-relaxed">
 					Build your event around our meats and sides. Menus can be tailored to your preferences,
 					dietary needs, and budget — delivered drop-off, or set up and served full-service. We
 					confirm the final menu and pricing after we review your details.
 				</p>
 
-				<h3 class="display mt-9 text-xl text-flame">Meats</h3>
+				<h3 class="display text-flame mt-9 text-xl">Meats</h3>
 				<div class="mt-4">
 					{#each CATERING_MENU.meats as m (m.name)}
-						<div class="border-b border-paper-line py-3.5">
-							<div class="font-extrabold text-ink">{m.name}</div>
-							<div class="text-sm leading-snug text-ink-soft">{m.desc}</div>
+						<div class="border-paper-line border-b py-3.5">
+							<div class="text-ink font-extrabold">{m.name}</div>
+							<div class="text-ink-soft text-sm leading-snug">{m.desc}</div>
 						</div>
 					{/each}
 				</div>
 
-				<h3 class="display mt-8 text-xl text-flame">Sides</h3>
+				<h3 class="display text-flame mt-8 text-xl">Sides</h3>
 				<div class="mt-4 grid gap-x-8 sm:grid-cols-2">
 					{#each CATERING_MENU.sides as m (m.name)}
-						<div class="border-b border-paper-line py-3">
-							<div class="font-extrabold text-ink">{m.name}</div>
-							<div class="text-sm leading-snug text-ink-soft">{m.desc}</div>
+						<div class="border-paper-line border-b py-3">
+							<div class="text-ink font-extrabold">{m.name}</div>
+							<div class="text-ink-soft text-sm leading-snug">{m.desc}</div>
 						</div>
 					{/each}
 				</div>
-				<p class="mt-3 text-[13px] italic text-ink-soft">{CATERING_MENU.sidesNote}</p>
+				<p class="text-ink-soft mt-3 text-[13px] italic">{CATERING_MENU.sidesNote}</p>
 
-				<h3 class="display mt-8 text-xl text-flame">Desserts</h3>
+				<h3 class="display text-flame mt-8 text-xl">Desserts</h3>
 				<div class="mt-4 grid gap-x-8 sm:grid-cols-2">
 					{#each CATERING_DESSERTS as m (m.name)}
-						<div class="border-b border-paper-line py-3">
-							<div class="font-extrabold text-ink">{m.name}</div>
-							<div class="text-sm leading-snug text-ink-soft">{m.desc}</div>
+						<div class="border-paper-line border-b py-3">
+							<div class="text-ink font-extrabold">{m.name}</div>
+							<div class="text-ink-soft text-sm leading-snug">{m.desc}</div>
 						</div>
 					{/each}
 				</div>
 
-				<h3 class="display mt-8 text-xl text-flame">Extras</h3>
+				<h3 class="display text-flame mt-8 text-xl">Extras</h3>
 				<div class="mt-4 flex flex-wrap gap-2">
 					{#each CATERING_EXTRAS as x (x)}
-						<span class="rounded-full border border-paper-line bg-paper-2 px-3 py-1.5 text-[13px] font-semibold text-ink-soft">{x}</span>
+						<span
+							class="border-paper-line bg-paper-2 text-ink-soft rounded-full border px-3 py-1.5 text-[13px] font-semibold"
+							>{x}</span
+						>
 					{/each}
 				</div>
-
 			</div>
 
 			<!-- request form -->
@@ -141,23 +149,27 @@
 	</section>
 
 	<!-- catering packages -->
-	<section id="packages" class="scroll-mt-32 border-t border-paper-line py-[88px]">
+	<section id="packages" class="border-paper-line scroll-mt-32 border-t py-[88px]">
 		<div class="container-wide">
 			<SectionHead eyebrow="Built for a crowd" title="Catering packages" />
-			<p class="mt-3.5 max-w-3xl leading-relaxed text-ink-soft">{CATERING_PACKAGES_NOTE}</p>
+			<p class="text-ink-soft mt-3.5 max-w-3xl leading-relaxed">{CATERING_PACKAGES_NOTE}</p>
 			<div class="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 				{#each CATERING_PACKAGES as pkg (pkg.name)}
 					<div class="card-brand flex flex-col p-6">
-						<h3 class="text-[19px] font-extrabold text-flame">{pkg.name}</h3>
-						<p class="mt-2 text-sm leading-relaxed text-ink-soft">{pkg.blurb}</p>
+						<h3 class="text-flame text-[19px] font-extrabold">{pkg.name}</h3>
+						<p class="text-ink-soft mt-2 text-sm leading-relaxed">{pkg.blurb}</p>
 						{#if pkg.choices.length}
-							<ul class="mt-4 space-y-2 border-t border-paper-line pt-4 text-[13.5px] leading-snug text-ink-soft">
+							<ul
+								class="border-paper-line text-ink-soft mt-4 space-y-2 border-t pt-4 text-[13.5px] leading-snug"
+							>
 								{#each pkg.choices as c (c)}
 									<li>{c}</li>
 								{/each}
 							</ul>
 						{/if}
-						<a href="#request" class="btn btn-ghost btn-sm mt-5 self-start border-paper-line">Request a Quote</a>
+						<a href="#request" class="btn btn-ghost btn-sm border-paper-line mt-5 self-start"
+							>Request a Quote</a
+						>
 					</div>
 				{/each}
 			</div>
@@ -165,10 +177,10 @@
 	</section>
 
 	<!-- terms -->
-	<section id="terms" class="scroll-mt-32 border-t border-paper-line bg-paper-2 py-[88px]">
+	<section id="terms" class="border-paper-line bg-paper-2 scroll-mt-32 border-t py-[88px]">
 		<div class="container-wide">
 			<SectionHead eyebrow="Before we roll up" title="Catering made easy" />
-			<div class="mt-8 max-w-3xl space-y-4 text-[15px] leading-relaxed text-ink-soft">
+			<div class="text-ink-soft mt-8 max-w-3xl space-y-4 text-[15px] leading-relaxed">
 				{#each CATERING_TERMS as p (p)}
 					<p>{p}</p>
 				{/each}
@@ -186,7 +198,7 @@
 				{/each}
 			</div>
 			<div class="mt-10 text-center">
-				<p class="mb-[18px] text-ink-soft">Still have questions? We're happy to talk it through.</p>
+				<p class="text-ink-soft mb-[18px]">Still have questions? We're happy to talk it through.</p>
 				<a href="/contact" class="btn btn-dark">Contact Us</a>
 			</div>
 		</div>

@@ -51,7 +51,7 @@
 
 <div class="rise">
 	<!-- HERO -->
-	<section class="relative overflow-hidden bg-smoke-900">
+	<section class="bg-smoke-900 relative overflow-hidden">
 		<div class="absolute inset-0">
 			<img
 				src="/images/brisket-board.png"
@@ -63,9 +63,7 @@
 				style="background:linear-gradient(105deg, rgba(10,7,5,.96) 0%, rgba(10,7,5,.82) 38%, rgba(10,7,5,.35) 70%, rgba(10,7,5,.6) 100%)"
 			></div>
 		</div>
-		<div
-			class="container-wide relative flex min-h-[560px] flex-col justify-center py-[76px]"
-		>
+		<div class="container-wide relative flex min-h-[560px] flex-col justify-center py-[76px]">
 			<div class="mb-7 flex items-center gap-3">
 				<Tristar lg />
 				<span class="eyebrow text-ember">Est. {BIZ.founded} · Nashville, Tennessee</span>
@@ -75,17 +73,24 @@
 				alt="Smoqe Signals BBQ"
 				class="mb-[30px] h-auto w-[min(560px,86vw)] drop-shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
 			/>
-			<p class="mb-3.5 max-w-[560px] text-[clamp(1.1rem,2.4vw,1.45rem)] font-medium leading-snug text-cream-text">
-				Twelve years of low-and-slow, West Tennessee barbecue — from our food truck to your backyard.
+			<p
+				class="text-cream-text mb-3.5 max-w-[560px] text-[clamp(1.1rem,2.4vw,1.45rem)] leading-snug font-medium"
+			>
+				Twelve years of low-and-slow, West Tennessee barbecue — from our food truck to your
+				backyard.
 			</p>
-			<p class="mb-8 text-[15px] font-bold tracking-wide text-cream-muted">{BIZ.tagline}</p>
+			<p class="text-cream-muted mb-8 text-[15px] font-bold tracking-wide">{BIZ.tagline}</p>
 			<div class="flex flex-wrap gap-3.5">
 				<a href="/shop" class="btn btn-primary">Shop the Rubs <ArrowRight size={18} /></a>
 				<a href="/food-truck" class="btn btn-outline-light">Book the Truck</a>
 			</div>
-			<div class="mt-9 flex flex-wrap gap-6 text-sm font-semibold text-cream-muted">
-				<a href={BIZ.phoneHref} class="flex items-center gap-2"><Phone size={16} class="text-ember" />{BIZ.phone}</a>
-				<span class="flex items-center gap-2"><MapPin size={16} class="text-ember" />Nashville, TN</span>
+			<div class="text-cream-muted mt-9 flex flex-wrap gap-6 text-sm font-semibold">
+				<a href={BIZ.phoneHref} class="flex items-center gap-2"
+					><Phone size={16} class="text-ember" />{BIZ.phone}</a
+				>
+				<span class="flex items-center gap-2"
+					><MapPin size={16} class="text-ember" />Nashville, TN</span
+				>
 			</div>
 		</div>
 	</section>
@@ -107,12 +112,12 @@
 				{#each proof as c (c.t)}
 					<article class="card-brand p-8 text-center">
 						<div
-							class="mx-auto mb-5 grid h-[60px] w-[60px] place-items-center rounded-[14px] bg-smoke-900 text-ember"
+							class="bg-smoke-900 text-ember mx-auto mb-5 grid h-[60px] w-[60px] place-items-center rounded-[14px]"
 						>
 							<c.Icon size={30} />
 						</div>
 						<h3 class="mb-2.5 text-xl font-extrabold">{c.t}</h3>
-						<p class="mx-auto max-w-xs leading-relaxed text-ink-soft">{c.d}</p>
+						<p class="text-ink-soft mx-auto max-w-xs leading-relaxed">{c.d}</p>
 					</article>
 				{/each}
 			</div>
@@ -120,14 +125,18 @@
 	</section>
 
 	<!-- HOLIDAY MEATS -->
-	<section class="border-y border-paper-line bg-smoke-900 py-[88px] text-white">
+	<section class="border-paper-line bg-smoke-900 border-y py-[88px] text-white">
 		<div class="container-wide">
 			<div class="grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
 				<div>
 					<SectionHead eyebrow={HOLIDAY_MEATS.eyebrow} title={HOLIDAY_MEATS.title} light />
-					<p class="mt-5 max-w-md text-[17px] leading-relaxed text-cream-text">{HOLIDAY_MEATS.blurb}</p>
+					<p class="text-cream-text mt-5 max-w-md text-[17px] leading-relaxed">
+						{HOLIDAY_MEATS.blurb}
+					</p>
 					<div class="mt-7 flex flex-wrap gap-3.5">
-						<a href="/contact" class="btn btn-primary">Pre-Order for the Holidays <ArrowRight size={18} /></a>
+						<a href="/contact" class="btn btn-primary"
+							>Pre-Order for the Holidays <ArrowRight size={18} /></a
+						>
 						<a href={BIZ.phoneHref} class="btn btn-outline-light">Call {BIZ.phone}</a>
 					</div>
 				</div>
@@ -138,7 +147,7 @@
 								<Tristar />
 								<h3 class="text-xl font-extrabold text-white">{item.name}</h3>
 							</div>
-							<p class="mt-2.5 leading-relaxed text-cream-muted">{item.desc}</p>
+							<p class="text-cream-muted mt-2.5 leading-relaxed">{item.desc}</p>
 						</article>
 					{/each}
 				</div>
@@ -147,7 +156,7 @@
 	</section>
 
 	<!-- SHOP TEASER -->
-	<section class="border-y border-paper-line bg-paper-2 py-[88px]">
+	<section class="border-paper-line bg-paper-2 border-y py-[88px]">
 		<div class="container-wide">
 			<div class="mb-10 flex flex-wrap items-end justify-between gap-6">
 				<SectionHead
@@ -169,7 +178,9 @@
 	<section class="py-[88px]">
 		<div class="container-wide grid items-center gap-14 lg:grid-cols-[0.85fr_1fr]">
 			<div class="relative">
-				<div class="absolute -left-4 -top-4 h-full w-full rounded-lg border-[3px] border-flame"></div>
+				<div
+					class="border-flame absolute -top-4 -left-4 h-full w-full rounded-lg border-[3px]"
+				></div>
 				<img
 					src="/images/shon.png"
 					alt="Shon, pitmaster and owner"
@@ -178,12 +189,12 @@
 			</div>
 			<div>
 				<SectionHead eyebrow="Meet the pitmaster" title="Shon, the man behind the smoke" />
-				<p class="mt-5 text-[17px] leading-relaxed text-ink-soft">
+				<p class="text-ink-soft mt-5 text-[17px] leading-relaxed">
 					Smoqe Signals is built on hospitality, patience, and West Tennessee roots that run back to
 					Paris, TN and two uncles named Clyde and Clay. Shon brings that standard to the truck, the
 					pit, and every catered table.
 				</p>
-				<p class="mt-4 text-[17px] leading-relaxed text-ink-soft">
+				<p class="text-ink-soft mt-4 text-[17px] leading-relaxed">
 					The menu stays grounded in the classics: smoke-kissed meats, sturdy sides, and food that
 					makes an event feel personal instead of packaged.
 				</p>
@@ -193,7 +204,7 @@
 	</section>
 
 	<!-- CATERING CTA -->
-	<section class="relative overflow-hidden bg-smoke-900 text-white">
+	<section class="bg-smoke-900 relative overflow-hidden text-white">
 		<div class="absolute inset-0">
 			<img src="/images/food-truck.png" alt="" class="h-full w-full object-cover opacity-[0.34]" />
 			<div
@@ -204,12 +215,14 @@
 		<div class="container-wide relative py-[92px]">
 			<div class="max-w-[600px]">
 				<SectionHead eyebrow="Catering" title="Catering that feels like the main event" light />
-				<p class="mt-5 text-[17px] leading-relaxed text-cream-text">
+				<p class="text-cream-text mt-5 text-[17px] leading-relaxed">
 					Tell us the date, guest count, and service style. We'll shape the menu around your crowd,
 					setup, and timing so the food lands hot and the day feels easy.
 				</p>
 				<div class="mt-7 flex flex-wrap gap-3.5">
-					<a href="/catering" class="btn btn-primary">Start a Catering Request <ArrowRight size={18} /></a>
+					<a href="/catering" class="btn btn-primary"
+						>Start a Catering Request <ArrowRight size={18} /></a
+					>
 					<a href="/contact" class="btn btn-outline-light">Talk to Us</a>
 				</div>
 			</div>
@@ -220,7 +233,7 @@
 	<section class="py-[88px]">
 		<div class="container-wide">
 			<div class="mb-10 flex flex-wrap items-end justify-between gap-6">
-				<SectionHead eyebrow="From the Pit" title="Smoke signals & stories" />
+				<SectionHead eyebrow="From the Pit" title="SmoQe Signals & Stories" />
 				<a href="/blog" class="btn btn-ghost">All Posts <ArrowRight size={18} /></a>
 			</div>
 			<div class="grid gap-6 md:grid-cols-3">
@@ -234,7 +247,7 @@
 	<Testimonials />
 
 	<!-- INSTAGRAM -->
-	<section class="border-t border-paper-line py-[88px]">
+	<section class="border-paper-line border-t py-[88px]">
 		<div class="container-wide">
 			<div class="mb-10 flex flex-wrap items-end justify-between gap-6">
 				<SectionHead
@@ -257,7 +270,7 @@
 						href="https://www.instagram.com/smoqesignalsbbq"
 						target="_blank"
 						rel="noopener noreferrer"
-						class="group relative aspect-square overflow-hidden rounded-lg bg-paper-2"
+						class="group bg-paper-2 relative aspect-square overflow-hidden rounded-lg"
 					>
 						<img
 							{src}
@@ -265,7 +278,7 @@
 							class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
 						/>
 						<div
-							class="absolute inset-0 grid place-items-center bg-smoke-900/0 text-white/0 transition-all duration-300 group-hover:bg-smoke-900/40 group-hover:text-white"
+							class="bg-smoke-900/0 group-hover:bg-smoke-900/40 absolute inset-0 grid place-items-center text-white/0 transition-all duration-300 group-hover:text-white"
 						>
 							<InstagramIcon size={26} />
 						</div>

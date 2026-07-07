@@ -14,7 +14,11 @@
 
 	const valueProps = [
 		{ Icon: Leaf, t: 'All Natural', d: 'No MSG, no fillers. Just spices, salt, and smoke.' },
-		{ Icon: Flame, t: 'Pit-Tested', d: 'Every blend earns its place on the truck before the shelf.' },
+		{
+			Icon: Flame,
+			t: 'Pit-Tested',
+			d: 'Every blend earns its place on the truck before the shelf.'
+		},
 		{ Icon: Truck, t: 'Ships Fast', d: 'Packed and out the door in 1–2 business days.' }
 	];
 </script>
@@ -29,7 +33,7 @@
 
 <div class="rise">
 	<!-- hero -->
-	<section class="relative overflow-hidden bg-smoke-900 text-white">
+	<section class="bg-smoke-900 relative overflow-hidden text-white">
 		<div class="absolute inset-0">
 			<img
 				src="/images/wings-rub.jpg"
@@ -42,9 +46,13 @@
 			></div>
 		</div>
 		<div class="container-wide relative py-[72px]">
-			<div class="mb-4 flex items-center gap-3"><Tristar lg /><span class="eyebrow text-ember">The Rub Shop</span></div>
-			<h1 class="display max-w-3xl text-[clamp(2.5rem,7vw,4.75rem)]">Bottled smoke for your kitchen</h1>
-			<p class="mt-4 max-w-xl text-lg leading-relaxed text-cream-text">
+			<div class="mb-4 flex items-center gap-3">
+				<Tristar lg /><span class="eyebrow text-ember">The Rub Shop</span>
+			</div>
+			<h1 class="display max-w-3xl text-[clamp(2.5rem,7vw,4.75rem)]">
+				Bottled smoke for your kitchen
+			</h1>
+			<p class="text-cream-text mt-4 max-w-xl text-lg leading-relaxed">
 				All-natural rubs, seasonings, and small-batch sauces — the exact blends we use on the truck.
 				Free shipping on orders over $45.
 			</p>
@@ -70,16 +78,18 @@
 	</section>
 
 	<!-- value props -->
-	<section class="border-t border-paper-line bg-paper-2 py-14">
+	<section class="border-paper-line bg-paper-2 border-t py-14">
 		<div class="container-wide grid gap-6 md:grid-cols-3">
 			{#each valueProps as v (v.t)}
 				<div class="flex items-start gap-4">
-					<div class="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[11px] bg-smoke-900 text-ember">
+					<div
+						class="bg-smoke-900 text-ember grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[11px]"
+					>
 						<v.Icon size={24} />
 					</div>
 					<div>
 						<h4 class="mb-1 text-[17px] font-extrabold">{v.t}</h4>
-						<p class="text-[14.5px] leading-snug text-ink-soft">{v.d}</p>
+						<p class="text-ink-soft text-[14.5px] leading-snug">{v.d}</p>
 					</div>
 				</div>
 			{/each}

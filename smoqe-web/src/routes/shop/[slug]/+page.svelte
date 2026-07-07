@@ -32,9 +32,7 @@
 			'@type': 'Offer',
 			price: p.price,
 			priceCurrency: 'USD',
-			availability: p.inStock
-				? 'https://schema.org/InStock'
-				: 'https://schema.org/OutOfStock',
+			availability: p.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
 			url: page.url.href
 		}
 	});
@@ -54,19 +52,19 @@
 
 <div class="rise">
 	<div class="container-wide pt-7">
-		<nav class="flex gap-2 text-[13.5px] font-semibold text-ink-soft">
-			<a href="/shop" class="font-extrabold text-flame">Shop</a><span>/</span>
+		<nav class="text-ink-soft flex gap-2 text-[13.5px] font-semibold">
+			<a href="/shop" class="text-flame font-extrabold">Shop</a><span>/</span>
 			<span>{p.category}</span><span>/</span><span class="text-ink">{p.name}</span>
 		</nav>
 	</div>
 
 	<section class="py-8 md:py-[88px] md:pt-8">
 		<div class="container-wide grid items-start gap-14 md:grid-cols-2">
-			<div class="relative overflow-hidden rounded-lg border border-paper-line bg-paper-2">
+			<div class="border-paper-line bg-paper-2 relative overflow-hidden rounded-lg border">
 				<img src={p.image} alt={p.name} class="aspect-square w-full object-cover" />
 				{#if p.tag}
 					<span
-						class={`absolute left-[18px] top-[18px] rounded-full px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wider text-white ${
+						class={`absolute top-[18px] left-[18px] rounded-full px-2.5 py-1 text-[11px] font-extrabold tracking-wider text-white uppercase ${
 							hot ? 'bg-flame' : 'bg-smoke-900'
 						}`}
 					>
@@ -81,14 +79,14 @@
 				<div class="mb-5 flex flex-wrap items-center gap-4">
 					<span class="display text-3xl">{money(p.price)}</span>
 					<span class="text-paper-line">|</span>
-					<span class="text-sm font-bold text-ink-soft">{p.size}</span>
+					<span class="text-ink-soft text-sm font-bold">{p.size}</span>
 					{#if p.heat > 0}
-						<span class="flex items-center gap-2 text-[13px] font-bold text-ink-soft">
+						<span class="text-ink-soft flex items-center gap-2 text-[13px] font-bold">
 							Heat <HeatMeter level={p.heat} />
 						</span>
 					{/if}
 				</div>
-				<p class="mb-6 text-[17px] leading-relaxed text-ink-soft">{p.long}</p>
+				<p class="text-ink-soft mb-6 text-[17px] leading-relaxed">{p.long}</p>
 
 				<div class="mb-7 flex flex-wrap gap-2.5">
 					{#each p.notes as note (note)}
@@ -97,9 +95,11 @@
 				</div>
 
 				<div class="flex flex-wrap items-center gap-3.5">
-					<span class="inline-flex h-[52px] items-center overflow-hidden rounded border-[1.5px] border-paper-line">
+					<span
+						class="border-paper-line inline-flex h-[52px] items-center overflow-hidden rounded border-[1.5px]"
+					>
 						<button
-							class="grid h-[50px] w-11 place-items-center bg-white text-char hover:bg-paper-2"
+							class="text-char hover:bg-paper-2 grid h-[50px] w-11 place-items-center bg-white"
 							onclick={() => (qty = Math.max(1, qty - 1))}
 							aria-label="Decrease quantity"
 						>
@@ -107,7 +107,7 @@
 						</button>
 						<span class="w-11 text-center font-extrabold">{qty}</span>
 						<button
-							class="grid h-[50px] w-11 place-items-center bg-white text-char hover:bg-paper-2"
+							class="text-char hover:bg-paper-2 grid h-[50px] w-11 place-items-center bg-white"
 							onclick={() => (qty = qty + 1)}
 							aria-label="Increase quantity"
 						>
@@ -120,17 +120,20 @@
 				</div>
 
 				<div
-					class="mt-6 flex items-center gap-3 rounded border border-paper-line bg-paper-2 px-5 py-[18px] text-sm text-ink-soft"
+					class="border-paper-line bg-paper-2 text-ink-soft mt-6 flex items-center gap-3 rounded border px-5 py-[18px] text-sm"
 				>
-					<Truck size={22} class="shrink-0 text-flame" />
-					<span><strong class="text-ink">Free shipping over $45.</strong> Ships in 1–2 business days from Nashville.</span>
+					<Truck size={22} class="text-flame shrink-0" />
+					<span
+						><strong class="text-ink">Free shipping over $45.</strong> Ships in 1–2 business days from
+						Nashville.</span
+					>
 				</div>
 			</div>
 		</div>
 	</section>
 
 	{#if data.related.length}
-		<section class="border-t border-paper-line bg-paper-2 py-16">
+		<section class="border-paper-line bg-paper-2 border-t py-16">
 			<div class="container-wide">
 				<h2 class="display mb-7 text-3xl">Pairs well with</h2>
 				<div class="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">

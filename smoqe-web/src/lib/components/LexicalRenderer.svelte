@@ -49,8 +49,7 @@
 			case 'listitem':
 				return `<li>${children(node)}</li>`;
 			case 'link': {
-				const url =
-					(node.fields as { url?: string } | undefined)?.url || node.url || '#';
+				const url = (node.fields as { url?: string } | undefined)?.url || node.url || '#';
 				return `<a href="${esc(url)}" rel="noopener">${children(node)}</a>`;
 			}
 			case 'root':

@@ -16,7 +16,13 @@ export const actions: Actions = {
 
 		const res = await submitContact({ name, email, message, inquiryType }, fetch);
 		if (!res.ok) {
-			return fail(502, { name, email, message, inquiryType, error: 'Message could not be sent. Please try again or call us.' });
+			return fail(502, {
+				name,
+				email,
+				message,
+				inquiryType,
+				error: 'Message could not be sent. Please try again or call us.'
+			});
 		}
 		return { success: true, name };
 	}

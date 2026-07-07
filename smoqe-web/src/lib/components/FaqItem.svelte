@@ -6,13 +6,13 @@
 	let expanded = $state(open);
 </script>
 
-<div class="border-b border-paper-line">
+<div class="border-paper-line border-b">
 	<button
 		class="flex w-full items-center justify-between gap-5 py-[22px] text-left"
 		onclick={() => (expanded = !expanded)}
 		aria-expanded={expanded}
 	>
-		<span class="text-lg font-extrabold text-ink">{faq.q}</span>
+		<span class="text-ink text-lg font-extrabold">{faq.q}</span>
 		<span
 			class={`grid h-[30px] w-[30px] shrink-0 place-items-center rounded-full text-xl font-bold transition-colors ${
 				expanded ? 'bg-flame text-white' : 'bg-paper-2 text-ink'
@@ -22,7 +22,10 @@
 		</span>
 	</button>
 	{#if expanded}
-		<p transition:slide={{ duration: 220 }} class="pb-6 text-[15.5px] leading-relaxed text-ink-soft">
+		<p
+			transition:slide={{ duration: 220 }}
+			class="text-ink-soft pb-6 text-[15.5px] leading-relaxed"
+		>
 			{faq.a}
 		</p>
 	{/if}

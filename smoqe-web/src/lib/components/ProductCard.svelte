@@ -15,9 +15,9 @@
 </script>
 
 <article
-	class="group flex flex-col overflow-hidden rounded-lg border border-paper-line bg-white transition duration-200 hover:-translate-y-1 hover:border-flame/40 hover:shadow-[var(--shadow-lift)]"
+	class="group border-paper-line hover:border-flame/40 flex flex-col overflow-hidden rounded-lg border bg-white transition duration-200 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
 >
-	<a href={`/shop/${product.slug}`} class="relative block aspect-square overflow-hidden bg-paper-2">
+	<a href={`/shop/${product.slug}`} class="bg-paper-2 relative block aspect-square overflow-hidden">
 		<img
 			src={product.image}
 			alt={product.name}
@@ -26,7 +26,7 @@
 		/>
 		{#if product.tag}
 			<span
-				class={`absolute left-3 top-3 rounded-full px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wider text-white ${
+				class={`absolute top-3 left-3 rounded-full px-2.5 py-1 text-[11px] font-extrabold tracking-wider text-white uppercase ${
 					hot ? 'bg-flame' : 'bg-smoke-900'
 				}`}
 			>
@@ -36,15 +36,15 @@
 	</a>
 	<div class="flex flex-1 flex-col gap-1.5 p-[18px]">
 		<div class="flex items-center justify-between gap-2">
-			<span class="eyebrow text-[11px] text-ink-soft">{product.category}</span>
+			<span class="eyebrow text-ink-soft text-[11px]">{product.category}</span>
 			<HeatMeter level={product.heat} />
 		</div>
-		<a href={`/shop/${product.slug}`} class="text-[17px] font-extrabold tracking-tight text-ink">
+		<a href={`/shop/${product.slug}`} class="text-ink text-[17px] font-extrabold tracking-tight">
 			{product.name}
 		</a>
-		<p class="flex-1 text-[13.5px] leading-relaxed text-ink-soft">{product.short}</p>
+		<p class="text-ink-soft flex-1 text-[13.5px] leading-relaxed">{product.short}</p>
 		<div class="mt-2.5 flex items-center justify-between">
-			<span class="display text-[22px] text-ink">{money(product.price)}</span>
+			<span class="display text-ink text-[22px]">{money(product.price)}</span>
 			<button class="btn btn-dark btn-sm" onclick={add}>Add to Cart</button>
 		</div>
 	</div>

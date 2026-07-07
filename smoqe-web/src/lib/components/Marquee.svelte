@@ -9,11 +9,10 @@
 		'Veggie Pulled "Pork"',
 		'Mac & Cheese',
 		'Baked Beans'
-		
 	];
 </script>
 
-<div class="overflow-hidden border-b-[3px] border-smoke-900 bg-flame text-white">
+<div class="border-smoke-900 bg-flame overflow-hidden border-b-[3px] text-white">
 	<div class="marquee py-3">
 		{#each [0, 1] as dup (dup)}
 			<div class="flex shrink-0 items-center" aria-hidden={dup === 1}>
