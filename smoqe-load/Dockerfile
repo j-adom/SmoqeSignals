@@ -5,7 +5,12 @@
 # file-tracing can drop from the bundle and break at runtime.
 
 FROM node:22-bookworm-slim AS base
+# COREPACK_HOME must be a fixed, world-readable path populated here (as root).
+# It defaults to $HOME/.cache/node/corepack, and the runtime user below is a
+# --system user with no writable home, so Corepack would EACCES trying to
+# re-verify pnpm on every `pnpm` invocation in the runner stage.
 ENV PNPM_HOME="/pnpm" \
+    COREPACK_HOME="/pnpm/corepack" \
     PATH="/pnpm:$PATH" \
     NEXT_TELEMETRY_DISABLED=1
 # ca-certificates/openssl: DB TLS + sharp's glibc runtime deps.
@@ -13,7 +18,8 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates openssl \
     && rm -rf /var/lib/apt/lists/* \
     && corepack enable \
-	&& corepack prepare pnpm@11.12.0 --activate
+	&& corepack prepare pnpm@11.12.0 --activate \
+	&& chmod -R a+rX /pnpm
 WORKDIR /app
 
 # ---- deps (all deps — dev deps are required to build) ----
@@ -40,7 +46,10 @@ RUN useradd --system --uid 1001 nodejs
 COPY --from=build --chown=nodejs:nodejs /app ./
 USER nodejs
 EXPOSE 3000
+# Invoke Next directly rather than via `pnpm start` so the long-running process
+# never goes through the Corepack shim at all.
+#
 # Run migrations as a release step before starting this container. For the
 # first empty database only, PAYLOAD_DB_PUSH=true can intentionally create the
 # schema; turn it off again immediately afterward.
-CMD ["pnpm", "start"]
+CMD ["node_modules/.bin/next", "start"]
