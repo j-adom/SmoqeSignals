@@ -3,12 +3,21 @@ import type { Payload } from 'payload';
 const BRAND = '#d6451a';
 const STAFF = () => process.env.STAFF_NOTIFICATION_EMAIL || process.env.FROM_EMAIL || '';
 
+export function escapeHTML(value: unknown): string {
+	return String(value ?? '')
+		.replaceAll('&', '&amp;')
+		.replaceAll('<', '&lt;')
+		.replaceAll('>', '&gt;')
+		.replaceAll('"', '&quot;')
+		.replaceAll("'", '&#39;');
+}
+
 function shell(title: string, rows: Array<[string, string]>, intro?: string): string {
 	const body = rows
 		.filter(([, v]) => v)
 		.map(
 			([k, v]) =>
-				`<tr><td style="padding:6px 14px 6px 0;color:#6b5b4d;font-weight:700;white-space:nowrap;vertical-align:top">${k}</td><td style="padding:6px 0;color:#241a13">${v}</td></tr>`
+				`<tr><td style="padding:6px 14px 6px 0;color:#6b5b4d;font-weight:700;white-space:nowrap;vertical-align:top">${escapeHTML(k)}</td><td style="padding:6px 0;color:#241a13">${escapeHTML(v)}</td></tr>`
 		)
 		.join('');
 	return `
@@ -19,8 +28,8 @@ function shell(title: string, rows: Array<[string, string]>, intro?: string): st
 				<span style="color:${BRAND};font-size:18px;font-weight:800"> ●</span>
 			</div>
 			<div style="padding:26px">
-				<h2 style="margin:0 0 6px;color:#241a13;font-size:20px">${title}</h2>
-				${intro ? `<p style="margin:0 0 16px;color:#6b5b4d;font-size:14px;line-height:1.5">${intro}</p>` : ''}
+				<h2 style="margin:0 0 6px;color:#241a13;font-size:20px">${escapeHTML(title)}</h2>
+				${intro ? `<p style="margin:0 0 16px;color:#6b5b4d;font-size:14px;line-height:1.5">${escapeHTML(intro)}</p>` : ''}
 				<table style="width:100%;border-collapse:collapse;font-size:14px">${body}</table>
 			</div>
 			<div style="background:#f4e9d8;padding:14px 26px;color:#6b5b4d;font-size:12px">
@@ -50,8 +59,12 @@ export async function notifyCatering(payload: Payload, d: Record<string, unknown
 			['Email', String(d.email ?? '')],
 			['Phone', String(d.phone ?? '')],
 			['Event date', String(d.eventDate ?? '')],
+			['Event time', String(d.eventTime ?? '')],
 			['Guests', String(d.guestCount ?? '')],
 			['Service', String(d.serviceStyle ?? '')],
+			['Location', String(d.location ?? '')],
+			['Budget', String(d.budget ?? '')],
+			['How they heard', String(d.hearAbout ?? '')],
 			['Notes', String(d.notes ?? '')]
 		],
 		'A new catering request just came in through the website.'

@@ -1,9 +1,10 @@
 import type { GlobalConfig } from 'payload';
+import { contentManagers } from '../access';
 
 const SiteSettings: GlobalConfig = {
 	slug: 'siteSettings',
 	admin: { group: 'System' },
-	access: { read: () => true },
+	access: { read: () => true, update: contentManagers },
 	fields: [
 		{
 			name: 'announcement',

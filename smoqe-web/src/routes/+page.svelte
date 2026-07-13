@@ -79,8 +79,8 @@
 			<p
 				class="text-cream-text mb-3.5 max-w-[560px] text-[clamp(1.1rem,2.4vw,1.45rem)] leading-snug font-medium"
 			>
-				Authentic West TN BBQ, {years} years running — book the truck for your event, or shop the
-				dry rubs and seasonings we built it on.
+				Authentic West TN BBQ, {years} years running — book the truck for your event, or shop the dry
+				rubs and seasonings we built it on.
 			</p>
 			<p class="text-cream-muted mb-8 text-[15px] font-bold tracking-wide">{BIZ.tagline}</p>
 			<div class="flex flex-wrap gap-3.5">
@@ -211,7 +211,9 @@
 				<p class="text-ink-soft mt-4 text-[17px] leading-relaxed">
 					The menu is Nashville Bred, Memphis Approved, Tennessee Tradition.
 				</p>
-				<a href="/the-history" class="btn btn-ghost mt-7">Read The History <ArrowRight size={18} /></a>
+				<a href="/the-history" class="btn btn-ghost mt-7"
+					>Read The History <ArrowRight size={18} /></a
+				>
 			</div>
 		</div>
 	</section>

@@ -15,20 +15,23 @@
 	} = $props();
 
 	let email = $state('');
-	let status = $state<'idle' | 'loading' | 'done'>('idle');
+	let status = $state<'idle' | 'loading' | 'done' | 'error'>('idle');
 
 	async function submit(e: SubmitEvent) {
 		e.preventDefault();
 		if (!email || status === 'loading') return;
 		status = 'loading';
 		try {
-			await fetch('/api/newsletter', {
+			const response = await fetch('/api/newsletter', {
 				method: 'POST',
 				headers: { 'content-type': 'application/json' },
 				body: JSON.stringify({ email, source })
 			});
+			if (!response.ok) throw new Error('Subscription failed');
 		} catch {
-			/* swallow — optimistic */
+			status = 'error';
+			toast.show('We could not save that subscription. Please try again.');
+			return;
 		}
 		status = 'done';
 		email = '';
@@ -43,9 +46,15 @@
 		<Check size={18} /> You're in. Welcome to the crew.
 	</div>
 {:else}
+	{#if status === 'error'}
+		<p class="mb-2 text-sm font-bold" role="alert">
+			Could not subscribe right now. Please try again.
+		</p>
+	{/if}
 	<form onsubmit={submit} class={`flex gap-2.5 ${compact ? '' : 'flex-wrap'}`}>
 		<input
 			type="email"
+			maxlength="254"
 			required
 			bind:value={email}
 			placeholder="Enter your email address"

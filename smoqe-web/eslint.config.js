@@ -21,6 +21,12 @@ export default ts.config(
 		}
 	},
 	{
+		files: ['**/*.ts'],
+		languageOptions: {
+			parser: ts.parser
+		}
+	},
+	{
 		files: ['**/*.svelte'],
 		languageOptions: {
 			parserOptions: { parser: ts.parser }

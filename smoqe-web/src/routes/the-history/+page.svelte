@@ -44,17 +44,17 @@
 					<span class="display text-flame mr-2 text-[22px]">Smoqe Signals BBQ</span> was founded in
 					<strong>2012</strong> as a hobby and a way to pass time. In the beginning there was no name,
 					only a smoker on the front porch. At the time, Shon was working in the marketing department
-					at Bridgestone Corporation, promoting events on the side. He'd always enjoyed cooking as a
-					hobby and a way to relieve stress after a long day in the office. "I've never been much of
-					a heavy eater — in the beginning I'd cook and just give it away to friends." Soon his corporate
-					and event life got too busy and he stopped cooking. That only made demand grow — the same
-					people he used to feed for free now offered to pay him since he no longer had the time. Back
-					then there wasn't a name, there wasn't a business, only love. Demand grew so much that Shon
-					started leaving work at lunch on Fridays — slipping out from Bridgestone's corporate offices
-					just to check the ribs he'd put on that morning. Hickory wood has a sweet aroma that doesn't
-					come out of your clothes easily. When he got back to the office, his coworkers would ask,
-					his manager would order, and the rest is history. From that day until his last day there,
-					the office ordered every single week.
+					at Bridgestone Corporation, promoting events on the side. He'd always enjoyed cooking as a hobby
+					and a way to relieve stress after a long day in the office. "I've never been much of a heavy
+					eater — in the beginning I'd cook and just give it away to friends." Soon his corporate and
+					event life got too busy and he stopped cooking. That only made demand grow — the same people
+					he used to feed for free now offered to pay him since he no longer had the time. Back then there
+					wasn't a name, there wasn't a business, only love. Demand grew so much that Shon started leaving
+					work at lunch on Fridays — slipping out from Bridgestone's corporate offices just to check the
+					ribs he'd put on that morning. Hickory wood has a sweet aroma that doesn't come out of your
+					clothes easily. When he got back to the office, his coworkers would ask, his manager would order,
+					and the rest is history. From that day until his last day there, the office ordered every single
+					week.
 				</p>
 				<p class="text-ink-soft mb-6">
 					As fate would have it, demand got so large Shon could no longer keep up on the small grill
@@ -139,8 +139,8 @@
 					<h2 class="display my-4 text-[clamp(1.75rem,3.6vw,2.5rem)]">Patience over shortcuts</h2>
 					<p class="text-cream-text text-[16.5px] leading-relaxed">
 						"Because none of it (BBQ/Business) happens without the fundamentals. None of it happens
-						without the patience, the discipline, and the love for the craft that this book is
-						built on."
+						without the patience, the discipline, and the love for the craft that this book is built
+						on."
 					</p>
 					<p class="text-cream-muted mt-3 text-sm font-semibold">
 						— Slim, from <cite>The Art of Pulled Pork</cite> (available Late Summer 2026)

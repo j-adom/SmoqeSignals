@@ -26,6 +26,17 @@
 		return (node.children ?? []).map(serialize).join('');
 	}
 
+	function safeURL(value: string): string {
+		const url = value.trim();
+		if (url.startsWith('/') || url.startsWith('#')) return url;
+		try {
+			const parsed = new URL(url);
+			return ['http:', 'https:', 'mailto:', 'tel:'].includes(parsed.protocol) ? url : '#';
+		} catch {
+			return '#';
+		}
+	}
+
 	function serialize(node: LexicalNode): string {
 		switch (node.type) {
 			case 'text':
@@ -37,7 +48,7 @@
 				return inner.trim() ? `<p>${inner}</p>` : '';
 			}
 			case 'heading': {
-				const tag = typeof node.tag === 'string' ? node.tag : 'h2';
+				const tag = ['h2', 'h3', 'h4'].includes(String(node.tag)) ? String(node.tag) : 'h2';
 				return `<${tag}>${children(node)}</${tag}>`;
 			}
 			case 'quote':
@@ -49,7 +60,7 @@
 			case 'listitem':
 				return `<li>${children(node)}</li>`;
 			case 'link': {
-				const url = (node.fields as { url?: string } | undefined)?.url || node.url || '#';
+				const url = safeURL((node.fields as { url?: string } | undefined)?.url || node.url || '#');
 				return `<a href="${esc(url)}" rel="noopener">${children(node)}</a>`;
 			}
 			case 'root':
@@ -70,5 +81,5 @@
 	const html = $derived(lexicalToHtml(content));
 </script>
 
-<!-- Content originates from our own Payload CMS (trusted). -->
+<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 {@html html}

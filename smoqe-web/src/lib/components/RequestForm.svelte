@@ -85,10 +85,15 @@
 				};
 			}}
 		>
+			<label class="absolute -left-[10000px]" aria-hidden="true">
+				Website
+				<input name="website" tabindex="-1" autocomplete="off" />
+			</label>
 			<label class="grid gap-2">
 				<span class="field-label">Contact name</span>
 				<input
 					name="name"
+					maxlength="120"
 					class="field-input"
 					required
 					value={form?.name ?? ''}
@@ -100,6 +105,7 @@
 					<span class="field-label">Email</span>
 					<input
 						name="email"
+						maxlength="254"
 						type="email"
 						class="field-input"
 						required
@@ -111,6 +117,7 @@
 					<span class="field-label">Phone</span>
 					<input
 						name="phone"
+						maxlength="40"
 						type="tel"
 						class="field-input"
 						required
@@ -134,6 +141,7 @@
 					<span class="field-label">Guest count</span>
 					<input
 						name="guestCount"
+						maxlength="20"
 						inputmode="numeric"
 						class="field-input"
 						value={form?.guestCount ?? ''}
@@ -154,6 +162,7 @@
 				<span class="field-label">Event location or delivery address</span>
 				<input
 					name="location"
+					maxlength="300"
 					class="field-input"
 					value={form?.location ?? ''}
 					placeholder="Street address, venue, or neighborhood"
@@ -183,6 +192,7 @@
 				<span class="field-label">Notes</span>
 				<textarea
 					name="notes"
+					maxlength="5000"
 					class="field-input"
 					placeholder="Setup needs, dietary restrictions, anything else…"
 					>{form?.notes ?? ''}</textarea

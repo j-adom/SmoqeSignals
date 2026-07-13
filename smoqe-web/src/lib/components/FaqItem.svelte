@@ -3,7 +3,11 @@
 	import type { Faq } from '$lib/types';
 
 	let { faq, open = false }: { faq: Faq; open?: boolean } = $props();
-	let expanded = $state(open);
+	let expanded = $state(false);
+
+	$effect(() => {
+		if (open) expanded = true;
+	});
 </script>
 
 <div class="border-paper-line border-b">

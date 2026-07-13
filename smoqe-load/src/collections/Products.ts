@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { admins, contentManagers } from '../access';
 
 /** Shared slug + SEO auto-fill hook used by content collections. */
 const slugify = (s: string) =>
@@ -15,7 +16,10 @@ const Products: CollectionConfig = {
 		group: 'Shop'
 	},
 	access: {
-		read: () => true
+		create: contentManagers,
+		delete: admins,
+		read: () => true,
+		update: contentManagers
 	},
 	fields: [
 		{
@@ -32,7 +36,8 @@ const Products: CollectionConfig = {
 						{ label: 'Seasoning', value: 'Seasoning' },
 						{ label: 'Sauce', value: 'Sauce' },
 						{ label: 'Gift Set', value: 'Gift Set' },
-						{ label: 'Gear', value: 'Gear' }
+						{ label: 'Gear', value: 'Gear' },
+						{ label: 'eBook', value: 'eBook' }
 					]
 				}
 			]
@@ -40,9 +45,25 @@ const Products: CollectionConfig = {
 		{
 			name: 'slug',
 			type: 'text',
+			required: true,
 			unique: true,
 			index: true,
 			admin: { description: 'URL slug (auto-generated from name if left blank).' }
+		},
+		{
+			name: 'fulfillment',
+			type: 'select',
+			required: true,
+			defaultValue: 'physical',
+			options: [
+				{ label: 'Physical shipment', value: 'physical' },
+				{ label: 'Digital delivery', value: 'digital' },
+				{ label: 'Digital pre-order', value: 'preorder' }
+			],
+			admin: {
+				description: 'Controls whether Stripe collects a shipping address for this product.',
+				position: 'sidebar'
+			}
 		},
 		{
 			type: 'row',

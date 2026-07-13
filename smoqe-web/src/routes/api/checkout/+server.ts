@@ -10,9 +10,11 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 	} catch {
 		return json({ error: 'Bad request' }, { status: 400 });
 	}
+	if (items.length > 20)
+		return json({ error: 'Your cart has too many different items.' }, { status: 400 });
 	items = items
 		.filter((i) => i && typeof i.slug === 'string' && Number(i.qty) > 0)
-		.map((i) => ({ slug: i.slug, qty: Math.min(99, Math.floor(Number(i.qty))) }));
+		.map((i) => ({ slug: i.slug.slice(0, 100), qty: Math.min(99, Math.floor(Number(i.qty))) }));
 
 	if (!items.length) return json({ error: 'Your cart is empty.' }, { status: 400 });
 

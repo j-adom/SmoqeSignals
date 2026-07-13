@@ -8,7 +8,9 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 	try {
 		const body = (await request.json()) as { email?: string; source?: string };
 		email = (body.email || '').trim();
-		source = body.source || 'site';
+		source = String(body.source || 'site')
+			.trim()
+			.slice(0, 80);
 	} catch {
 		return json({ ok: false, error: 'Bad request' }, { status: 400 });
 	}
@@ -16,5 +18,8 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 		return json({ ok: false, error: 'Invalid email' }, { status: 400 });
 	}
 	const res = await subscribeNewsletter(email, source, fetch);
-	return json({ ok: res.ok });
+	return json(
+		{ ok: res.ok, ...(res.ok ? {} : { error: 'Subscription could not be saved.' }) },
+		{ status: res.ok ? 200 : 502 }
+	);
 };

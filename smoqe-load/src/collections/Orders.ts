@@ -1,6 +1,5 @@
 import type { CollectionConfig } from 'payload';
-
-const isStaff = ({ req }: { req: { user?: unknown } }) => !!req.user;
+import { admins, staffOrAdmins } from '../access';
 
 const Orders: CollectionConfig = {
 	slug: 'orders',
@@ -12,16 +11,16 @@ const Orders: CollectionConfig = {
 	// Orders are created/updated server-side (checkout route + Stripe webhook)
 	// via the Local API, which bypasses these rules. Public access stays closed.
 	access: {
-		create: isStaff,
-		read: isStaff,
-		update: isStaff,
-		delete: isStaff
+		create: admins,
+		delete: admins,
+		read: staffOrAdmins,
+		update: staffOrAdmins
 	},
 	fields: [
 		{
 			type: 'row',
 			fields: [
-				{ name: 'orderNumber', type: 'text', index: true, admin: { width: '50%', readOnly: true } },
+				{ name: 'orderNumber', type: 'text', required: true, unique: true, index: true, admin: { width: '50%', readOnly: true } },
 				{
 					name: 'status',
 					type: 'select',
@@ -41,11 +40,19 @@ const Orders: CollectionConfig = {
 		{
 			name: 'items',
 			type: 'array',
+			required: true,
+			minRows: 1,
 			fields: [
-				{ name: 'product', type: 'relationship', relationTo: 'products' },
-				{ name: 'name', type: 'text' },
-				{ name: 'qty', type: 'number' },
-				{ name: 'unitPrice', type: 'number', admin: { description: 'Cents.' } }
+				{ name: 'product', type: 'relationship', relationTo: 'products', required: true },
+				{ name: 'name', type: 'text', required: true },
+				{ name: 'qty', type: 'number', required: true, min: 1, max: 99 },
+				{ name: 'unitPrice', type: 'number', required: true, min: 0, admin: { description: 'Cents.' } },
+				{
+					name: 'fulfillment',
+					type: 'select',
+					required: true,
+					options: ['physical', 'digital', 'preorder']
+				}
 			]
 		},
 		{
@@ -70,8 +77,8 @@ const Orders: CollectionConfig = {
 				{ name: 'country', type: 'text' }
 			]
 		},
-		{ name: 'stripeSessionId', type: 'text', admin: { position: 'sidebar', readOnly: true } },
-		{ name: 'stripePaymentIntent', type: 'text', admin: { position: 'sidebar', readOnly: true } }
+		{ name: 'stripeSessionId', type: 'text', unique: true, index: true, admin: { position: 'sidebar', readOnly: true } },
+		{ name: 'stripePaymentIntent', type: 'text', index: true, admin: { position: 'sidebar', readOnly: true } }
 	]
 };
 

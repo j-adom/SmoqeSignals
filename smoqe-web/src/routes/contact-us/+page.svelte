@@ -31,7 +31,9 @@
 		catering: 'Catering Inquiry'
 	}[page.url.searchParams.get('inquiry') ?? ''];
 
-	const selectedInquiry = $derived(String(form?.inquiryType ?? inquiryFromUrl ?? 'General Inquiry'));
+	const selectedInquiry = $derived(
+		String(form?.inquiryType ?? inquiryFromUrl ?? 'General Inquiry')
+	);
 </script>
 
 <svelte:head>
@@ -82,14 +84,23 @@
 							<div class="eyebrow text-ink-soft text-[12.5px]">Planning an event?</div>
 							<div class="text-ink mt-0.5 text-[17px] font-bold">Catering and Events</div>
 						</div>
-						<ArrowRight size={20} class="text-flame shrink-0 transition group-hover:translate-x-1" />
+						<ArrowRight
+							size={20}
+							class="text-flame shrink-0 transition group-hover:translate-x-1"
+						/>
 					</a>
-					<a href="/food-truck" class="card-brand group flex items-center justify-between gap-3 p-5">
+					<a
+						href="/food-truck"
+						class="card-brand group flex items-center justify-between gap-3 p-5"
+					>
 						<div>
 							<div class="eyebrow text-ink-soft text-[12.5px]">Want us on site?</div>
 							<div class="text-ink mt-0.5 text-[17px] font-bold">Book the Food Truck</div>
 						</div>
-						<ArrowRight size={20} class="text-flame shrink-0 transition group-hover:translate-x-1" />
+						<ArrowRight
+							size={20}
+							class="text-flame shrink-0 transition group-hover:translate-x-1"
+						/>
 					</a>
 				</div>
 			</div>
@@ -128,10 +139,15 @@
 							};
 						}}
 					>
+						<label class="absolute -left-[10000px]" aria-hidden="true">
+							Website
+							<input name="website" tabindex="-1" autocomplete="off" />
+						</label>
 						<label class="grid gap-2">
 							<span class="field-label">Name</span>
 							<input
 								name="name"
+								maxlength="120"
 								class="field-input"
 								required
 								value={form?.name ?? ''}
@@ -142,6 +158,7 @@
 							<span class="field-label">Email</span>
 							<input
 								name="email"
+								maxlength="254"
 								type="email"
 								class="field-input"
 								required
@@ -159,8 +176,12 @@
 						</label>
 						<label class="grid gap-2">
 							<span class="field-label">Message</span>
-							<textarea name="message" class="field-input" required placeholder="How can we help?"
-								>{form?.message ?? ''}</textarea
+							<textarea
+								name="message"
+								maxlength="5000"
+								class="field-input"
+								required
+								placeholder="How can we help?">{form?.message ?? ''}</textarea
 							>
 						</label>
 						<button class="btn btn-primary btn-block min-h-[54px]" disabled={submitting}>
@@ -196,9 +217,7 @@
 					<div class="eyebrow text-flame">
 						Nashville Bred · Memphis Approved · Tennessee Tradition
 					</div>
-					<p class="display mt-2 text-[clamp(1.5rem,3vw,2.125rem)]">
-						Catch the truck around town.
-					</p>
+					<p class="display mt-2 text-[clamp(1.5rem,3vw,2.125rem)]">Catch the truck around town.</p>
 					<p class="mt-1.5 text-sm text-white/70">
 						Follow along for the schedule, new drops, and where we're smoking next.
 					</p>

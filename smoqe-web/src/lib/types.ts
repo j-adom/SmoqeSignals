@@ -6,7 +6,7 @@
 
 export type Heat = 0 | 1 | 2 | 3 | 4 | 5;
 
-export type ProductCategory = 'Dry Rub' | 'Seasoning' | 'Sauce' | 'Gift Set' | 'Gear';
+export type ProductCategory = 'Dry Rub' | 'Seasoning' | 'Sauce' | 'Gift Set' | 'Gear' | 'eBook';
 
 export interface Product {
 	id: string;
@@ -23,6 +23,7 @@ export interface Product {
 	notes: string[];
 	featured: boolean;
 	inStock: boolean;
+	fulfillment?: 'physical' | 'digital' | 'preorder';
 }
 
 /** Minimal Lexical root, as returned by Payload richText fields. */

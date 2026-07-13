@@ -1,7 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { notifyCatering } from '../email/notify';
-
-const isStaff = ({ req }: { req: { user?: { role?: string } | null } }) => !!req.user;
+import { admins, denyPublic, staffOrAdmins } from '../access';
 
 const CateringRequests: CollectionConfig = {
 	slug: 'cateringRequests',
@@ -12,10 +11,10 @@ const CateringRequests: CollectionConfig = {
 	},
 	access: {
 		// Anyone can submit the public form; only staff can read/manage.
-		create: () => true,
-		read: isStaff,
-		update: isStaff,
-		delete: isStaff
+		create: denyPublic,
+		delete: admins,
+		read: staffOrAdmins,
+		update: staffOrAdmins
 	},
 	fields: [
 		{
@@ -46,12 +45,16 @@ const CateringRequests: CollectionConfig = {
 		{
 			type: 'row',
 			fields: [
-				{ name: 'eventDate', type: 'text', admin: { width: '50%' } },
-				{ name: 'guestCount', type: 'text', admin: { width: '50%' } }
-			]
-		},
-		{ name: 'serviceStyle', type: 'text', required: true },
-		{ name: 'notes', type: 'textarea' }
+					{ name: 'eventDate', type: 'text', admin: { width: '50%' } },
+					{ name: 'eventTime', type: 'text', admin: { width: '25%' } },
+					{ name: 'guestCount', type: 'text', admin: { width: '25%' } }
+				]
+			},
+			{ name: 'serviceStyle', type: 'text', required: true },
+			{ name: 'location', type: 'text' },
+			{ name: 'budget', type: 'text' },
+			{ name: 'hearAbout', type: 'text' },
+			{ name: 'notes', type: 'textarea' }
 	],
 	hooks: {
 		afterChange: [

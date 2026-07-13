@@ -35,9 +35,10 @@ class CartStore {
 	}
 
 	add(product: Product, qty = 1) {
+		if (!product.inStock) return;
 		const found = this.items.find((i) => i.id === product.id);
 		if (found) {
-			found.qty += qty;
+			found.qty = Math.min(99, found.qty + qty);
 		} else {
 			this.items.push({
 				id: product.id,
@@ -58,7 +59,7 @@ class CartStore {
 			this.items = this.items.filter((i) => i.id !== id);
 		} else {
 			const line = this.items.find((i) => i.id === id);
-			if (line) line.qty = qty;
+			if (line) line.qty = Math.min(99, Math.floor(qty));
 		}
 		this.persist();
 	}

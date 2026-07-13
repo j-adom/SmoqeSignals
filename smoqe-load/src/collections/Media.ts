@@ -1,10 +1,14 @@
 import type { CollectionConfig } from 'payload';
+import { admins, contentManagers } from '../access';
 
 const Media: CollectionConfig = {
 	slug: 'media',
 	admin: { group: 'System' },
 	access: {
-		read: () => true
+		create: contentManagers,
+		delete: admins,
+		read: () => true,
+		update: contentManagers
 	},
 	upload: {
 		// Local disk in development; the s3Storage plugin (payload.config.ts)

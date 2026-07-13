@@ -1,7 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { notifyContact } from '../email/notify';
-
-const isStaff = ({ req }: { req: { user?: unknown } }) => !!req.user;
+import { admins, denyPublic, staffOrAdmins } from '../access';
 
 const ContactMessages: CollectionConfig = {
 	slug: 'contactMessages',
@@ -11,10 +10,10 @@ const ContactMessages: CollectionConfig = {
 		group: 'Inbox'
 	},
 	access: {
-		create: () => true,
-		read: isStaff,
-		update: isStaff,
-		delete: isStaff
+		create: denyPublic,
+		delete: admins,
+		read: staffOrAdmins,
+		update: staffOrAdmins
 	},
 	fields: [
 		{

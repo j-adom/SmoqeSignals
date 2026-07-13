@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { BlogPost } from '$lib/types';
 	import { ArrowRight } from '@lucide/svelte';
-	import { formatDate } from '$lib/utils';
-
 	let { post }: { post: BlogPost } = $props();
 </script>
 

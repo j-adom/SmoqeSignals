@@ -10,7 +10,6 @@ import 'dotenv/config';
 import { getPayload } from 'payload';
 import config from '../src/payload.config';
 
-type LexParagraph = { text: string };
 function lexical(paragraphs: string[]) {
 	return {
 		root: {
@@ -49,12 +48,15 @@ async function run() {
 	const payload = await getPayload({ config });
 
 	// Admin user
-	const email = process.env.SEED_ADMIN_EMAIL || 'admin@smoqesignals.com';
-	const password = process.env.SEED_ADMIN_PASSWORD || 'changeme123';
+	const email = process.env.SEED_ADMIN_EMAIL?.trim();
+	const password = process.env.SEED_ADMIN_PASSWORD;
+	if (!email || !password || password.length < 16) {
+		throw new Error('SEED_ADMIN_EMAIL and a SEED_ADMIN_PASSWORD of at least 16 characters are required.');
+	}
 	const existingUsers = await payload.find({ collection: 'users', where: { email: { equals: email } }, limit: 1 });
 	if (!existingUsers.docs.length) {
 		await payload.create({ collection: 'users', data: { email, password, name: 'Smoqe Admin', role: 'admin' } });
-		payload.logger.info(`Created admin user: ${email} / ${password}`);
+		payload.logger.info(`Created admin user: ${email}`);
 	}
 
 	// Products

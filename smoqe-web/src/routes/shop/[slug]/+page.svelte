@@ -14,7 +14,7 @@
 	let qty = $state(1);
 	// Reset quantity when navigating between products.
 	$effect(() => {
-		p.slug;
+		void p.slug;
 		qty = 1;
 	});
 
@@ -38,6 +38,7 @@
 	});
 
 	function add() {
+		if (!p.inStock) return;
 		cart.add(p, qty);
 		toast.show(`${p.name} added to cart`);
 	}
@@ -101,6 +102,7 @@
 						<button
 							class="text-char hover:bg-paper-2 grid h-[50px] w-11 place-items-center bg-white"
 							onclick={() => (qty = Math.max(1, qty - 1))}
+							disabled={!p.inStock}
 							aria-label="Decrease quantity"
 						>
 							–
@@ -108,14 +110,15 @@
 						<span class="w-11 text-center font-extrabold">{qty}</span>
 						<button
 							class="text-char hover:bg-paper-2 grid h-[50px] w-11 place-items-center bg-white"
-							onclick={() => (qty = qty + 1)}
+							onclick={() => (qty = Math.min(99, qty + 1))}
+							disabled={!p.inStock}
 							aria-label="Increase quantity"
 						>
 							+
 						</button>
 					</span>
-					<button class="btn btn-primary min-w-[200px] flex-1" onclick={add}>
-						Add to Cart · {money(p.price * qty)}
+					<button class="btn btn-primary min-w-[200px] flex-1" onclick={add} disabled={!p.inStock}>
+						{p.inStock ? `Add to Cart · ${money(p.price * qty)}` : 'Currently Sold Out'}
 					</button>
 				</div>
 

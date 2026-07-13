@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { admins, contentManagers, publishedOrTeam } from '../access';
 
 const slugify = (s: string) =>
 	s
@@ -14,13 +15,17 @@ const BlogPosts: CollectionConfig = {
 		group: 'Content'
 	},
 	access: {
-		read: () => true
+		create: contentManagers,
+		delete: admins,
+		read: publishedOrTeam,
+		update: contentManagers
 	},
 	fields: [
 		{ name: 'title', type: 'text', required: true },
 		{
 			name: 'slug',
 			type: 'text',
+			required: true,
 			unique: true,
 			index: true,
 			admin: { description: 'URL slug (auto-generated from title if blank).' }

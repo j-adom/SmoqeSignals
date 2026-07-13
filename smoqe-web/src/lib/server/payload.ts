@@ -1,4 +1,5 @@
 import { env } from '$env/dynamic/private';
+import { dev } from '$app/environment';
 import type { BlogPost, LexicalRoot, Product, ProductCategory } from '$lib/types';
 import { POSTS, PRODUCTS } from '$lib/data/seed';
 
@@ -14,6 +15,7 @@ type Fetch = typeof fetch;
 
 const API = (env.PAYLOAD_API_URL || '').replace(/\/$/, '');
 const TIMEOUT_MS = 4000;
+const USE_SEED_DATA = dev && !API;
 
 function hasBackend(): boolean {
 	return API.length > 0;
@@ -28,10 +30,22 @@ async function api<T>(path: string, fetchFn: Fetch): Promise<T | null> {
 			signal: ctrl.signal,
 			headers: { accept: 'application/json' }
 		});
-		if (!res.ok) return null;
+		if (!res.ok) {
+			console.error(
+				JSON.stringify({ message: 'Payload request failed', path, status: res.status })
+			);
+			return null;
+		}
 		return (await res.json()) as T;
-	} catch {
-		return null; // network error / timeout / abort → fallback
+	} catch (error) {
+		console.error(
+			JSON.stringify({
+				message: 'Payload request unavailable',
+				path,
+				error: error instanceof Error ? error.message : String(error)
+			})
+		);
+		return null;
 	} finally {
 		clearTimeout(timer);
 	}
@@ -76,6 +90,7 @@ interface PayloadProduct {
 	notes?: Array<{ note: string }>;
 	featured?: boolean;
 	inStock?: boolean;
+	fulfillment?: Product['fulfillment'];
 }
 
 function mapProduct(d: PayloadProduct): Product {
@@ -93,7 +108,8 @@ function mapProduct(d: PayloadProduct): Product {
 		size: d.size || '',
 		notes: (d.notes || []).map((n) => n.note).filter(Boolean),
 		featured: !!d.featured,
-		inStock: d.inStock !== false
+		inStock: d.inStock !== false,
+		fulfillment: d.fulfillment || 'physical'
 	};
 }
 
@@ -102,7 +118,7 @@ export async function getProducts(fetchFn: Fetch = fetch): Promise<Product[]> {
 		'/api/products?limit=100&depth=1&sort=-featured',
 		fetchFn
 	);
-	if (!data?.docs?.length) return PRODUCTS;
+	if (!data?.docs?.length) return USE_SEED_DATA ? PRODUCTS : [];
 	return data.docs.map(mapProduct);
 }
 
@@ -115,7 +131,7 @@ export async function getProductBySlug(
 		fetchFn
 	);
 	if (data?.docs?.length) return mapProduct(data.docs[0]);
-	return PRODUCTS.find((p) => p.slug === slug) ?? null;
+	return USE_SEED_DATA ? (PRODUCTS.find((p) => p.slug === slug) ?? null) : null;
 }
 
 /* -------------------------------- posts --------------------------------- */
@@ -163,7 +179,7 @@ export async function getPosts(fetchFn: Fetch = fetch): Promise<BlogPost[]> {
 		'/api/blogPosts?where[status][equals]=published&sort=-publishDate&limit=50&depth=1',
 		fetchFn
 	);
-	if (!data?.docs?.length) return POSTS;
+	if (!data?.docs?.length) return USE_SEED_DATA ? POSTS : [];
 	return data.docs.map(mapPost);
 }
 
@@ -172,35 +188,47 @@ export async function getPostBySlug(
 	fetchFn: Fetch = fetch
 ): Promise<BlogPost | null> {
 	const data = await api<{ docs: PayloadPost[] }>(
-		`/api/blogPosts?where[slug][equals]=${encodeURIComponent(slug)}&limit=1&depth=1`,
+		`/api/blogPosts?where[slug][equals]=${encodeURIComponent(slug)}&where[status][equals]=published&limit=1&depth=1`,
 		fetchFn
 	);
 	if (data?.docs?.length) return mapPost(data.docs[0]);
-	return POSTS.find((p) => p.slug === slug) ?? null;
+	return USE_SEED_DATA ? (POSTS.find((p) => p.slug === slug) ?? null) : null;
 }
 
 /* ----------------------------- submissions ------------------------------ */
 
-async function postJSON(
-	slug: string,
-	body: Record<string, unknown>,
-	fetchFn: Fetch
-): Promise<{ ok: boolean; queuedOnly?: boolean }> {
-	if (!hasBackend()) return { ok: true, queuedOnly: true }; // accept gracefully in fallback mode
+async function postJSON(slug: string, body: object, fetchFn: Fetch): Promise<{ ok: boolean }> {
+	const storefrontKey = env.STOREFRONT_API_KEY?.trim();
+	if (!hasBackend() || !storefrontKey) return { ok: false };
+	const ctrl = new AbortController();
+	const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
 	try {
-		const res = await fetchFn(`${API}/api/${slug}`, {
+		const res = await fetchFn(`${API}/api/public/${slug}`, {
 			method: 'POST',
-			headers: { 'content-type': 'application/json' },
+			headers: {
+				'content-type': 'application/json',
+				'x-storefront-key': storefrontKey
+			},
+			signal: ctrl.signal,
 			body: JSON.stringify(body)
 		});
 		return { ok: res.ok };
-	} catch {
+	} catch (error) {
+		console.error(
+			JSON.stringify({
+				message: 'Submission request failed',
+				slug,
+				error: error instanceof Error ? error.message : String(error)
+			})
+		);
 		return { ok: false };
+	} finally {
+		clearTimeout(timer);
 	}
 }
 
 export function subscribeNewsletter(email: string, source: string, fetchFn: Fetch = fetch) {
-	return postJSON('newsletterSubscribers', { email, source }, fetchFn);
+	return postJSON('newsletter', { email, source }, fetchFn);
 }
 
 export interface CateringPayload {
@@ -217,7 +245,7 @@ export interface CateringPayload {
 	notes?: string;
 }
 export function submitCatering(data: CateringPayload, fetchFn: Fetch = fetch) {
-	return postJSON('cateringRequests', { ...data, status: 'new' }, fetchFn);
+	return postJSON('catering', data, fetchFn);
 }
 
 export interface ContactPayload {
@@ -227,7 +255,7 @@ export interface ContactPayload {
 	inquiryType?: string;
 }
 export function submitContact(data: ContactPayload, fetchFn: Fetch = fetch) {
-	return postJSON('contactMessages', { ...data, status: 'new' }, fetchFn);
+	return postJSON('contact', data, fetchFn);
 }
 
 /* ------------------------------- checkout ------------------------------- */
@@ -245,15 +273,19 @@ export async function createCheckout(
 	items: CheckoutItem[],
 	fetchFn: Fetch = fetch
 ): Promise<{ url: string } | { error: string }> {
-	if (!hasBackend()) return { error: 'Checkout is not configured yet.' };
+	const storefrontKey = env.STOREFRONT_API_KEY?.trim();
+	if (!hasBackend() || !storefrontKey) return { error: 'Checkout is not configured yet.' };
 	try {
 		const res = await fetchFn(`${API}/api/checkout`, {
 			method: 'POST',
-			headers: { 'content-type': 'application/json' },
+			headers: {
+				'content-type': 'application/json',
+				'x-storefront-key': storefrontKey
+			},
 			body: JSON.stringify({ items })
 		});
-		if (!res.ok) return { error: 'Could not start checkout. Please try again.' };
-		const data = (await res.json()) as { url?: string };
+		const data = (await res.json()) as { url?: string; error?: string };
+		if (!res.ok) return { error: data.error || 'Could not start checkout. Please try again.' };
 		if (!data.url) return { error: 'Checkout session was not created.' };
 		return { url: data.url };
 	} catch {

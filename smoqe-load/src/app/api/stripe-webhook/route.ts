@@ -1,8 +1,65 @@
 import config from '@payload-config';
-import { getPayload } from 'payload';
+import { getPayload, type Payload } from 'payload';
 import Stripe from 'stripe';
 
 export const dynamic = 'force-dynamic';
+
+async function findOrder(payload: Payload, session: Stripe.Checkout.Session) {
+	const orderId = session.metadata?.orderId;
+	if (orderId) {
+		try {
+			return await payload.findByID({ collection: 'orders', id: orderId });
+		} catch {
+			// Fall through for sessions created before order metadata was added.
+		}
+	}
+	const found = await payload.find({
+		collection: 'orders',
+		where: { stripeSessionId: { equals: session.id } },
+		limit: 1
+	});
+	return found.docs[0];
+}
+
+async function updateSessionOrder(
+	payload: Payload,
+	session: Stripe.Checkout.Session,
+	status: 'paid' | 'canceled'
+) {
+	const order = await findOrder(payload, session);
+	if (!order) throw new Error(`No order found for Stripe session ${session.id}`);
+	if (status === 'paid' && !['paid', 'no_payment_required'].includes(session.payment_status)) return;
+
+	const address = session.customer_details?.address;
+	await payload.update({
+		collection: 'orders',
+		id: order.id,
+		data: {
+			status,
+			email: session.customer_details?.email || undefined,
+			stripeSessionId: session.id,
+			...(status === 'paid'
+				? {
+						total: session.amount_total ?? undefined,
+						tax: session.total_details?.amount_tax ?? 0,
+						stripePaymentIntent:
+							typeof session.payment_intent === 'string' ? session.payment_intent : undefined,
+						shippingAddress: address
+							? {
+									name: session.customer_details?.name || '',
+									line1: address.line1 || '',
+									line2: address.line2 || '',
+									city: address.city || '',
+									state: address.state || '',
+									postalCode: address.postal_code || '',
+									country: address.country || ''
+								}
+							: undefined
+					}
+				: {})
+		}
+	});
+}
 
 export async function POST(req: Request) {
 	const secret = process.env.STRIPE_SECRET_KEY;
@@ -12,58 +69,52 @@ export async function POST(req: Request) {
 	}
 
 	const stripe = new Stripe(secret);
-	const sig = req.headers.get('stripe-signature') || '';
-	const raw = await req.text();
-
 	let event: Stripe.Event;
 	try {
-		event = stripe.webhooks.constructEvent(raw, sig, webhookSecret);
-	} catch (err) {
-		return Response.json({ error: `Webhook signature failed: ${(err as Error).message}` }, { status: 400 });
+		event = stripe.webhooks.constructEvent(
+			await req.text(),
+			req.headers.get('stripe-signature') || '',
+			webhookSecret
+		);
+	} catch (error) {
+		return Response.json(
+			{ error: `Webhook signature failed: ${error instanceof Error ? error.message : 'unknown error'}` },
+			{ status: 400 }
+		);
 	}
 
-	if (event.type === 'checkout.session.completed') {
-		const session = event.data.object as Stripe.Checkout.Session;
-		const payload = await getPayload({ config });
-		try {
-			const found = await payload.find({
-				collection: 'orders',
-				where: { stripeSessionId: { equals: session.id } },
-				limit: 1
-			});
-			const order = found.docs[0];
-			const addr = session.customer_details?.address;
-			const data = {
-				status: 'paid' as const,
-				email: session.customer_details?.email || undefined,
-				total: session.amount_total ?? undefined,
-				tax: session.total_details?.amount_tax ?? 0,
-				stripePaymentIntent:
-					typeof session.payment_intent === 'string' ? session.payment_intent : undefined,
-				shippingAddress: addr
-					? {
-							name: session.customer_details?.name || '',
-							line1: addr.line1 || '',
-							line2: addr.line2 || '',
-							city: addr.city || '',
-							state: addr.state || '',
-							postalCode: addr.postal_code || '',
-							country: addr.country || ''
-						}
-					: undefined
-			};
-			if (order) {
-				await payload.update({ collection: 'orders', id: order.id, data });
-			} else {
-				await payload.create({
-					collection: 'orders',
-					data: { orderNumber: `SMQ-${Date.now().toString(36).toUpperCase()}`, stripeSessionId: session.id, ...data }
-				});
+	const payload = await getPayload({ config });
+	try {
+		switch (event.type) {
+			case 'checkout.session.completed':
+			case 'checkout.session.async_payment_succeeded':
+				await updateSessionOrder(payload, event.data.object, 'paid');
+				break;
+			case 'checkout.session.expired':
+			case 'checkout.session.async_payment_failed':
+				await updateSessionOrder(payload, event.data.object, 'canceled');
+				break;
+			case 'charge.refunded': {
+				const charge = event.data.object;
+				if (charge.refunded && typeof charge.payment_intent === 'string') {
+					const found = await payload.find({
+						collection: 'orders',
+						where: { stripePaymentIntent: { equals: charge.payment_intent } },
+						limit: 1
+					});
+					if (!found.docs[0]) throw new Error(`No order found for payment ${charge.payment_intent}`);
+					await payload.update({
+						collection: 'orders',
+						id: found.docs[0].id,
+						data: { status: 'refunded' }
+					});
+				}
+				break;
 			}
-		} catch (err) {
-			payload.logger.error({ err }, 'Failed to mark order paid');
-			return Response.json({ received: true, warning: 'order update failed' });
 		}
+	} catch (error) {
+		payload.logger.error({ err: error, stripeEventId: event.id }, 'Stripe webhook processing failed');
+		return Response.json({ received: false }, { status: 500 });
 	}
 
 	return Response.json({ received: true });

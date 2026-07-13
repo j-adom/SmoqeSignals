@@ -60,10 +60,10 @@
 				Elevate your event with SmoQe Signals BBQ catering.
 			</p>
 			<p class="text-cream-text mt-3 max-w-xl text-lg leading-relaxed">
-				Planning an event people will actually talk about? Great BBQ turns any event into one
-				people remember. From weddings and birthdays to corporate galas and family reunions, we
-				handle the food so you can focus on your guests. Tell us about your event, and we'll build
-				a menu around your budget, your dietary needs, and your occasion.
+				Planning an event people will actually talk about? Great BBQ turns any event into one people
+				remember. From weddings and birthdays to corporate galas and family reunions, we handle the
+				food so you can focus on your guests. Tell us about your event, and we'll build a menu
+				around your budget, your dietary needs, and your occasion.
 			</p>
 			<div class="mt-7 flex flex-wrap gap-3.5">
 				<a href="#request" class="btn btn-primary">Request a Quote <ArrowRight size={18} /></a>

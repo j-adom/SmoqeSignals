@@ -1,6 +1,6 @@
 <script lang="ts">
 	let { lg = false }: { lg?: boolean } = $props();
-	const s = lg ? '8px' : '5px';
+	const s = $derived(lg ? '8px' : '5px');
 </script>
 
 <span class="inline-flex items-center gap-[3px] align-middle" aria-hidden="true">

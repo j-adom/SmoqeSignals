@@ -20,6 +20,7 @@ export async function handleRequestSubmit(request: Request, fetch: typeof global
 	const budget = String(form.get('budget') || '').trim();
 	const hearAbout = String(form.get('hearAbout') || '').trim();
 	const notes = String(form.get('notes') || '').trim();
+	const website = String(form.get('website') || '').trim();
 
 	const values = {
 		name,
@@ -37,6 +38,13 @@ export async function handleRequestSubmit(request: Request, fetch: typeof global
 
 	if (!name || !email || !phone || !serviceStyle) {
 		return fail(400, { ...values, error: 'Please fill in name, email, phone, and service style.' });
+	}
+	if (website) return { success: true };
+	if (name.length > 120 || email.length > 254 || phone.length > 40 || notes.length > 5000) {
+		return fail(400, { ...values, error: 'One or more fields are too long.' });
+	}
+	if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+		return fail(400, { ...values, error: 'Please enter a valid email address.' });
 	}
 
 	const res = await submitCatering(values, fetch);

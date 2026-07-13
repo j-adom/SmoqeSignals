@@ -1,11 +1,29 @@
 <script lang="ts">
 	import { Leaf, Flame, Package } from '@lucide/svelte';
+	import { page } from '$app/state';
 	import type { PageData } from './$types';
 	import { PRODUCT_CATEGORIES } from '$lib/data/seed';
+	import { cart } from '$lib/stores/cart.svelte';
+	import { toast } from '$lib/stores/toast.svelte';
 	import Tristar from '$lib/components/Tristar.svelte';
 	import ProductCard from '$lib/components/ProductCard.svelte';
 
 	let { data }: { data: PageData } = $props();
+	let handledCheckoutReturn = $state(false);
+
+	$effect(() => {
+		if (handledCheckoutReturn) return;
+		const checkout = page.url.searchParams.get('checkout');
+		if (!checkout) return;
+		handledCheckoutReturn = true;
+		if (checkout === 'success' && page.url.searchParams.get('session_id')?.startsWith('cs_')) {
+			cart.clear();
+			toast.show('Payment received. Your order is confirmed.');
+		} else if (checkout === 'cancel') {
+			toast.show('Checkout canceled. Your cart is still here.');
+		}
+		window.history.replaceState({}, '', '/shop');
+	});
 
 	let active = $state<(typeof PRODUCT_CATEGORIES)[number]>('All');
 	const filtered = $derived(
@@ -57,8 +75,7 @@
 				Everything you need to bring the SmoQe home
 			</h1>
 			<p class="text-cream-text mt-4 max-w-xl text-lg leading-relaxed">
-				All natural dry rubs, seasonings, small batch sauces, and recipe eBooks to master the
-				craft.
+				All natural dry rubs, seasonings, small batch sauces, and recipe eBooks to master the craft.
 			</p>
 		</div>
 	</section>

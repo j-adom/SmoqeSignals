@@ -1,4 +1,4 @@
-# Production image for smoqe-load (Payload 3 · Next.js 15).
+# Production image for smoqe-load (Payload 3 · Next.js 16).
 # Multi-stage: install → build → slim runtime. Uses `next start` (NOT Next
 # standalone output) on purpose: payload.config dynamically imports the DB
 # adapter (`await import('@payloadcms/db-postgres')`), which Next's standalone
@@ -13,7 +13,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates openssl \
     && rm -rf /var/lib/apt/lists/* \
     && corepack enable \
-    && corepack prepare pnpm@9 --activate
+	&& corepack prepare pnpm@11.12.0 --activate
 WORKDIR /app
 
 # ---- deps (all deps — dev deps are required to build) ----
@@ -21,15 +21,13 @@ FROM base AS deps
 # Force dev deps to install even if the platform (e.g. Coolify) injects
 # NODE_ENV=production at build time — `next build` needs typescript et al.
 ENV NODE_ENV=development
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 # ---- build ----
 FROM base AS build
-# Real secrets are injected at runtime by Coolify. This placeholder only keeps
-# config loading happy during `next build`; it is not present in the final image.
 ENV NODE_ENV=production \
-    PAYLOAD_SECRET=build-time-placeholder
+	SKIP_ENV_VALIDATION=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN pnpm build
@@ -42,7 +40,7 @@ RUN useradd --system --uid 1001 nodejs
 COPY --from=build --chown=nodejs:nodejs /app ./
 USER nodejs
 EXPOSE 3000
-# Schema is auto-synced on boot via the adapter's `push` (see payload.config.ts).
-# Once you generate migration files post-launch, switch this to:
-#   CMD ["sh", "-c", "pnpm payload migrate && pnpm start"]
+# Run migrations as a release step before starting this container. For the
+# first empty database only, PAYLOAD_DB_PUSH=true can intentionally create the
+# schema; turn it off again immediately afterward.
 CMD ["pnpm", "start"]

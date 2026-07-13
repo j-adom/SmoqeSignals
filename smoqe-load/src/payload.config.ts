@@ -17,6 +17,9 @@ import NewsletterSubscribers from './collections/NewsletterSubscribers';
 import ContactMessages from './collections/ContactMessages';
 import Orders from './collections/Orders';
 import SiteSettings from './globals/SiteSettings';
+import { validateProductionEnv } from './env';
+
+validateProductionEnv();
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -25,10 +28,6 @@ const serverURL = process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:300
 const publicSiteURL = process.env.FRONTEND_URL || 'https://smoqesignals.com';
 const databaseURI = process.env.DATABASE_URI;
 
-if (process.env.NODE_ENV === 'production' && !process.env.PAYLOAD_SECRET) {
-	throw new Error('PAYLOAD_SECRET is required in production');
-}
-
 /* ----------------------------- database ----------------------------- */
 const resolveDatabaseAdapter = async () => {
 	if (databaseURI?.startsWith('postgres')) {
@@ -36,7 +35,10 @@ const resolveDatabaseAdapter = async () => {
 		// `push: true` auto-syncs the schema on boot — there are no migration files
 		// yet, so a fresh Postgres would otherwise start with no tables. Fine for a
 		// clean launch DB; generate real migrations and turn this off post-launch.
-		return postgresAdapter({ pool: { connectionString: databaseURI }, push: true });
+		return postgresAdapter({
+				pool: { connectionString: databaseURI },
+				push: process.env.NODE_ENV !== 'production' || process.env.PAYLOAD_DB_PUSH === 'true'
+			});
 	}
 	const { sqliteAdapter } = await import('@payloadcms/db-sqlite');
 	return sqliteAdapter({ client: { url: databaseURI || 'file:./smoqe.db' } });
@@ -70,6 +72,7 @@ const generateURL: GenerateURL<{ slug?: string }> = ({ doc }) =>
 
 export default buildConfig({
 	serverURL,
+	csrf: [publicSiteURL, serverURL],
 	cors: [
 		publicSiteURL,
 		...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
@@ -82,6 +85,11 @@ export default buildConfig({
 			title: 'Smoqe Signals BBQ',
 			titleSuffix: ' · Admin'
 		}
+	},
+	graphQL: {
+		disableIntrospectionInProduction: true,
+		disablePlaygroundInProduction: true,
+		maxComplexity: 100
 	},
 	collections: [
 		Users,

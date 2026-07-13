@@ -6,9 +6,10 @@
 	import HeatMeter from './HeatMeter.svelte';
 
 	let { product }: { product: Product } = $props();
-	const hot = product.tag === 'Heat' || product.tag === 'Hot';
+	const hot = $derived(product.tag === 'Heat' || product.tag === 'Hot');
 
 	function add() {
+		if (!product.inStock) return;
 		cart.add(product, 1);
 		toast.show(`${product.name} added to cart`);
 	}
@@ -45,7 +46,9 @@
 		<p class="text-ink-soft flex-1 text-[13.5px] leading-relaxed">{product.short}</p>
 		<div class="mt-2.5 flex items-center justify-between">
 			<span class="display text-ink text-[22px]">{money(product.price)}</span>
-			<button class="btn btn-dark btn-sm" onclick={add}>Add to Cart</button>
+			<button class="btn btn-dark btn-sm" onclick={add} disabled={!product.inStock}>
+				{product.inStock ? 'Add to Cart' : 'Sold Out'}
+			</button>
 		</div>
 	</div>
 </article>
