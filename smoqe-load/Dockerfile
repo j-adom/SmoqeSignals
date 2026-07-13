@@ -18,6 +18,9 @@ WORKDIR /app
 
 # ---- deps (all deps — dev deps are required to build) ----
 FROM base AS deps
+# Force dev deps to install even if the platform (e.g. Coolify) injects
+# NODE_ENV=production at build time — `next build` needs typescript et al.
+ENV NODE_ENV=development
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 

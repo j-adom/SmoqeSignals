@@ -11,4 +11,6 @@ npm-debug.log*
 Dockerfile
 .dockerignore
 media
-**/*:Zone.Identifier
+# Single standalone package — a workspace file makes pnpm refuse `pnpm build`.
+pnpm-workspace.yaml
+**/*Zone.Identifier
