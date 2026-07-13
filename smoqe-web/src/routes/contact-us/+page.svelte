@@ -5,6 +5,8 @@
 	import type { PageProps } from './$types';
 	import { BIZ } from '$lib/data/seed';
 	import Tristar from '$lib/components/Tristar.svelte';
+	import FacebookIcon from '$lib/components/icons/FacebookIcon.svelte';
+	import InstagramIcon from '$lib/components/icons/InstagramIcon.svelte';
 
 	let { form }: PageProps = $props();
 	let submitting = $state(false);
@@ -180,6 +182,48 @@
 		></iframe>
 	</section>
 
-	<!-- TODO(shon): truck-at-the-ballpark photo with Instagram/Facebook overlaid goes here,
-	     below the map, once Shon sends the photo and the Facebook page URL. -->
+	<section class="border-paper-line relative border-t">
+		<img
+			src="/images/truck-first-tn-park.jpg"
+			alt="The Smoqe Signals BBQ food truck parked outside First Tennessee Park in Nashville"
+			class="h-[380px] w-full object-cover sm:h-[460px]"
+			loading="lazy"
+		/>
+		<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
+		<div class="container-wide absolute inset-x-0 bottom-0">
+			<div class="flex flex-col gap-5 pb-9 sm:flex-row sm:items-end sm:justify-between">
+				<div class="max-w-xl text-white">
+					<div class="eyebrow text-flame">
+						Nashville Bred · Memphis Approved · Tennessee Tradition
+					</div>
+					<p class="display mt-2 text-[clamp(1.5rem,3vw,2.125rem)]">
+						Catch the truck around town.
+					</p>
+					<p class="mt-1.5 text-sm text-white/70">
+						Follow along for the schedule, new drops, and where we're smoking next.
+					</p>
+				</div>
+				<div class="flex items-center gap-3">
+					<a
+						href="https://www.facebook.com/slimsmokinbbq1"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Smoqe Signals BBQ on Facebook"
+						class="hover:border-tristar grid h-11 w-11 place-items-center rounded-full border border-white/25 bg-white/10 text-white/85 backdrop-blur-sm transition-colors hover:text-white"
+					>
+						<FacebookIcon size={19} />
+					</a>
+					<a
+						href="https://www.instagram.com/smoqesignalsbbq"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Smoqe Signals BBQ on Instagram"
+						class="hover:border-tristar grid h-11 w-11 place-items-center rounded-full border border-white/25 bg-white/10 text-white/85 backdrop-blur-sm transition-colors hover:text-white"
+					>
+						<InstagramIcon size={19} />
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
 </div>

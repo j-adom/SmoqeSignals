@@ -108,6 +108,9 @@ export async function POST(req: Request) {
 	const session = await stripe.checkout.sessions.create({
 		mode: 'payment',
 		line_items: lineItems,
+		// Lets customers enter Stripe promotion codes (e.g. review-campaign codes) at checkout.
+		// Coupons/codes and their expiry + redemption caps are managed in the Stripe dashboard.
+		allow_promotion_codes: true,
 		shipping_address_collection: { allowed_countries: ['US'] },
 		shipping_options: [
 			{

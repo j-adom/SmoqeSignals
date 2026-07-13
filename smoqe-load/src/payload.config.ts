@@ -33,7 +33,10 @@ if (process.env.NODE_ENV === 'production' && !process.env.PAYLOAD_SECRET) {
 const resolveDatabaseAdapter = async () => {
 	if (databaseURI?.startsWith('postgres')) {
 		const { postgresAdapter } = await import('@payloadcms/db-postgres');
-		return postgresAdapter({ pool: { connectionString: databaseURI } });
+		// `push: true` auto-syncs the schema on boot — there are no migration files
+		// yet, so a fresh Postgres would otherwise start with no tables. Fine for a
+		// clean launch DB; generate real migrations and turn this off post-launch.
+		return postgresAdapter({ pool: { connectionString: databaseURI }, push: true });
 	}
 	const { sqliteAdapter } = await import('@payloadcms/db-sqlite');
 	return sqliteAdapter({ client: { url: databaseURI || 'file:./smoqe.db' } });

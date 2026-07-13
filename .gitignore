@@ -1,5 +1,6 @@
 # WSL "mark of the web" download artifacts
-*:Zone.Identifier
+# (match both a literal ":" and WSL's U+F03A stand-in for the NTFS stream colon)
+*Zone.Identifier
 
 # OS
 .DS_Store
