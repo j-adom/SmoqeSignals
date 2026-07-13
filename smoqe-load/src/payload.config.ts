@@ -109,25 +109,28 @@ export default buildConfig({
 	sharp,
 	email,
 	plugins: [
-		// Cloudflare R2 (S3-compatible) — only when configured.
-		...(process.env.R2_ACCESS_KEY_ID
-			? [
-					s3Storage({
-						collections: { media: true },
-						bucket: process.env.R2_BUCKET || 'smoqe-signals',
-						config: {
-							credentials: {
-								accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
-								secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || ''
-							},
-							region: 'auto',
-							endpoint:
-								process.env.R2_ENDPOINT ||
-								`https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`
-						}
-					})
-				]
-			: []),
+		// Cloudflare R2 (S3-compatible). Always registered, gated by `enabled`, and
+		// NOT added conditionally: s3Storage registers an admin client component
+		// (S3ClientUploadHandler) whenever it is present in this array, so omitting
+		// it here would make the importMap generated at build time disagree with the
+		// config loaded at runtime — the admin panel then fails to resolve the
+		// component. `enabled: false` skips all R2 wiring and never constructs a
+		// client, so no credentials are needed at build time.
+		s3Storage({
+			enabled: Boolean(process.env.R2_ACCESS_KEY_ID),
+			collections: { media: true },
+			bucket: process.env.R2_BUCKET || 'smoqe-signals',
+			config: {
+				credentials: {
+					accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+					secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || ''
+				},
+				region: 'auto',
+				endpoint:
+					process.env.R2_ENDPOINT ||
+					`https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`
+			}
+		}),
 		seoPlugin({
 			collections: ['products', 'blogPosts'],
 			globals: ['siteSettings'],
