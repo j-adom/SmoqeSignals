@@ -46,6 +46,9 @@ RUN useradd --system --uid 1001 nodejs
 COPY --from=build --chown=nodejs:nodejs /app ./
 USER nodejs
 EXPOSE 3000
+# /api/health does a real Payload DB query, so "healthy" means "can serve",
+# not just "process is up". node -e because the slim image has no curl/wget.
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 CMD ["node", "-e", "fetch('http://127.0.0.1:3000/api/health').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
 # Invoke Next directly rather than via `pnpm start` so the long-running process
 # never goes through the Corepack shim at all.
 #
