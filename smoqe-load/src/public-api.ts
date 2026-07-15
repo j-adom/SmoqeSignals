@@ -1,4 +1,5 @@
 import { createHash, timingSafeEqual } from 'node:crypto';
+import type { ContactMessage } from './payload-types';
 
 const MAX_BODY_BYTES = 16 * 1024;
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -68,15 +69,22 @@ function emailField(body: Record<string, unknown>): string {
 	return email;
 }
 
+// `satisfies` ties this list to the ContactMessages select options: adding a
+// value here that the collection can't store is a compile error, not a
+// runtime create() failure.
+const CONTACT_INQUIRY_TYPES = [
+	'General Inquiry',
+	'Booking The Truck Inquiry',
+	'Catering Inquiry',
+	'Holiday Pre-Order'
+] as const satisfies readonly NonNullable<ContactMessage['inquiryType']>[];
+
 export function parseContact(body: Record<string, unknown>) {
-	const inquiryType = textField(body, 'inquiryType', 80) || 'General Inquiry';
-	const allowed = [
-		'General Inquiry',
-		'Booking The Truck Inquiry',
-		'Catering Inquiry',
-		'Holiday Pre-Order'
-	];
-	if (!allowed.includes(inquiryType)) throw new PublicAPIError('Invalid inquiry type.');
+	const raw = textField(body, 'inquiryType', 80) || 'General Inquiry';
+	if (!(CONTACT_INQUIRY_TYPES as readonly string[]).includes(raw)) {
+		throw new PublicAPIError('Invalid inquiry type.');
+	}
+	const inquiryType = raw as (typeof CONTACT_INQUIRY_TYPES)[number];
 	return {
 		name: textField(body, 'name', 120, true),
 		email: emailField(body),

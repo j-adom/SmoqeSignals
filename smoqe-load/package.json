@@ -8,7 +8,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"devsafe": "rm -rf .next && next dev",
-		"build": "payload generate:importmap && next build",
+		"build": "payload generate:importmap && payload generate:types && next build",
 		"start": "next start",
 		"check": "tsc --noEmit",
 		"lint": "eslint .",

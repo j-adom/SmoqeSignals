@@ -42,7 +42,8 @@ const ContactMessages: CollectionConfig = {
 			options: [
 				{ label: 'General Inquiry', value: 'General Inquiry' },
 				{ label: 'Booking The Truck Inquiry', value: 'Booking The Truck Inquiry' },
-				{ label: 'Catering Inquiry', value: 'Catering Inquiry' }
+				{ label: 'Catering Inquiry', value: 'Catering Inquiry' },
+				{ label: 'Holiday Pre-Order', value: 'Holiday Pre-Order' }
 			]
 		},
 		{ name: 'message', type: 'textarea', required: true }

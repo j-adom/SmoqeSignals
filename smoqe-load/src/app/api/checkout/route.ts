@@ -32,7 +32,7 @@ export async function POST(req: Request) {
 	const siteURL = process.env.FRONTEND_URL || 'http://localhost:5173';
 	const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 	const orderItems: Array<{
-		product: string | number;
+		product: number;
 		name: string;
 		qty: number;
 		unitPrice: number;
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
 		});
 		const product = found.docs[0] as
 			| {
-					id: string | number;
+					id: number;
 					name: string;
 					price: number;
 					size?: string | null;
