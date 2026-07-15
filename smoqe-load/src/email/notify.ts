@@ -1,4 +1,5 @@
 import type { Payload } from 'payload';
+import type { Order } from '../payload-types';
 
 const BRAND = '#d6451a';
 const STAFF = () => process.env.STAFF_NOTIFICATION_EMAIL || process.env.FROM_EMAIL || '';
@@ -90,4 +91,57 @@ export async function notifyContact(payload: Payload, d: Record<string, unknown>
 export async function notifyNewsletter(payload: Payload, email: string) {
 	const html = shell('New newsletter subscriber', [['Email', email]]);
 	await send(payload, STAFF(), 'New newsletter subscriber', html);
+}
+
+const money = (cents: number | null | undefined) =>
+	typeof cents === 'number' ? `$${(cents / 100).toFixed(2)}` : '';
+
+function orderRows(order: Order): Array<[string, string]> {
+	const a = order.shippingAddress;
+	const address = a
+		? [a.name, a.line1, a.line2, [a.city, a.state, a.postalCode].filter(Boolean).join(', '), a.country]
+				.filter(Boolean)
+				.join(' · ')
+		: '';
+	return [
+		['Order', order.orderNumber],
+		...order.items.map(
+			(i): [string, string] => [`${i.qty} × ${i.name}`, money(i.unitPrice * i.qty)]
+		),
+		['Subtotal', money(order.subtotal)],
+		['Shipping', order.shipping === 0 ? 'Free' : money(order.shipping)],
+		['Tax', money(order.tax)],
+		['Total', money(order.total)],
+		['Ships to', address]
+	];
+}
+
+export async function notifyOrderPaid(payload: Payload, order: Order) {
+	const rows = orderRows(order);
+	const hasPreorder = order.items.some((i) => i.fulfillment === 'preorder');
+
+	if (order.email) {
+		const intro = [
+			`We got your order and payment went through. You'll find the details below.`,
+			hasPreorder
+				? `Heads up: pre-order items are delivered when they release — anything else in your order ships now.`
+				: ''
+		]
+			.filter(Boolean)
+			.join(' ');
+		await send(
+			payload,
+			order.email,
+			`Order confirmed — ${order.orderNumber}`,
+			shell('Thanks for your order!', rows, intro)
+		);
+	}
+
+	await send(
+		payload,
+		STAFF(),
+		`New order — ${order.orderNumber} (${money(order.total)})`,
+		shell('New paid order', [['Customer', order.email || 'No email on order'], ...rows],
+			'A new order was just paid on the website.')
+	);
 }

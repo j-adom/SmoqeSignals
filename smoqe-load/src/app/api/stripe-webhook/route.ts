@@ -1,6 +1,7 @@
 import config from '@payload-config';
 import { getPayload, type Payload } from 'payload';
 import Stripe from 'stripe';
+import { notifyOrderPaid } from '@/email/notify';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,6 +22,9 @@ async function findOrder(payload: Payload, session: Stripe.Checkout.Session) {
 	return found.docs[0];
 }
 
+// Returns the updated order when this event just transitioned it to paid
+// (null otherwise), so callers can fire one-time side effects like emails
+// without re-sending on Stripe's duplicate/retried webhook deliveries.
 async function updateSessionOrder(
 	payload: Payload,
 	session: Stripe.Checkout.Session,
@@ -28,10 +32,10 @@ async function updateSessionOrder(
 ) {
 	const order = await findOrder(payload, session);
 	if (!order) throw new Error(`No order found for Stripe session ${session.id}`);
-	if (status === 'paid' && !['paid', 'no_payment_required'].includes(session.payment_status)) return;
+	if (status === 'paid' && !['paid', 'no_payment_required'].includes(session.payment_status)) return null;
 
 	const address = session.customer_details?.address;
-	await payload.update({
+	const updated = await payload.update({
 		collection: 'orders',
 		id: order.id,
 		data: {
@@ -59,6 +63,7 @@ async function updateSessionOrder(
 				: {})
 		}
 	});
+	return status === 'paid' && order.status !== 'paid' ? updated : null;
 }
 
 export async function POST(req: Request) {
@@ -87,9 +92,13 @@ export async function POST(req: Request) {
 	try {
 		switch (event.type) {
 			case 'checkout.session.completed':
-			case 'checkout.session.async_payment_succeeded':
-				await updateSessionOrder(payload, event.data.object, 'paid');
+			case 'checkout.session.async_payment_succeeded': {
+				const paidOrder = await updateSessionOrder(payload, event.data.object, 'paid');
+				// send() inside notifyOrderPaid catches its own failures, so a bad
+				// SMTP day can't make Stripe retry (and re-process) the webhook.
+				if (paidOrder) await notifyOrderPaid(payload, paidOrder);
 				break;
+			}
 			case 'checkout.session.expired':
 			case 'checkout.session.async_payment_failed':
 				await updateSessionOrder(payload, event.data.object, 'canceled');
