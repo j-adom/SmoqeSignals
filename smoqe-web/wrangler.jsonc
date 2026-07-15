@@ -1,6 +1,8 @@
 {
 	"name": "smoqe-web",
-	"compatibility_date": "2026-07-13",
+	// Keep a few weeks behind today: Pages rejects deploys whose compat date
+	// is newer than the runtime it has rolled out (broke the 2026-07-13 value).
+	"compatibility_date": "2026-06-01",
 	"compatibility_flags": ["nodejs_compat"],
 	"pages_build_output_dir": ".svelte-kit/cloudflare",
 	"vars": {
