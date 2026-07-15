@@ -10,3 +10,6 @@ media
 next-env.d.ts
 src/payload-types.ts
 *.tsbuildinfo
+
+# WSL artifact: Windows "mark of the web" ADS materialized as files
+*Zone.Identifier

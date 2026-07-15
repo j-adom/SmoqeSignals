@@ -9,3 +9,6 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .wrangler
 .DS_Store
+
+# WSL artifact: Windows "mark of the web" ADS materialized as files
+*Zone.Identifier
