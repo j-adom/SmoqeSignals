@@ -1,2 +1,30 @@
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&family=Staatliches&display=swap');
+
+@theme {
+  --color-bbq-orange: #e34b14;
+  --color-bbq-orange-dark: #b9360b;
+  --color-bbq-blue: #69bde7;
+  --color-bbq-blue-dark: #2179a7;
+  --color-bbq-dark: #17110d;
+  --color-bbq-darker: #0f0a07;
+  --color-bbq-gray: #302016;
+  --color-bbq-cream: #fffaf2;
+  --color-bbq-accent: #d94712;
+
+  --font-header: "Bebas Neue", sans-serif;
+  --font-accent: "Staatliches", sans-serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-header);
+    letter-spacing: 0.05em;
+  }
+}
+
+.font-header { font-family: var(--font-header); }
+.font-accent { font-family: var(--font-accent); }
