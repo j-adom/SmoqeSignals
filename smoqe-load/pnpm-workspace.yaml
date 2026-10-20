@@ -3,8 +3,16 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 
+# Security pins for transitive deps (same major as what upstream requests).
+# Re-check with `pnpm audit --prod` and drop pins once upstream catches up.
 overrides:
-  dompurify: 3.4.11
+  browserslist: 4.29.3
+  dompurify: 3.4.16
   esbuild: 0.28.1
+  fast-uri: 3.1.8
+  immutable: 4.3.9
   js-cookie: 3.0.6
-  postcss: 8.5.10
+  js-yaml: 4.3.2
+  nanoid: 3.3.20
+  postcss: 8.5.29
+  source-map-js: 1.2.2

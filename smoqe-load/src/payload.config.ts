@@ -46,6 +46,9 @@ const resolveDatabaseAdapter = async () => {
 const db = await resolveDatabaseAdapter();
 
 /* ------------------------------- email ------------------------------ */
+type SMTPTransportOptions = NonNullable<
+	NonNullable<Parameters<typeof nodemailerAdapter>[0]>['transportOptions']
+>;
 const hasSmtp = !!process.env.SMTP_USER && !!process.env.SMTP_PASSWORD;
 const email = nodemailerAdapter({
 	defaultFromAddress: process.env.FROM_EMAIL || 'orders@smoqesignals.com',
@@ -58,7 +61,10 @@ const email = nodemailerAdapter({
 				port: Number(process.env.SMTP_PORT || 587),
 				auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASSWORD }
 			}
-		: { jsonTransport: true },
+		: // @payloadcms/email-nodemailer >=3.91 types transportOptions as SMTP-only,
+			// but passes it straight to nodemailer.createTransport(), which still
+			// accepts JSON transport options at runtime.
+			({ jsonTransport: true } as unknown as SMTPTransportOptions),
 	skipVerify: !hasSmtp
 });
 

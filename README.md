@@ -111,6 +111,11 @@ Postgres, Stripe, SMTP, HTTPS origins, and R2. Register the Stripe webhook.
 For the first empty database, start once with `PAYLOAD_DB_PUSH=true`, verify the
 schema, then set it back to `false`. Use Payload migrations for later releases.
 
+Until real migrations exist, schema changes from Payload upgrades ship as
+idempotent SQL in `smoqe-load/scripts/sql/`. Apply any new file with
+`psql "$DATABASE_URI" -v ON_ERROR_STOP=1 -f <file>` **before** deploying the
+image that needs it (e.g. `2026-10-20-payload-3.91-columns.sql` for Payload 3.91).
+
 **Frontend (Cloudflare Pages)** — connect the repo, set build dir to `smoqe-web`:
 
 - Build command: `pnpm build`
